@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Minary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1a13;
+      --accent: #52b47a;
+      --accent-bright: #74d79a;
+      --accent-deep: #2d6a4f;
+      --ink: #061009;
+      --line: rgba(255,255,255,0.08);
+      --txt: rgba(255,255,255,0.92);
+      --txt-mut: rgba(255,255,255,0.56);
+      --txt-faint: rgba(255,255,255,0.35);
+      --display: 'Space Grotesk', sans-serif;
+      --sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--txt);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.75;
+    }
+
+    /* Nav */
+    nav {
+      border-bottom: 1px solid var(--line);
+      padding: 16px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 860px; margin: 0 auto;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-mark {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .brand-mark svg { width: 16px; height: 16px; fill: var(--ink); }
+    .brand span { font-family: var(--display); font-weight: 600; font-size: 19px; letter-spacing: -0.02em; color: #fff; }
+    .back { font-size: 14px; font-weight: 500; color: var(--txt-mut); text-decoration: none; transition: color 0.2s; }
+    .back:hover { color: var(--accent-bright); }
+
+    /* Content */
+    .content {
+      max-width: 860px; margin: 0 auto;
+      padding: 64px 40px 96px;
+    }
+
+    .page-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(28px, 4vw, 42px); line-height: 1.1;
+      letter-spacing: -0.03em; color: #fff; margin-bottom: 10px;
+    }
+
+    .updated {
+      font-size: 13px; color: var(--txt-faint); margin-bottom: 56px;
+    }
+
+    .section { margin-bottom: 48px; }
+
+    h2 {
+      font-family: var(--display); font-weight: 600; font-size: 20px;
+      letter-spacing: -0.01em; color: #fff; margin-bottom: 14px;
+    }
+
+    p { font-size: 15.5px; color: var(--txt-mut); margin-bottom: 14px; line-height: 1.78; }
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      list-style: none; padding: 0; margin: 14px 0;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    ul li {
+      font-size: 15.5px; color: var(--txt-mut); line-height: 1.7;
+      padding-left: 18px; position: relative;
+    }
+    ul li::before {
+      content: '';
+      position: absolute; left: 0; top: 10px;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent);
+    }
+
+    a { color: var(--accent-bright); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .highlight {
+      background: rgba(82,180,122,0.06);
+      border: 1px solid rgba(82,180,122,0.18);
+      border-radius: 12px; padding: 18px 22px;
+      margin: 20px 0;
+    }
+    .highlight p { font-size: 14.5px; margin: 0; }
+
+    hr { border: none; border-top: 1px solid var(--line); margin: 48px 0; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 40px;
+      max-width: 860px; margin: 0 auto;
+      font-size: 13px; color: var(--txt-faint);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+
+    @media (max-width: 620px) {
+      nav, .content, footer { padding-left: 22px; padding-right: 22px; }
+      .content { padding-top: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="brand" href="/">
+      <div class="brand-mark">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 L10 6 L16 14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" fill="none"/></svg>
+      </div>
+      <span>minary</span>
+    </a>
+    <a class="back" href="/">&larr; Back to homepage</a>
+  </nav>
+
+  <div class="content">
+
+    <p class="page-label">Legal</p>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: June 2026</p>
+
+    <div class="section">
+      <p>Minary is built by a small team that takes privacy seriously. This page explains what data we collect through the waitlist, why we collect it, and what rights you have over it.</p>
+      <p>The data controller is the Minary team, reachable at <a href="mailto:minary.teamdev@gmail.com">minary.teamdev@gmail.com</a>.</p>
+    </div>
+
+    <div class="section">
+      <h2>What we collect</h2>
+      <p>When you sign up for the waitlist, we collect:</p>
+      <ul>
+        <li>Your email address</li>
+        <li>Your role or occupation (optional, from the dropdown)</li>
+        <li>Whether you agreed to be contacted for a short product call (optional checkbox)</li>
+        <li>The date and time of your submission</li>
+      </ul>
+      <p>We do not collect any other personal data through this form. We do not use tracking pixels, advertising cookies, or third-party analytics on this page.</p>
+    </div>
+
+    <div class="section">
+      <h2>Why we collect it</h2>
+      <p>We collect your email to:</p>
+      <ul>
+        <li>Send you an invitation when early access opens</li>
+        <li>Occasionally share relevant updates about Minary before launch</li>
+        <li>Contact you for a short product feedback call, if you opted in</li>
+      </ul>
+      <p>The legal basis for this processing is your explicit consent, given when you checked the privacy box and submitted the form.</p>
+    </div>
+
+    <div class="section">
+      <h2>How long we keep your data</h2>
+      <p>We keep waitlist data until one of the following happens:</p>
+      <ul>
+        <li>You ask us to delete it</li>
+        <li>The waitlist phase ends and early access has been offered to everyone on the list</li>
+      </ul>
+      <p>We will not keep your data longer than necessary.</p>
+    </div>
+
+    <div class="section">
+      <h2>Where your data is stored</h2>
+      <p>Waitlist data is stored in Supabase, a cloud database provider. Supabase acts as a data processor on our behalf and stores data on servers in the European Union. You can read their privacy policy at <a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a>.</p>
+      <p>We do not sell, share, or transfer your data to any other third party.</p>
+    </div>
+
+    <div class="section">
+      <h2>Your rights</h2>
+      <p>Under GDPR, you have the right to:</p>
+      <ul>
+        <li>Access the data we hold about you</li>
+        <li>Correct inaccurate data</li>
+        <li>Request deletion of your data at any time</li>
+        <li>Withdraw your consent at any time, without affecting the lawfulness of prior processing</li>
+        <li>Lodge a complaint with your local data protection authority</li>
+      </ul>
+      <div class="highlight">
+        <p>To exercise any of these rights, email us at <a href="mailto:minary.teamdev@gmail.com">minary.teamdev@gmail.com</a>. We will respond within 30 days.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Cookies</h2>
+      <p>This landing page does not use cookies for tracking or advertising. No cookie consent banner is needed.</p>
+    </div>
+
+    <div class="section">
+      <h2>Changes to this policy</h2>
+      <p>If we make material changes to this policy, we will update the date at the top of this page. For significant changes, we will notify waitlist members by email.</p>
+    </div>
+
+    <hr>
+
+    <p style="font-size:14px; color:var(--txt-faint);">Questions? Write to us at <a href="mailto:minary.teamdev@gmail.com">minary.teamdev@gmail.com</a></p>
+
+  </div>
+
+  <footer>
+    <span>Minary &middot; Privacy Policy</span>
+    <span>minary.app</span>
+  </footer>
+
+</body>
+</html>
