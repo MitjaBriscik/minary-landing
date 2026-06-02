@@ -61,8 +61,9 @@
     .shell { position: relative; z-index: 1; }
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
 
-    /* Logo */
-    .site-logo { display: block; margin: 0 auto; width: 140px; }
+    /* Logo bar */
+    .logo-bar { padding: 20px 40px; }
+    .site-logo { width: 110px; display: block; }
 
     /* Hero */
     .hero { text-align: center; padding: 76px 0 40px; }
@@ -392,18 +393,19 @@
 
   <div class="shell">
 
+    <!-- LOGO BAR -->
+    <div class="logo-bar">
+      <img src="/public/logo.png" alt="Minary" class="site-logo" onerror="this.src='./public/logo.png'">
+    </div>
+
     <!-- HERO -->
     <header class="hero wrap" id="top">
-      <img src="/public/logo.png" alt="Minary" class="site-logo" onerror="this.src='./public/logo.png'">
-      <div class="eyebrow"><span class="pulse-dot"></span> Public beta &middot; free for 3 months</div>
 
       <h1>Stop deciding what to work on.<br><span class="grad">Start working.</span></h1>
 
       <p class="hero-sub">
         Built for everyone working alone on something that matters.
       </p>
-
-      <p class="hero-tag">Every person working alone on something that matters deserves a tool that understands them.</p>
 
       <form class="wf" id="join" novalidate>
         <div class="wf-top">
@@ -432,45 +434,6 @@
       </form>
 
 
-      <!-- Product preview -->
-      <div class="preview">
-        <div class="plan-card">
-          <div class="plan-head">
-            <span class="plan-label">Today's session</span>
-            <div class="plan-chips">
-              <span class="chip">2h</span>
-              <span class="chip">Energy 4/5</span>
-              <span class="chip">In control</span>
-            </div>
-          </div>
-          <div class="plan-tasks">
-            <div class="task top">
-              <span class="task-rank">01</span>
-              <div class="task-main">
-                <span class="task-name">Draft the Q3 research memo</span>
-                <span class="task-meta">Deep work &middot; 45 min &middot; due Thu</span>
-              </div>
-              <span class="task-score">94</span>
-            </div>
-            <div class="task">
-              <span class="task-rank">02</span>
-              <div class="task-main">
-                <span class="task-name">Outline the client proposal</span>
-                <span class="task-meta">Focused &middot; 30 min</span>
-              </div>
-              <span class="task-score">81</span>
-            </div>
-            <div class="task dim">
-              <span class="task-rank">03</span>
-              <div class="task-main">
-                <span class="task-name">Clear inbox &amp; admin</span>
-                <span class="task-meta">Low effort &middot; later today</span>
-              </div>
-              <span class="task-score">46</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </header>
 
     <!-- PROBLEM -->
@@ -513,6 +476,44 @@
             <p>Every session teaches Minary how you actually work. Estimates tighten, scoring sharpens, and the next plan fits you even better.</p>
           </div>
         </div>
+        <div class="preview reveal" style="margin-top:56px;">
+          <div class="plan-card">
+            <div class="plan-head">
+              <span class="plan-label">Today's session</span>
+              <div class="plan-chips">
+                <span class="chip">2h</span>
+                <span class="chip">Energy 4/5</span>
+                <span class="chip">In control</span>
+              </div>
+            </div>
+            <div class="plan-tasks">
+              <div class="task top">
+                <span class="task-rank">01</span>
+                <div class="task-main">
+                  <span class="task-name">Draft the Q3 research memo</span>
+                  <span class="task-meta">Deep work &middot; 45 min &middot; due Thu</span>
+                </div>
+                <span class="task-score">94</span>
+              </div>
+              <div class="task">
+                <span class="task-rank">02</span>
+                <div class="task-main">
+                  <span class="task-name">Outline the client proposal</span>
+                  <span class="task-meta">Focused &middot; 30 min</span>
+                </div>
+                <span class="task-score">81</span>
+              </div>
+              <div class="task dim">
+                <span class="task-rank">03</span>
+                <div class="task-main">
+                  <span class="task-name">Clear inbox &amp; admin</span>
+                  <span class="task-meta">Low effort &middot; later today</span>
+                </div>
+                <span class="task-score">46</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -551,7 +552,6 @@
       <div class="wrap">
         <div class="final-card reveal">
           <h2>Your next session could already be planned.</h2>
-          <p class="hero-tag" style="margin-top:16px;">Every person working alone on something that matters deserves a tool that understands them.</p>
           <p class="hero-sub">Get early access and reclaim the hour you lose deciding. We'll email you the moment your seat opens.</p>
           <form class="wf" novalidate>
             <div class="wf-top">

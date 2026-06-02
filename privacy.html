@@ -33,22 +33,10 @@
       line-height: 1.75;
     }
 
-    /* Nav */
-    nav {
-      border-bottom: 1px solid var(--line);
-      padding: 16px 40px;
-      display: flex; align-items: center; justify-content: space-between;
-      max-width: 860px; margin: 0 auto;
-    }
-    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .brand-mark {
-      width: 30px; height: 30px; border-radius: 8px;
-      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
-      display: flex; align-items: center; justify-content: center;
-    }
-    .brand-mark svg { width: 16px; height: 16px; fill: var(--ink); }
-    .brand span { font-family: var(--display); font-weight: 600; font-size: 19px; letter-spacing: -0.02em; color: #fff; }
-    .back { font-size: 14px; font-weight: 500; color: var(--txt-mut); text-decoration: none; transition: color 0.2s; }
+    /* Logo bar */
+    .logo-bar { padding: 20px 40px; }
+    .site-logo { width: 100px; display: block; }
+    .back { display: inline-block; margin-top: 12px; font-size: 14px; font-weight: 500; color: var(--txt-mut); text-decoration: none; transition: color 0.2s; }
     .back:hover { color: var(--accent-bright); }
 
     /* Content */
@@ -126,15 +114,9 @@
 </head>
 <body>
 
-  <nav>
-    <a class="brand" href="/">
-      <div class="brand-mark">
-        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 L10 6 L16 14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" fill="none"/></svg>
-      </div>
-      <span>minary</span>
-    </a>
-    <a class="back" href="/">&larr; Back to homepage</a>
-  </nav>
+  <div class="logo-bar">
+    <a href="/"><img src="/public/logo.png" alt="Minary" class="site-logo" onerror="this.src='./public/logo.png'"></a>
+  </div>
 
   <div class="content">
 
