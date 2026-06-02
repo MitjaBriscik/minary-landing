@@ -61,41 +61,8 @@
     .shell { position: relative; z-index: 1; }
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
 
-    /* Nav */
-    nav {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(10,22,15,0.72), rgba(10,22,15,0));
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s, background 0.3s;
-    }
-    nav.scrolled {
-      background: rgba(10,22,15,0.82);
-      border-bottom: 1px solid var(--line-soft);
-    }
-    .nav-in {
-      max-width: var(--maxw); margin: 0 auto; padding: 16px 40px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-    .brand-mark {
-      width: 34px; height: 34px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
-      display: flex; align-items: center; justify-content: center;
-    }
-    .brand-mark svg { width: 18px; height: 18px; fill: var(--ink); }
-    .brand span {
-      font-family: var(--display); font-weight: 600; font-size: 21px;
-      letter-spacing: -0.02em; color: #fff;
-    }
-    .nav-cta {
-      font-family: var(--sans); font-weight: 600; font-size: 14px;
-      color: var(--txt); text-decoration: none;
-      padding: 9px 18px; border-radius: 9px;
-      border: 1px solid var(--line);
-      transition: border-color 0.2s, background 0.2s, color 0.2s;
-    }
-    .nav-cta:hover { border-color: rgba(82,180,122,0.5); background: rgba(82,180,122,0.08); color: #fff; }
+    /* Logo */
+    .site-logo { display: block; margin: 0 auto; width: 140px; }
 
     /* Hero */
     .hero { text-align: center; padding: 76px 0 40px; }
@@ -425,21 +392,9 @@
 
   <div class="shell">
 
-    <!-- NAV -->
-    <nav id="nav">
-      <div class="nav-in">
-        <a class="brand" href="#top">
-          <div class="brand-mark">
-            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 14 L10 6 L16 14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" fill="none"/></svg>
-          </div>
-          <span>minary</span>
-        </a>
-        <a class="nav-cta" href="#join">Join the waitlist</a>
-      </div>
-    </nav>
-
     <!-- HERO -->
     <header class="hero wrap" id="top">
+      <img src="/public/logo.png" alt="Minary" class="site-logo">
       <div class="eyebrow"><span class="pulse-dot"></span> Public beta &middot; free for 3 months</div>
 
       <h1>Stop deciding what to work on.<br><span class="grad">Start working.</span></h1>
@@ -756,12 +711,6 @@
       }
       requestAnimationFrame(draw);
     })();
-
-    // Nav scroll
-    const nav = document.getElementById('nav');
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
 
     // Reveal on scroll
     const io = new IntersectionObserver((entries) => {
