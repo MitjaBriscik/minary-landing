@@ -790,7 +790,7 @@
     // Supabase client
     const { createClient } = supabase;
     const db = createClient(
-      'https://ythznwnrgrsdwvaltbyqw.supabase.co',
+      'https://ythznwnrgrdwvaltbyqw.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0aHpud25yZ3Jkd3ZhbHRieXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMDA1NTEsImV4cCI6MjA5MTY3NjU1MX0.EMmr66bWE9RdCS26kVKWg2zQi2q_G7NVvmQ8M4jdFa8'
     );
 
@@ -946,7 +946,7 @@
         if (error && error.code === '23505') {
           showToast("You're already on the list.");
         } else if (error) {
-          showToast('Error: ' + (error.message || error.code || JSON.stringify(error)));
+          showToast('Something went wrong. Please try again.');
         } else {
           showToast("You're on the list. We'll be in touch.");
           form.reset();
