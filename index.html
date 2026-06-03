@@ -946,7 +946,7 @@
         if (error && error.code === '23505') {
           showToast("You're already on the list.");
         } else if (error) {
-          showToast('Something went wrong. Please try again.');
+          showToast('Error: ' + (error.message || error.code || JSON.stringify(error)));
         } else {
           showToast("You're on the list. We'll be in touch.");
           form.reset();
