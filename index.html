@@ -193,22 +193,52 @@
       border-color: rgba(82,180,122,0.55);
       box-shadow: 0 18px 50px rgba(0,0,0,0.4), 0 0 0 4px rgba(82,180,122,0.12);
     }
-    .wf-select {
-      flex-shrink: 0;
+    /* Custom dropdown */
+    .wf-dropdown { position: relative; flex-shrink: 0; }
+    .wf-dropdown-btn {
+      display: flex; align-items: center; gap: 8px;
       background: rgba(255,255,255,0.055);
       border: 1px solid var(--line); border-radius: 9px;
       color: var(--txt-faint);
       font-family: var(--sans); font-size: 13.5px; font-weight: 500;
-      padding: 0 26px 0 12px; height: 44px;
-      cursor: pointer; outline: none;
-      -webkit-appearance: none; appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 9px center;
-      transition: border-color 0.2s, color 0.2s;
+      padding: 0 12px; height: 44px; min-width: 148px;
+      cursor: pointer; outline: none; white-space: nowrap;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
     }
-    .wf-select option { background: #122a1e; color: #fff; }
-    .wf-select:focus { border-color: rgba(82,180,122,0.4); color: var(--txt); }
-    .wf-select.filled { color: var(--txt); }
+    .wf-dropdown-btn:hover,
+    .wf-dropdown.open .wf-dropdown-btn {
+      border-color: rgba(82,180,122,0.4);
+      background: rgba(82,180,122,0.06);
+    }
+    .wf-dropdown-btn.filled { color: var(--txt); }
+    .wf-dropdown-label { flex: 1; text-align: left; }
+    .wf-dropdown-chevron {
+      flex-shrink: 0; transition: transform 0.2s;
+    }
+    .wf-dropdown.open .wf-dropdown-chevron { transform: rotate(180deg); }
+    .wf-dropdown-panel {
+      position: absolute; top: calc(100% + 6px); left: 0;
+      min-width: 100%; z-index: 100;
+      background: #0f2318;
+      border: 1px solid rgba(82,180,122,0.25);
+      border-radius: 12px;
+      padding: 6px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+      list-style: none;
+      opacity: 0; transform: translateY(-6px); pointer-events: none;
+      transition: opacity 0.18s, transform 0.18s;
+    }
+    .wf-dropdown.open .wf-dropdown-panel {
+      opacity: 1; transform: translateY(0); pointer-events: all;
+    }
+    .wf-dropdown-option {
+      padding: 9px 13px; border-radius: 8px;
+      font-family: var(--sans); font-size: 13.5px; font-weight: 500;
+      color: var(--txt-mut); cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .wf-dropdown-option:hover { background: rgba(82,180,122,0.1); color: var(--txt); }
+    .wf-dropdown-option.selected { color: var(--accent-bright); background: rgba(82,180,122,0.08); }
     .wf-email {
       flex: 1; min-width: 0;
       background: transparent; border: none; outline: none;
@@ -593,15 +623,21 @@
 
           <form class="wf hero-cta" id="join" novalidate>
             <div class="wf-top">
-              <select name="occupation" class="wf-select" required aria-label="Your role">
-                <option value="" disabled selected>Your role&hellip;</option>
-                <option value="freelancer">Freelancer</option>
-                <option value="phd">PhD Student / Researcher</option>
-                <option value="consultant">Consultant</option>
-                <option value="developer">Software Developer</option>
-                <option value="designer">Designer / Creator</option>
-                <option value="other">Other</option>
-              </select>
+              <div class="wf-dropdown">
+                <button type="button" class="wf-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="wf-dropdown-label">Your role&hellip;</span>
+                  <svg class="wf-dropdown-chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1l4.5 4.5L10 1" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <ul class="wf-dropdown-panel" role="listbox">
+                  <li class="wf-dropdown-option" data-value="freelancer">Freelancer</li>
+                  <li class="wf-dropdown-option" data-value="researcher">Researcher / Student</li>
+                  <li class="wf-dropdown-option" data-value="founder">Solo founder</li>
+                  <li class="wf-dropdown-option" data-value="creator">Content Creator</li>
+                  <li class="wf-dropdown-option" data-value="engineer">Software Engineer</li>
+                  <li class="wf-dropdown-option" data-value="other">Other</li>
+                </ul>
+                <input type="hidden" name="occupation">
+              </div>
               <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" class="wf-email">
               <button type="submit" class="wf-btn">Join the waitlist</button>
             </div>
@@ -744,15 +780,21 @@
           <p class="hero-sub">Get early access and reclaim the hour you lose deciding. We'll email you the moment your seat opens.</p>
           <form class="wf" novalidate>
             <div class="wf-top">
-              <select name="occupation" class="wf-select" required aria-label="Your role">
-                <option value="" disabled selected>Your role&hellip;</option>
-                <option value="freelancer">Freelancer</option>
-                <option value="phd">PhD Student / Researcher</option>
-                <option value="consultant">Consultant</option>
-                <option value="developer">Software Developer</option>
-                <option value="designer">Designer / Creator</option>
-                <option value="other">Other</option>
-              </select>
+              <div class="wf-dropdown">
+                <button type="button" class="wf-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="wf-dropdown-label">Your role&hellip;</span>
+                  <svg class="wf-dropdown-chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1l4.5 4.5L10 1" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <ul class="wf-dropdown-panel" role="listbox">
+                  <li class="wf-dropdown-option" data-value="freelancer">Freelancer</li>
+                  <li class="wf-dropdown-option" data-value="researcher">Researcher / Student</li>
+                  <li class="wf-dropdown-option" data-value="founder">Solo founder</li>
+                  <li class="wf-dropdown-option" data-value="creator">Content Creator</li>
+                  <li class="wf-dropdown-option" data-value="engineer">Software Engineer</li>
+                  <li class="wf-dropdown-option" data-value="other">Other</li>
+                </ul>
+                <input type="hidden" name="occupation">
+              </div>
               <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" class="wf-email">
               <button type="submit" class="wf-btn">Join the waitlist</button>
             </div>
@@ -900,9 +942,40 @@
     }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-    // Select visual state
-    document.querySelectorAll('.wf-select').forEach((sel) => {
-      sel.addEventListener('change', () => sel.classList.toggle('filled', sel.value !== ''));
+    // Custom dropdown logic
+    document.querySelectorAll('.wf-dropdown').forEach((dd) => {
+      const btn     = dd.querySelector('.wf-dropdown-btn');
+      const panel   = dd.querySelector('.wf-dropdown-panel');
+      const label   = dd.querySelector('.wf-dropdown-label');
+      const hidden  = dd.querySelector('input[type="hidden"]');
+      const options = dd.querySelectorAll('.wf-dropdown-option');
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = dd.classList.contains('open');
+        document.querySelectorAll('.wf-dropdown.open').forEach(d => d.classList.remove('open'));
+        if (!isOpen) dd.classList.add('open');
+        btn.setAttribute('aria-expanded', !isOpen);
+      });
+
+      options.forEach((opt) => {
+        opt.addEventListener('click', () => {
+          hidden.value = opt.dataset.value;
+          label.textContent = opt.textContent;
+          btn.classList.add('filled');
+          options.forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+          dd.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    });
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.wf-dropdown.open').forEach(d => {
+        d.classList.remove('open');
+        d.querySelector('.wf-dropdown-btn').setAttribute('aria-expanded', 'false');
+      });
     });
 
     // Toast helper
@@ -924,7 +997,11 @@
         const btn       = form.querySelector('.wf-btn');
 
         if (!emailEl.value || !/\S+@\S+\.\S+/.test(emailEl.value)) { emailEl.focus(); return; }
-        if (occEl && !occEl.value) { occEl.focus(); return; }
+        if (occEl && !occEl.value) {
+          const btn = form.querySelector('.wf-dropdown-btn');
+          if (btn) btn.style.borderColor = 'rgba(255,90,90,0.5)';
+          return;
+        }
         if (!privacyEl.checked) {
           privacyEl.closest('.wf-check').style.borderColor = 'rgba(255,90,90,0.5)';
           return;
@@ -950,7 +1027,10 @@
         } else {
           showToast("You're on the list. We'll be in touch.");
           form.reset();
-          form.querySelectorAll('.wf-select').forEach((s) => s.classList.remove('filled'));
+          form.querySelectorAll('.wf-dropdown-btn').forEach((b) => { b.classList.remove('filled'); b.style.borderColor = ''; });
+          form.querySelectorAll('.wf-dropdown-label').forEach((l) => { l.textContent = 'Your role…'; });
+          form.querySelectorAll('.wf-dropdown input[type="hidden"]').forEach((h) => { h.value = ''; });
+          form.querySelectorAll('.wf-dropdown-option').forEach((o) => o.classList.remove('selected'));
           form.querySelectorAll('.wf-check').forEach((c) => c.style.borderColor = '');
         }
       });
