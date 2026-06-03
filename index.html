@@ -61,12 +61,59 @@
     .shell { position: relative; z-index: 1; }
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
 
-    /* Logo bar */
-    .logo-bar { padding: 20px 40px; display: flex; justify-content: flex-end; }
-    .site-logo { width: 360px; display: block; }
+    /* Hero header */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(620px 460px at 50% 44%, rgba(10,22,15,0.72), rgba(10,22,15,0.42) 48%, transparent 74%),
+        linear-gradient(180deg, rgba(10,22,15,0.20), transparent 30%, rgba(10,22,15,0.12));
+    }
+    .logo-bar {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 24px 40px 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .site-logo {
+      width: 150px;
+      display: block;
+      opacity: 0.96;
+      filter: drop-shadow(0 14px 24px rgba(0,0,0,0.26));
+    }
 
     /* Hero */
-    .hero { text-align: center; padding: 76px 0 40px; }
+    .hero {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: center;
+      padding: 42px 40px 70px;
+    }
+    .hero-content {
+      width: min(100%, 840px);
+      margin: 0 auto;
+    }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 9px;
       padding: 7px 15px 7px 12px; border-radius: 100px;
@@ -84,10 +131,10 @@
       70% { box-shadow: 0 0 0 9px rgba(116,215,154,0); }
       100% { box-shadow: 0 0 0 0 rgba(116,215,154,0); }
     }
-    h1 {
+    .hero h1 {
       font-family: var(--display); font-weight: 700;
-      font-size: clamp(42px, 6.6vw, 82px); line-height: 1.02;
-      letter-spacing: -0.035em; margin: 26px auto 0; max-width: 16ch;
+      font-size: 70px; line-height: 1.04;
+      letter-spacing: 0; margin: 0 auto; max-width: 13ch;
       color: #fff;
     }
     h1 .grad {
@@ -97,6 +144,10 @@
     .hero-sub {
       font-size: clamp(16px, 1.7vw, 19px); color: var(--txt-mut);
       line-height: 1.65; max-width: 52ch; margin: 26px auto 0; font-weight: 500;
+    }
+    .hero .hero-sub {
+      font-size: 18px; color: rgba(255,255,255,0.72);
+      line-height: 1.68; max-width: 58ch; margin-top: 24px;
     }
     .hero-tag {
       font-family: var(--display); font-size: 15px; font-weight: 500;
@@ -156,6 +207,63 @@
     .wf-btn:active { transform: translateY(0); }
     .wf-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
+    .hero .hero-cta {
+      max-width: 820px;
+      margin-top: 32px;
+      gap: 10px;
+    }
+    .hero .hero-cta .wf-top {
+      gap: 10px;
+      padding: 9px;
+      border-radius: 16px;
+      background: rgba(7,18,12,0.78);
+      border-color: rgba(116,215,154,0.22);
+      box-shadow: 0 26px 70px rgba(0,0,0,0.50), 0 0 0 1px rgba(255,255,255,0.03) inset;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .hero .hero-cta .wf-top:focus-within {
+      border-color: rgba(116,215,154,0.58);
+      box-shadow: 0 26px 70px rgba(0,0,0,0.52), 0 0 0 4px rgba(82,180,122,0.14);
+    }
+    .hero .hero-cta .wf-select,
+    .hero .hero-cta .wf-email {
+      height: 52px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 10px;
+      background-color: rgba(255,255,255,0.075);
+      color: rgba(255,255,255,0.90);
+    }
+    .hero .hero-cta .wf-select {
+      min-width: 164px;
+      padding-left: 14px;
+      color: rgba(255,255,255,0.82);
+    }
+    .hero .hero-cta .wf-select:focus,
+    .hero .hero-cta .wf-select.filled,
+    .hero .hero-cta .wf-email:focus {
+      border-color: rgba(116,215,154,0.50);
+      color: #fff;
+      background-color: rgba(255,255,255,0.10);
+    }
+    .hero .hero-cta .wf-email {
+      padding: 0 16px;
+      font-size: 15.5px;
+    }
+    .hero .hero-cta .wf-email::placeholder { color: rgba(255,255,255,0.46); }
+    .hero .hero-cta .wf-btn {
+      min-width: 174px;
+      min-height: 52px;
+      padding: 14px 22px;
+      border-radius: 10px;
+      color: #07140c;
+      background: linear-gradient(180deg, #8febad, var(--accent-bright) 38%, var(--accent));
+      box-shadow: 0 12px 34px rgba(82,180,122,0.46), inset 0 1px 0 rgba(255,255,255,0.44);
+    }
+    .hero .hero-cta .wf-btn:hover {
+      box-shadow: 0 18px 42px rgba(82,180,122,0.56), inset 0 1px 0 rgba(255,255,255,0.50);
+    }
+
     /* Checkboxes */
     .wf-checks { display: flex; flex-direction: column; gap: 7px; }
     .wf-check {
@@ -178,6 +286,34 @@
       background: linear-gradient(100deg, var(--accent-bright), var(--accent));
       padding: 2px 8px; border-radius: 100px; margin-left: 5px;
       vertical-align: middle; white-space: nowrap;
+    }
+    .hero .hero-cta .wf-checks {
+      gap: 8px;
+      margin-top: 1px;
+    }
+    .hero .hero-cta .wf-check {
+      align-items: flex-start;
+      padding: 11px 14px;
+      border-color: rgba(255,255,255,0.09);
+      background: rgba(5,14,9,0.48);
+    }
+    .hero .hero-cta .wf-check input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      margin-top: 3px;
+    }
+    .hero .hero-cta .wf-check-text {
+      font-size: 13.25px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.68);
+    }
+    .hero .hero-cta .wf-check:has(input:checked) .wf-check-text {
+      color: rgba(255,255,255,0.90);
+    }
+    .hero .hero-cta .badge-pro {
+      padding: 2px 9px;
+      margin-left: 6px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.18) inset;
     }
 
     /* Social proof */
@@ -354,6 +490,8 @@
 
     /* Responsive */
     @media (max-width: 900px) {
+      .hero h1 { font-size: 58px; max-width: 12.5ch; }
+      .hero .hero-sub { font-size: 17px; }
       .steps { grid-template-columns: 1fr; }
       .step .arrow { display: none; }
       .who-grid { grid-template-columns: repeat(2, 1fr); }
@@ -362,10 +500,33 @@
       .wf-top { flex-wrap: wrap; }
       .wf-select { flex: 1 1 100%; }
       .wf-email  { flex: 1 1 calc(100% - 120px); }
+      .hero .hero-cta .wf-top {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 8px;
+        padding: 10px;
+      }
+      .hero .hero-cta .wf-select,
+      .hero .hero-cta .wf-email,
+      .hero .hero-cta .wf-btn {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+      }
+      .hero .hero-cta .wf-email { padding: 0 14px; }
     }
     @media (max-width: 620px) {
       .wrap, .nav-in { padding-left: 22px; padding-right: 22px; }
-      .hero { padding-top: 52px; }
+      .logo-bar { padding: 18px 22px 0; }
+      .site-logo { width: 118px; }
+      .hero { padding: 34px 22px 58px; }
+      .hero h1 { font-size: 42px; max-width: 11.5ch; }
+      .hero .hero-sub { font-size: 16px; line-height: 1.62; margin-top: 20px; }
+      .hero .hero-cta {
+        max-width: 420px;
+        margin-top: 28px;
+      }
+      .hero .hero-cta .wf-check { padding: 11px 12px; }
       section.block { padding: 68px 0; }
       .wf-top { flex-direction: column; gap: 8px; padding: 10px; }
       .wf-select { width: 100%; height: 46px; padding: 0 28px 0 14px; }
@@ -393,48 +554,49 @@
 
   <div class="shell">
 
-    <!-- LOGO BAR -->
-    <div class="logo-bar">
-      <img src="/public/logo.png" alt="Minary" class="site-logo" onerror="this.src='./public/logo.png'">
-    </div>
+    <section class="hero-section" aria-labelledby="hero-title">
+      <!-- HERO HEADER -->
+      <div class="logo-bar">
+        <img src="/public/logo.png" alt="Minary" class="site-logo" onerror="this.src='./public/logo.png'">
+      </div>
 
-    <!-- HERO -->
-    <header class="hero wrap" id="top">
+      <!-- HERO -->
+      <header class="hero wrap" id="top">
+        <div class="hero-content">
+          <h1 id="hero-title">Stop deciding what to work on.<br><span class="grad">Start working.</span></h1>
 
-      <h1>Stop deciding what to work on.<br><span class="grad">Start working.</span></h1>
+          <p class="hero-sub">
+            An AI workspace that helps solo builders decide, prioritize, and make progress.
+          </p>
 
-      <p class="hero-sub">
-        Built for everyone working alone on something that matters.
-      </p>
-
-      <form class="wf" id="join" novalidate>
-        <div class="wf-top">
-          <select name="occupation" class="wf-select" required aria-label="Your role">
-            <option value="" disabled selected>Your role&hellip;</option>
-            <option value="freelancer">Freelancer</option>
-            <option value="phd">PhD Student / Researcher</option>
-            <option value="consultant">Consultant</option>
-            <option value="developer">Software Developer</option>
-            <option value="designer">Designer / Creator</option>
-            <option value="other">Other</option>
-          </select>
-          <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" class="wf-email">
-          <button type="submit" class="wf-btn">Join the waitlist</button>
+          <form class="wf hero-cta" id="join" novalidate>
+            <div class="wf-top">
+              <select name="occupation" class="wf-select" required aria-label="Your role">
+                <option value="" disabled selected>Your role&hellip;</option>
+                <option value="freelancer">Freelancer</option>
+                <option value="phd">PhD Student / Researcher</option>
+                <option value="consultant">Consultant</option>
+                <option value="developer">Software Developer</option>
+                <option value="designer">Designer / Creator</option>
+                <option value="other">Other</option>
+              </select>
+              <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" class="wf-email">
+              <button type="submit" class="wf-btn">Join the waitlist</button>
+            </div>
+            <div class="wf-checks">
+              <label class="wf-check">
+                <input type="checkbox" name="privacy" required>
+                <span class="wf-check-text">I agree to Minary's <a href="/privacy.html" style="color:var(--accent-bright);text-decoration:underline;" target="_blank">privacy policy</a> and consent to being contacted about early access.</span>
+              </label>
+              <label class="wf-check">
+                <input type="checkbox" name="call_optin">
+                <span class="wf-check-text">I'm open to a short call with the Minary team to help shape the product.<span class="badge-pro">3 months free</span> at launch in return.</span>
+              </label>
+            </div>
+          </form>
         </div>
-        <div class="wf-checks">
-          <label class="wf-check">
-            <input type="checkbox" name="privacy" required>
-            <span class="wf-check-text">I agree to Minary's <a href="/privacy.html" style="color:var(--accent-bright);text-decoration:underline;" target="_blank">privacy policy</a> and consent to being contacted about early access.</span>
-          </label>
-          <label class="wf-check">
-            <input type="checkbox" name="call_optin">
-            <span class="wf-check-text">I'm open to a short call with the Minary team to help shape the product.<span class="badge-pro">3 months free</span> at launch in return.</span>
-          </label>
-        </div>
-      </form>
-
-
-    </header>
+      </header>
+    </section>
 
     <!-- PROBLEM -->
     <section class="block problem">
