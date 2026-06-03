@@ -80,6 +80,28 @@
         radial-gradient(620px 460px at 50% 44%, rgba(10,22,15,0.72), rgba(10,22,15,0.42) 48%, transparent 74%),
         linear-gradient(180deg, rgba(10,22,15,0.20), transparent 30%, rgba(10,22,15,0.12));
     }
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 16px 0 28px;
+    }
+    .scroll-indicator span {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--txt-faint);
+    }
+    .scroll-chevron {
+      width: 18px; height: 18px;
+      border-right: 2px solid rgba(82,180,122,0.5);
+      border-bottom: 2px solid rgba(82,180,122,0.5);
+      transform: rotate(45deg);
+      animation: bounceDown 1.8s ease-in-out infinite;
+    }
+    @keyframes bounceDown {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.45; }
+      50%       { transform: rotate(45deg) translateY(6px); opacity: 1; }
+    }
+
     .logo-bar {
       position: relative;
       z-index: 1;
@@ -108,7 +130,7 @@
       align-items: flex-start;
       justify-content: center;
       text-align: center;
-      padding: 42px 40px 70px;
+      padding: 42px 40px 24px;
     }
     .hero-content {
       width: min(100%, 840px);
@@ -596,6 +618,11 @@
           </form>
         </div>
       </header>
+
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <div class="scroll-chevron"></div>
+      </div>
     </section>
 
     <!-- PROBLEM -->
