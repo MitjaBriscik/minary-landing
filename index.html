@@ -584,6 +584,7 @@
       .hero .hero-cta .wf-email { padding: 0 14px; }
     }
     @media (max-width: 620px) {
+      .problem { border-radius: 18px 18px 0 0; margin-top: -24px; }
       .wrap, .nav-in { padding-left: 22px; padding-right: 22px; }
       .logo-bar { padding: 18px 22px 0; }
       .site-logo { width: 118px; }
@@ -617,7 +618,14 @@
     .hero-section { background: var(--bg-0); }
 
     /* Light: Problem + How it works */
-    .problem,
+    .problem {
+      background: #f8f9f7;
+      border-top: none;
+      border-radius: 28px 28px 0 0;
+      margin-top: -40px;
+      position: relative;
+      z-index: 2;
+    }
     .how {
       background: #f8f9f7;
       border-top: none;
