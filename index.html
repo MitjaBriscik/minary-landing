@@ -685,6 +685,11 @@
     .how .plan-card {
       box-shadow: 0 32px 80px rgba(0,0,0,0.22), 0 6px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.05);
     }
+    /* How: card spans full width like the steps, flat (it's the steps' output) */
+    .how .preview { max-width: none; perspective: none; margin-top: 36px; }
+    .how .plan-card { transform: none; padding: 26px 30px; }
+    .how .plan-tasks { gap: 10px; }
+    .how .plan-card .task { padding: 14px 18px; }
 
     /* Dark static: Who it's for */
     .who {
@@ -827,7 +832,7 @@
             <p>Every session teaches Minary how you actually work. Estimates tighten, scoring sharpens, and the next plan fits you even better.</p>
           </div>
         </div>
-        <div class="preview reveal" style="margin-top:56px;">
+        <div class="preview reveal">
           <div class="plan-card">
             <div class="plan-head">
               <span class="plan-label">Today's session</span>
