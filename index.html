@@ -464,6 +464,10 @@
     .type-live { position: absolute; inset: 0; }
     .problem-lead .tl { display: block; }
     .problem-lead .tl.hi { margin-top: 0.55em; }
+    .problem-lead .tl.dream {
+      margin-top: 0.7em;
+      color: var(--accent-deep); font-weight: 700;
+    }
     .type-caret {
       display: inline-block; width: 3px; height: 0.92em;
       background: var(--accent-bright); margin-left: 3px;
@@ -471,38 +475,6 @@
       animation: caretBlink 0.85s steps(1) infinite;
     }
     @keyframes caretBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
-    .problem-answer {
-      margin-top: 46px;
-      transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22,1,0.36,1);
-    }
-    .problem-answer.foot-pending { opacity: 0; transform: translateY(20px); }
-    .answer-card {
-      position: relative;
-      max-width: 660px;
-      background: linear-gradient(180deg, rgba(22,44,32,0.92), rgba(13,26,19,0.95));
-      border: 1px solid rgba(82,180,122,0.22);
-      border-radius: 20px;
-      padding: 28px 32px;
-      box-shadow: 0 34px 80px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.05);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-    .answer-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent-bright);
-      margin-bottom: 16px;
-    }
-    .answer-title {
-      font-family: var(--display); font-weight: 700;
-      font-size: 24px; line-height: 1.25; letter-spacing: -0.02em;
-      color: #fff; margin: 0 0 12px;
-    }
-    .answer-body {
-      margin: 0; font-size: 16px; line-height: 1.62;
-      font-weight: 500; color: rgba(255,255,255,0.68);
-    }
-
     /* How it works */
     .how { border-top: 1px solid var(--line-soft); }
     .how-head { max-width: 620px; margin-bottom: 56px; }
@@ -695,7 +667,6 @@
     .problem-lead { color: rgba(255,255,255,0.78) !important; }
     .problem-lead .mut { color: rgba(255,255,255,0.38) !important; }
     .problem-lead .hi { color: rgba(255,255,255,0.95) !important; }
-    .problem-foot { color: #6b7f74; }
     .how-head p { color: #6b7f74; }
 
     .step {
@@ -816,21 +787,16 @@
             <span class="tl mut">The list is long. Every task feels equally urgent.</span>
             <span class="tl mut">You reshuffle it, check email, make another coffee.</span>
             <span class="tl hi">And the best hour of your day is gone.</span>
+            <span class="tl dream">Or you sit down already in flow, working on the one thing that fits this moment.</span>
           </span>
           <span class="type-live">
             <span class="tl">It's 9 a.m.</span>
             <span class="tl mut">The list is long. Every task feels equally urgent.</span>
             <span class="tl mut">You reshuffle it, check email, make another coffee.</span>
             <span class="tl hi">And the best hour of your day is gone.</span>
+            <span class="tl dream">Or you sit down already in flow, working on the one thing that fits this moment.</span>
           </span>
         </p>
-        <div class="problem-answer" id="problem-foot">
-          <div class="answer-card">
-            <span class="answer-eyebrow"><span class="pulse-dot"></span>Minary</span>
-            <h3 class="answer-title">Drop into focus the moment you sit down.</h3>
-            <p class="answer-body">It reads your time, energy and real pressure, then hands you the task that fits this exact moment, and the reason it's the right one to do now. You sit down already in flow, sure you're working on the right thing.</p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -1111,22 +1077,20 @@
       const lines = Array.from(live.querySelectorAll('.tl'));
       if (!lines.length) return;
 
-      const foot = document.getElementById('problem-foot');
-
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReduced) return; // keep full text + foot visible, no animation
+      if (prefersReduced) return; // keep full text visible, no animation
 
-      if (foot) foot.classList.add('foot-pending'); // hide until typing resolves
-
-      // Per-line timing: opener medium, "chaos" lines fast, focus line slow
+      // Per-line timing: opener medium, "chaos" lines fast, then slow for the
+      // problem climax, a long pause, and a slow majestic reveal of the dream.
       const data = lines.map((el, idx) => {
         const isHi = el.classList.contains('hi');
+        const isDream = el.classList.contains('dream');
         return {
           el,
           text: el.textContent,
-          speed: isHi ? 46 : (idx === 0 ? 32 : 15),
-          // longer dramatic pause right before the final focus line
-          pauseAfter: isHi ? 0 : (idx === lines.length - 2 ? 480 : 170),
+          speed: (isHi || isDream) ? 44 : (idx === 0 ? 32 : 15),
+          // long dramatic pause right after the problem climax, before the dream
+          pauseAfter: isHi ? 700 : (isDream ? 0 : 170),
         };
       });
       data.forEach((d) => { d.el.textContent = ''; });
@@ -1149,7 +1113,6 @@
       function run(idx) {
         if (idx >= data.length) {
           setTimeout(() => caret.remove(), 1500);
-          if (foot) setTimeout(() => foot.classList.remove('foot-pending'), 450);
           return;
         }
         const d = data[idx];
