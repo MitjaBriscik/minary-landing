@@ -471,16 +471,39 @@
       animation: caretBlink 0.85s steps(1) infinite;
     }
     @keyframes caretBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
-    .problem-foot {
-      margin-top: 38px; font-size: 19px; color: var(--txt-mut);
-      max-width: 46ch; line-height: 1.55; font-weight: 500;
+    .problem-answer {
+      margin-top: 46px;
       transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22,1,0.36,1);
     }
-    .problem-foot.foot-pending { opacity: 0; transform: translateY(18px); }
-    .foot-pivot {
-      display: block; margin-top: 8px;
-      font-weight: 700; color: var(--accent-deep);
-      font-size: 21px; letter-spacing: -0.01em;
+    .problem-answer.foot-pending { opacity: 0; transform: translateY(20px); }
+    .answer-card {
+      position: relative;
+      display: flex; align-items: center; gap: 18px;
+      max-width: 620px;
+      background: #ffffff;
+      border: 1px solid #e3eae6;
+      border-left: 3px solid var(--accent);
+      border-radius: 16px;
+      padding: 22px 28px;
+      box-shadow: 0 22px 60px rgba(13,40,24,0.12);
+    }
+    .answer-card p {
+      margin: 0; font-size: 19px; line-height: 1.5;
+      font-weight: 500; color: #1a2e22; letter-spacing: -0.01em;
+    }
+    .answer-card strong { color: var(--accent-deep); font-weight: 700; }
+    .answer-arrow {
+      flex-shrink: 0;
+      width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(82,180,122,0.12);
+      position: relative;
+    }
+    .answer-arrow::after {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 9px; height: 9px;
+      border-top: 2px solid var(--accent-deep);
+      border-right: 2px solid var(--accent-deep);
+      transform: translate(-60%, -50%) rotate(45deg);
     }
 
     /* How it works */
@@ -804,10 +827,12 @@
             <span class="tl hi">And the best hour of your day is gone.</span>
           </span>
         </p>
-        <p class="problem-foot" id="problem-foot">
-          Nothing plans around the time and energy you actually have today.
-          <span class="foot-pivot">Minary does.</span>
-        </p>
+        <div class="problem-answer" id="problem-foot">
+          <div class="answer-card">
+            <span class="answer-arrow" aria-hidden="true"></span>
+            <p><strong>Minary</strong> hands you a focused plan the moment you sit down, so your best hour goes to real work.</p>
+          </div>
+        </div>
       </div>
     </section>
 
