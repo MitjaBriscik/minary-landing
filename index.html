@@ -478,34 +478,29 @@
     .problem-answer.foot-pending { opacity: 0; transform: translateY(20px); }
     .answer-card {
       position: relative;
-      display: flex; align-items: center; gap: 18px;
-      max-width: 620px;
+      max-width: 660px;
       background: linear-gradient(180deg, rgba(22,44,32,0.92), rgba(13,26,19,0.95));
       border: 1px solid rgba(82,180,122,0.22);
-      border-radius: 18px;
-      padding: 22px 26px;
+      border-radius: 20px;
+      padding: 28px 32px;
       box-shadow: 0 34px 80px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.05);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
-    .answer-card p {
-      margin: 0; font-size: 18px; line-height: 1.5;
-      font-weight: 500; color: rgba(255,255,255,0.85); letter-spacing: -0.01em;
+    .answer-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent-bright);
+      margin-bottom: 16px;
     }
-    .answer-card strong { color: var(--accent-bright); font-weight: 700; }
-    .answer-arrow {
-      flex-shrink: 0;
-      width: 40px; height: 40px; border-radius: 11px;
-      background: rgba(82,180,122,0.12);
-      border: 1px solid rgba(82,180,122,0.25);
-      position: relative;
+    .answer-title {
+      font-family: var(--display); font-weight: 700;
+      font-size: 24px; line-height: 1.25; letter-spacing: -0.02em;
+      color: #fff; margin: 0 0 12px;
     }
-    .answer-arrow::after {
-      content: ''; position: absolute; top: 50%; left: 50%;
-      width: 9px; height: 9px;
-      border-top: 2px solid var(--accent-bright);
-      border-right: 2px solid var(--accent-bright);
-      transform: translate(-60%, -50%) rotate(45deg);
+    .answer-body {
+      margin: 0; font-size: 16px; line-height: 1.62;
+      font-weight: 500; color: rgba(255,255,255,0.68);
     }
 
     /* How it works */
@@ -831,8 +826,9 @@
         </p>
         <div class="problem-answer" id="problem-foot">
           <div class="answer-card">
-            <span class="answer-arrow" aria-hidden="true"></span>
-            <p><strong>Minary</strong> hands you a focused plan the moment you sit down, so your best hour goes to real work.</p>
+            <span class="answer-eyebrow"><span class="pulse-dot"></span>Minary</span>
+            <h3 class="answer-title">Drop into focus the moment you sit down.</h3>
+            <p class="answer-body">It reads your time, energy and real pressure, then hands you the task that fits this exact moment, and the reason it's the right one to do now. You sit down already in flow, sure you're working on the right thing.</p>
           </div>
         </div>
       </div>
