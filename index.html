@@ -696,9 +696,11 @@
     .who {
       background-color: #0d2818;
       background-image:
+        linear-gradient(to bottom, transparent calc(100% - 220px), #0a160f 100%),
         linear-gradient(rgba(45,106,79,0.06) 1px, transparent 1px),
         linear-gradient(90deg, rgba(45,106,79,0.06) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background-size: 100% 100%, 40px 40px, 40px 40px;
+      background-repeat: no-repeat, repeat, repeat;
       border-top: none;
     }
     .who .section-eyebrow { color: var(--accent-bright); }
