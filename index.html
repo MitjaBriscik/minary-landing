@@ -462,6 +462,8 @@
     /* Typing animation: ghost reserves space, live is typed over it */
     .type-sizer { visibility: hidden; }
     .type-live { position: absolute; inset: 0; }
+    .problem-lead .tl { display: block; }
+    .problem-lead .tl.hi { margin-top: 0.55em; }
     .type-caret {
       display: inline-block; width: 3px; height: 0.92em;
       background: var(--accent-bright); margin-left: 3px;
@@ -779,8 +781,18 @@
       <div class="wrap">
         <p class="section-eyebrow reveal">The planning trap</p>
         <p class="problem-lead reveal d1" id="problem-lead">
-          <span class="type-sizer" aria-hidden="true">It's 9 a.m. <span class="mut">The list is long. Every task feels equally urgent, and you're not sure you have the energy for the hard ones. So you reshuffle it, check email, make another coffee</span> <span class="hi">and the best hour of your day is gone before the real work even starts.</span></span>
-          <span class="type-live">It's 9 a.m. <span class="mut">The list is long. Every task feels equally urgent, and you're not sure you have the energy for the hard ones. So you reshuffle it, check email, make another coffee</span> <span class="hi">and the best hour of your day is gone before the real work even starts.</span></span>
+          <span class="type-sizer" aria-hidden="true">
+            <span class="tl">It's 9 a.m.</span>
+            <span class="tl mut">The list is long. Every task feels equally urgent.</span>
+            <span class="tl mut">You reshuffle it, check email, make another coffee.</span>
+            <span class="tl hi">And the best hour of your day is gone.</span>
+          </span>
+          <span class="type-live">
+            <span class="tl">It's 9 a.m.</span>
+            <span class="tl mut">The list is long. Every task feels equally urgent.</span>
+            <span class="tl mut">You reshuffle it, check email, make another coffee.</span>
+            <span class="tl hi">And the best hour of your day is gone.</span>
+          </span>
         </p>
         <p class="problem-foot reveal d2">
           The goal is far away, the work is self-directed, and nothing accounts for what you can actually do with the time and energy you have today. Minary does.
@@ -1062,47 +1074,53 @@
       const lead = document.getElementById('problem-lead');
       if (!lead) return;
       const live = lead.querySelector('.type-live');
-      const mutEl = live.querySelector('.mut');
-      const hiEl = live.querySelector('.hi');
-      const mutText = mutEl.textContent;
-      const hiText = hiEl.textContent;
+      const lines = Array.from(live.querySelectorAll('.tl'));
+      if (!lines.length) return;
 
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (prefersReduced) return; // keep full text, no animation
 
-      mutEl.textContent = '';
-      hiEl.textContent = '';
+      // Per-line timing: opener medium, "chaos" lines fast, focus line slow
+      const data = lines.map((el, idx) => {
+        const isHi = el.classList.contains('hi');
+        return {
+          el,
+          text: el.textContent,
+          speed: isHi ? 46 : (idx === 0 ? 32 : 15),
+          // longer dramatic pause right before the final focus line
+          pauseAfter: isHi ? 0 : (idx === lines.length - 2 ? 480 : 170),
+        };
+      });
+      data.forEach((d) => { d.el.textContent = ''; });
 
       const caret = document.createElement('span');
       caret.className = 'type-caret';
 
-      function typeInto(el, text, speed, done) {
-        el.after(caret);
+      function typeLine(d, done) {
+        const node = document.createTextNode('');
+        d.el.appendChild(node);
+        d.el.appendChild(caret);
         let i = 0;
         (function step() {
-          el.textContent = text.slice(0, i);
-          if (i < text.length) { i++; setTimeout(step, speed); }
+          node.nodeValue = d.text.slice(0, i);
+          if (i < d.text.length) { i++; setTimeout(step, d.speed); }
           else if (done) { done(); }
         })();
       }
 
-      let started = false;
-      function start() {
-        if (started) return;
-        started = true;
-        // Fast type the muted "chaos" phrase, then slow down for the bold focus line
-        typeInto(mutEl, mutText, 13, () => {
-          setTimeout(() => {
-            typeInto(hiEl, hiText, 42, () => {
-              setTimeout(() => caret.remove(), 1400);
-            });
-          }, 320);
+      function run(idx) {
+        if (idx >= data.length) { setTimeout(() => caret.remove(), 1500); return; }
+        const d = data[idx];
+        typeLine(d, () => {
+          if (d.pauseAfter) setTimeout(() => run(idx + 1), d.pauseAfter);
+          else run(idx + 1);
         });
       }
 
+      let started = false;
       const tObs = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting) { start(); tObs.unobserve(e.target); }
+          if (e.isIntersecting && !started) { started = true; run(0); tObs.unobserve(e.target); }
         });
       }, { threshold: 0.3 });
       tObs.observe(lead);
