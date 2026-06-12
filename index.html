@@ -143,10 +143,10 @@
       flex: 1;
       width: 100%;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 42px 40px 24px;
+      padding: 32px 64px 48px;
     }
     .hero-content {
       width: min(100%, 840px);
@@ -622,9 +622,8 @@
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 52px;
-      background: linear-gradient(to bottom, transparent 0%, #f8f9f7 100%);
-      z-index: 1;
+      height: 1px;
+      background: transparent;
       pointer-events: none;
     }
 
@@ -633,6 +632,13 @@
     .how {
       background: #f8f9f7;
       border-top: none;
+    }
+    .problem {
+      background: linear-gradient(to bottom, transparent 0%, transparent 220px, #f8f9f7 520px) !important;
+      margin-top: -220px;
+      padding-top: calc(96px + 220px) !important;
+      position: relative;
+      z-index: 5;
     }
     .how { background: #ffffff; border-top: none; }
     .problem .section-eyebrow,
@@ -758,7 +764,7 @@
       <div class="wrap">
         <p class="section-eyebrow reveal">The planning trap</p>
         <p class="problem-lead reveal d1">
-          It's 9 a.m. <span class="mut">The list is long. Every task feels equally urgent, and you're not sure you have the energy for the hard ones. So you reshuffle it, check email, make another coffee</span> <span class="hi">and the best hour of your day is gone before the real work even starts.</span>
+          It's 9 a.m. <span class="mut">The list is Long. Every task feels equally urgent, and you're not sure you have the energy for the hard ones. So you reshuffle it, check email, make another coffee</span> <span class="hi">and the best hour of your day is gone before the real work even starts.</span>
         </p>
         <p class="problem-foot reveal d2">
           The goal is far away, the work is self-directed, and nothing accounts for what you can actually do with the time and energy you have today. Minary does.
