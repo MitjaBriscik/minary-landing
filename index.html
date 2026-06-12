@@ -480,29 +480,31 @@
       position: relative;
       display: flex; align-items: center; gap: 18px;
       max-width: 620px;
-      background: #ffffff;
-      border: 1px solid #e3eae6;
-      border-left: 3px solid var(--accent);
-      border-radius: 16px;
-      padding: 22px 28px;
-      box-shadow: 0 22px 60px rgba(13,40,24,0.12);
+      background: linear-gradient(180deg, rgba(22,44,32,0.92), rgba(13,26,19,0.95));
+      border: 1px solid rgba(82,180,122,0.22);
+      border-radius: 18px;
+      padding: 22px 26px;
+      box-shadow: 0 34px 80px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.05);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
     .answer-card p {
-      margin: 0; font-size: 19px; line-height: 1.5;
-      font-weight: 500; color: #1a2e22; letter-spacing: -0.01em;
+      margin: 0; font-size: 18px; line-height: 1.5;
+      font-weight: 500; color: rgba(255,255,255,0.85); letter-spacing: -0.01em;
     }
-    .answer-card strong { color: var(--accent-deep); font-weight: 700; }
+    .answer-card strong { color: var(--accent-bright); font-weight: 700; }
     .answer-arrow {
       flex-shrink: 0;
-      width: 38px; height: 38px; border-radius: 10px;
+      width: 40px; height: 40px; border-radius: 11px;
       background: rgba(82,180,122,0.12);
+      border: 1px solid rgba(82,180,122,0.25);
       position: relative;
     }
     .answer-arrow::after {
       content: ''; position: absolute; top: 50%; left: 50%;
       width: 9px; height: 9px;
-      border-top: 2px solid var(--accent-deep);
-      border-right: 2px solid var(--accent-deep);
+      border-top: 2px solid var(--accent-bright);
+      border-right: 2px solid var(--accent-bright);
       transform: translate(-60%, -50%) rotate(45deg);
     }
 
