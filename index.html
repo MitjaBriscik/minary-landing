@@ -685,52 +685,12 @@
     .how .plan-card {
       box-shadow: 0 32px 80px rgba(0,0,0,0.22), 0 6px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.05);
     }
-    /* How: result = plan card (left) + brand graphic pointing to the goal (right) */
-    .how-result { display: flex; gap: 44px; align-items: center; margin-top: 44px; }
-    .how .preview { flex: 0 1 560px; max-width: 560px; margin: 0; perspective: none; }
-    .how .plan-card { transform: none; padding: 24px 26px; }
+    /* How: card spans full width like the steps, flat (it's the steps' output) */
+    .how-result { margin-top: 36px; }
+    .how .preview { max-width: none; perspective: none; margin: 0; }
+    .how .plan-card { transform: none; padding: 26px 30px; }
     .how .plan-tasks { gap: 10px; }
     .how .plan-card .task { padding: 14px 18px; }
-
-    .how-graphic { position: relative; flex: 1 1 auto; align-self: stretch; min-height: 320px; }
-    .graphic-blob {
-      position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(56% 56% at 70% 46%, rgba(82,180,122,0.18), transparent 70%);
-      filter: blur(6px);
-    }
-    .swoosh { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-    .swoosh-path {
-      stroke: url(#swooshGrad); stroke-width: 3.5; stroke-linecap: round; fill: none;
-      stroke-dasharray: 520; stroke-dashoffset: 520;
-      transition: stroke-dashoffset 1.5s cubic-bezier(0.22,1,0.36,1);
-    }
-    .how-result.in .swoosh-path { stroke-dashoffset: 0; }
-    .goal-ring {
-      fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0;
-      transform-box: fill-box; transform-origin: center;
-    }
-    .goal-dot {
-      fill: var(--accent); opacity: 0;
-      filter: drop-shadow(0 0 6px rgba(82,180,122,0.55));
-    }
-    .how-result.in .goal-dot { opacity: 1; transition: opacity 0.4s ease 1.25s; }
-    .how-result.in .goal-ring { animation: goalPulse 2.4s ease-out 1.5s infinite; }
-    @keyframes goalPulse {
-      0%   { opacity: 0.7; transform: scale(0.7); }
-      70%  { opacity: 0;   transform: scale(1.9); }
-      100% { opacity: 0;   transform: scale(1.9); }
-    }
-    .graphic-cap {
-      position: absolute; top: 12%; right: 5%;
-      font-size: 13px; font-weight: 700; line-height: 1.35;
-      color: var(--accent-deep); text-align: right;
-      letter-spacing: 0.02em; text-transform: lowercase;
-    }
-    @media (max-width: 860px) {
-      .how-result { flex-direction: column; align-items: stretch; }
-      .how .preview { flex: none; max-width: none; width: 100%; }
-      .how-graphic { width: 100%; min-height: 220px; }
-    }
 
     /* Dark static: Who it's for */
     .who {
@@ -913,22 +873,6 @@
             </div>
           </div>
 
-          <aside class="how-graphic" aria-hidden="true">
-            <div class="graphic-blob"></div>
-            <svg class="swoosh" viewBox="0 0 400 300" fill="none">
-              <defs>
-                <linearGradient id="swooshGrad" x1="0" y1="300" x2="360" y2="40" gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stop-color="#52b47a" stop-opacity="0.0"/>
-                  <stop offset="0.35" stop-color="#52b47a" stop-opacity="0.7"/>
-                  <stop offset="1" stop-color="#74d79a"/>
-                </linearGradient>
-              </defs>
-              <path class="swoosh-path" d="M 28 250 C 150 244, 196 156, 286 104 C 318 85, 336 76, 352 66"/>
-              <circle class="goal-ring" cx="352" cy="66" r="16"/>
-              <circle class="goal-dot" cx="352" cy="66" r="7"/>
-            </svg>
-            <span class="graphic-cap">what to do<br>right now</span>
-          </aside>
         </div>
       </div>
     </section>
