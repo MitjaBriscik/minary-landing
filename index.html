@@ -471,7 +471,17 @@
       animation: caretBlink 0.85s steps(1) infinite;
     }
     @keyframes caretBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
-    .problem-foot { margin-top: 28px; font-size: 17px; color: var(--txt-mut); max-width: 60ch; line-height: 1.7; font-weight: 500; }
+    .problem-foot {
+      margin-top: 38px; font-size: 19px; color: var(--txt-mut);
+      max-width: 46ch; line-height: 1.55; font-weight: 500;
+      transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22,1,0.36,1);
+    }
+    .problem-foot.foot-pending { opacity: 0; transform: translateY(18px); }
+    .foot-pivot {
+      display: block; margin-top: 8px;
+      font-weight: 700; color: var(--accent-deep);
+      font-size: 21px; letter-spacing: -0.01em;
+    }
 
     /* How it works */
     .how { border-top: 1px solid var(--line-soft); }
@@ -794,8 +804,9 @@
             <span class="tl hi">And the best hour of your day is gone.</span>
           </span>
         </p>
-        <p class="problem-foot reveal d2">
-          The goal is far away, the work is self-directed, and nothing accounts for what you can actually do with the time and energy you have today. Minary does.
+        <p class="problem-foot" id="problem-foot">
+          Nothing plans around the time and energy you actually have today.
+          <span class="foot-pivot">Minary does.</span>
         </p>
       </div>
     </section>
@@ -1077,8 +1088,12 @@
       const lines = Array.from(live.querySelectorAll('.tl'));
       if (!lines.length) return;
 
+      const foot = document.getElementById('problem-foot');
+
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReduced) return; // keep full text, no animation
+      if (prefersReduced) return; // keep full text + foot visible, no animation
+
+      if (foot) foot.classList.add('foot-pending'); // hide until typing resolves
 
       // Per-line timing: opener medium, "chaos" lines fast, focus line slow
       const data = lines.map((el, idx) => {
@@ -1109,7 +1124,11 @@
       }
 
       function run(idx) {
-        if (idx >= data.length) { setTimeout(() => caret.remove(), 1500); return; }
+        if (idx >= data.length) {
+          setTimeout(() => caret.remove(), 1500);
+          if (foot) setTimeout(() => foot.classList.remove('foot-pending'), 450);
+          return;
+        }
         const d = data[idx];
         typeLine(d, () => {
           if (d.pauseAfter) setTimeout(() => run(idx + 1), d.pauseAfter);
