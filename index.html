@@ -452,12 +452,23 @@
     .problem { border-top: 1px solid var(--line-soft); }
     .problem .wrap { max-width: 900px; }
     .problem-lead {
+      position: relative;
       font-family: var(--display); font-weight: 500;
       font-size: clamp(26px, 3.4vw, 40px); line-height: 1.28;
       letter-spacing: -0.02em; color: #fff;
     }
     .problem-lead .mut { color: var(--txt-faint); }
-    .problem-lead .hi { color: var(--accent-bright); }
+    .problem-lead .hi { color: var(--accent-bright); font-weight: 700; }
+    /* Typing animation: ghost reserves space, live is typed over it */
+    .type-sizer { visibility: hidden; }
+    .type-live { position: absolute; inset: 0; }
+    .type-caret {
+      display: inline-block; width: 3px; height: 0.92em;
+      background: var(--accent-bright); margin-left: 3px;
+      vertical-align: text-bottom; border-radius: 1px;
+      animation: caretBlink 0.85s steps(1) infinite;
+    }
+    @keyframes caretBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
     .problem-foot { margin-top: 28px; font-size: 17px; color: var(--txt-mut); max-width: 60ch; line-height: 1.7; font-weight: 500; }
 
     /* How it works */
@@ -767,8 +778,9 @@
     <section class="block problem">
       <div class="wrap">
         <p class="section-eyebrow reveal">The planning trap</p>
-        <p class="problem-lead reveal d1">
-          It's 9 a.m. <span class="mut">The list is long. Every task feels equally urgent, and you're not sure you have the energy for the hard ones. So you reshuffle it, check email, make another coffee</span> <span class="hi">and the best hour of your day is gone before the real work even starts.</span>
+        <p class="problem-lead reveal d1" id="problem-lead">
+          <span class="type-sizer" aria-hidden="true">It's 9 a.m. <span class="mut">The list is long. Every task feels equally urgent, and you're not sure you have the energy for the hard ones. So you reshuffle it, check email, make another coffee</span> <span class="hi">and the best hour of your day is gone before the real work even starts.</span></span>
+          <span class="type-live">It's 9 a.m. <span class="mut">The list is long. Every task feels equally urgent, and you're not sure you have the energy for the hard ones. So you reshuffle it, check email, make another coffee</span> <span class="hi">and the best hour of your day is gone before the real work even starts.</span></span>
         </p>
         <p class="problem-foot reveal d2">
           The goal is far away, the work is self-directed, and nothing accounts for what you can actually do with the time and energy you have today. Minary does.
@@ -1044,6 +1056,57 @@
       entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    // Typing animation for the planning trap
+    (function () {
+      const lead = document.getElementById('problem-lead');
+      if (!lead) return;
+      const live = lead.querySelector('.type-live');
+      const mutEl = live.querySelector('.mut');
+      const hiEl = live.querySelector('.hi');
+      const mutText = mutEl.textContent;
+      const hiText = hiEl.textContent;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return; // keep full text, no animation
+
+      mutEl.textContent = '';
+      hiEl.textContent = '';
+
+      const caret = document.createElement('span');
+      caret.className = 'type-caret';
+
+      function typeInto(el, text, speed, done) {
+        el.after(caret);
+        let i = 0;
+        (function step() {
+          el.textContent = text.slice(0, i);
+          if (i < text.length) { i++; setTimeout(step, speed); }
+          else if (done) { done(); }
+        })();
+      }
+
+      let started = false;
+      function start() {
+        if (started) return;
+        started = true;
+        // Fast type the muted "chaos" phrase, then slow down for the bold focus line
+        typeInto(mutEl, mutText, 13, () => {
+          setTimeout(() => {
+            typeInto(hiEl, hiText, 42, () => {
+              setTimeout(() => caret.remove(), 1400);
+            });
+          }, 320);
+        });
+      }
+
+      const tObs = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { start(); tObs.unobserve(e.target); }
+        });
+      }, { threshold: 0.3 });
+      tObs.observe(lead);
+    })();
 
     // Custom dropdown logic
     document.querySelectorAll('.wf-dropdown').forEach((dd) => {
