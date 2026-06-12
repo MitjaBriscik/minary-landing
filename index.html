@@ -685,12 +685,21 @@
     .how .plan-card {
       box-shadow: 0 32px 80px rgba(0,0,0,0.22), 0 6px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.05);
     }
-    /* How: card spans full width like the steps, flat (it's the steps' output) */
-    .how-result { margin-top: 36px; }
-    .how .preview { max-width: none; perspective: none; margin: 0; }
+    /* How: result = plan card (left) + Minary mark reaching toward it (right) */
+    .how-result { display: flex; gap: 36px; align-items: center; margin-top: 40px; }
+    .how .preview { flex: 1 1 58%; max-width: none; perspective: none; margin: 0; }
     .how .plan-card { transform: none; padding: 26px 30px; }
     .how .plan-tasks { gap: 10px; }
     .how .plan-card .task { padding: 14px 18px; }
+    .how-mark {
+      flex: 1 1 42%; display: flex; align-items: center; justify-content: center;
+    }
+    .how-mark img { width: 100%; max-width: 380px; height: auto; display: block; }
+    @media (max-width: 860px) {
+      .how-result { flex-direction: column; align-items: stretch; }
+      .how .preview { flex: none; width: 100%; }
+      .how-mark { display: none; }
+    }
 
     /* Dark static: Who it's for */
     .who {
@@ -871,6 +880,10 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <div class="how-mark" aria-hidden="true">
+            <img src="/public/logo-mark.png" alt="" onerror="this.src='./public/logo-mark.png'">
           </div>
 
         </div>
