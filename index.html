@@ -660,9 +660,11 @@
     .how { background: linear-gradient(to bottom, #f8f9f7 0%, #ffffff 240px); border-top: none; }
     .problem h2 { color: rgba(255,255,255,0.92) !important; }
     .how h2 { color: #1a2e22; }
-    /* perceptual match: a more saturated green so the eyebrow on white reads
-       as vivid as #52b47a does on the dark sections */
+    /* perceptual match: tune each eyebrow's green so all three read with the
+       same visual weight despite sitting on different backgrounds */
     .how .section-eyebrow { color: #1f9d5c; }
+    .problem .section-eyebrow,
+    .who .section-eyebrow { color: var(--accent-bright); }
     .problem-lead { color: rgba(255,255,255,0.78) !important; }
     .problem-lead .mut { color: rgba(255,255,255,0.38) !important; }
     .problem-lead .hi { color: rgba(255,255,255,0.95) !important; }
