@@ -720,15 +720,14 @@
     .who {
       margin-top: -30px;
       padding-top: 400px;
-      padding-bottom: 460px;
+      padding-bottom: 220px;
       background-color: #0d2818;
       background-image:
         linear-gradient(to bottom, #f8f9f7 0%, rgba(248,249,247,0) 560px),
-        linear-gradient(to bottom, transparent calc(100% - 440px), #0a160f 100%),
         linear-gradient(rgba(45,106,79,0.06) 1px, transparent 1px),
         linear-gradient(90deg, rgba(45,106,79,0.06) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
-      background-repeat: no-repeat, no-repeat, repeat, repeat;
+      background-size: 100% 100%, 40px 40px, 40px 40px;
+      background-repeat: no-repeat, repeat, repeat;
       border-top: none;
     }
     .who h2 { color: #fff; }
@@ -743,8 +742,10 @@
 
     /* Dark: Final CTA + footer */
     .final {
-      background: #0a160f;
+      background: linear-gradient(to bottom, transparent 0%, #0a160f 240px);
       border-top: none;
+      margin-top: -200px;
+      padding-top: 260px;
     }
     footer {
       background: #0a160f;
