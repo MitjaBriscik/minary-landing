@@ -517,7 +517,10 @@
     .who-card p { font-size: 13.5px; color: var(--txt-mut); line-height: 1.6; font-weight: 500; }
 
     /* Final CTA */
-    .final { border-top: 1px solid var(--line-soft); }
+    .final { border-top: 1px solid var(--line-soft); position: relative; overflow: hidden; }
+    .final-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .final-bg #neural-canvas-2 { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.5; }
+    .final .wrap { position: relative; z-index: 1; }
     .final-card {
       position: relative; border-radius: 28px; padding: 72px 48px;
       text-align: center;
@@ -695,13 +698,15 @@
 
     /* Dark static: Who it's for */
     .who {
+      padding-top: 210px;
       background-color: #0d2818;
       background-image:
+        linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0) 200px),
         linear-gradient(to bottom, transparent calc(100% - 220px), #0a160f 100%),
         linear-gradient(rgba(45,106,79,0.06) 1px, transparent 1px),
         linear-gradient(90deg, rgba(45,106,79,0.06) 1px, transparent 1px);
-      background-size: 100% 100%, 40px 40px, 40px 40px;
-      background-repeat: no-repeat, repeat, repeat;
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+      background-repeat: no-repeat, no-repeat, repeat, repeat;
       border-top: none;
     }
     .who h2 { color: #fff; }
@@ -905,6 +910,9 @@
 
     <!-- FINAL CTA -->
     <section class="block final">
+      <div class="bg final-bg" aria-hidden="true">
+        <canvas id="neural-canvas-2"></canvas>
+      </div>
       <div class="wrap">
         <div class="final-card reveal">
           <h2>Your next session could already be planned.</h2>
@@ -968,15 +976,14 @@
     );
 
     // Neural network
-    (function () {
-      const canvas = document.getElementById('neural-canvas');
+    function initNeural(canvas, container) {
+      if (!canvas || !container) return;
       const ctx = canvas.getContext('2d');
       let W, H;
 
       function resize() {
-        const hero = document.querySelector('.hero-section');
-        W = canvas.width = hero.offsetWidth;
-        H = canvas.height = hero.offsetHeight;
+        W = canvas.width = container.offsetWidth;
+        H = canvas.height = container.offsetHeight;
       }
       resize();
       window.addEventListener('resize', resize);
@@ -1019,7 +1026,7 @@
       const mouse = { x: 0, y: 0, active: false };
       const MOUSE_R = 150, PUSH = 28;
       if (finePointer && !reducedMotion) {
-        const hero = document.querySelector('.hero-section');
+        const hero = container;
         window.addEventListener('mousemove', (e) => {
           const r = hero.getBoundingClientRect();
           mouse.x = e.clientX - r.left;
@@ -1106,7 +1113,9 @@
         requestAnimationFrame(draw);
       }
       requestAnimationFrame(draw);
-    })();
+    }
+    initNeural(document.getElementById('neural-canvas'), document.querySelector('.hero-section'));
+    initNeural(document.getElementById('neural-canvas-2'), document.querySelector('.final'));
 
     // Reveal on scroll
     const io = new IntersectionObserver((entries) => {
