@@ -84,7 +84,8 @@
       min-height: 100svh;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      /* no overflow:hidden here — the canvas is clipped by .bg, and clipping
+         here would cut off the open role dropdown. */
     }
     .hero-section::before {
       content: '';
@@ -143,17 +144,17 @@
       flex: 1;
       width: 100%;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       text-align: center;
-      padding: 32px 64px 48px;
+      padding: 9vh 64px 48px;
     }
     .hero-content {
       width: min(100%, 840px);
       margin: 0 auto;
     }
     .hero-logo {
-      width: 150px; display: block; margin: 0 auto 24px;
+      width: 200px; display: block; margin: 0 auto 30px;
       opacity: 0.97;
       filter: drop-shadow(0 14px 24px rgba(0,0,0,0.26));
     }
@@ -620,9 +621,8 @@
       .wrap, .nav-in { padding-left: 22px; padding-right: 22px; }
       .logo-bar { padding: 18px 22px 0; }
       .site-logo { width: 118px; }
-      .hero-logo { width: 120px; margin-bottom: 18px; }
-      .eyebrow { margin-bottom: 20px; }
-      .hero { padding: 34px 22px 58px; }
+      .hero-logo { width: 150px; margin-bottom: 22px; }
+      .hero { padding: 5vh 22px 58px; }
       .hero h1 { font-size: 42px; max-width: 11.5ch; }
       .hero .hero-sub { font-size: 16px; line-height: 1.62; margin-top: 20px; }
       .hero .hero-cta {
@@ -763,8 +763,6 @@
       <header class="hero wrap" id="top">
         <div class="hero-content">
           <img src="/public/logo.png" alt="Minary" class="hero-logo" onerror="this.src='./public/logo.png'">
-
-          <div class="eyebrow"><span class="pulse-dot"></span>Now in early access</div>
 
           <h1 id="hero-title"><span class="grad">Clarity</span> for the ones who work alone.</h1>
 
