@@ -440,7 +440,7 @@
     section.block { padding: 96px 0; position: relative; }
     .section-eyebrow {
       font-size: 13px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 18px;
+      color: #1f9d5c; margin-bottom: 18px;
     }
     h2 {
       font-family: var(--display); font-weight: 700;
@@ -662,9 +662,9 @@
     .how h2 { color: #1a2e22; }
     /* perceptual match: tune each eyebrow's green so all three read with the
        same visual weight despite sitting on different backgrounds */
-    .how .section-eyebrow { color: #1f9d5c; font-size: 14px; font-weight: 800; }
-    .problem .section-eyebrow,
-    .who .section-eyebrow { color: var(--accent-bright); }
+    /* all eyebrows share one identical color/weight; white bg gets +1px to
+       offset the dark-background bloom so they read the same size */
+    .how .section-eyebrow { font-size: 14px; }
     .problem-lead { color: rgba(255,255,255,0.78) !important; }
     .problem-lead .mut { color: rgba(255,255,255,0.38) !important; }
     .problem-lead .hi { color: rgba(255,255,255,0.95) !important; }
