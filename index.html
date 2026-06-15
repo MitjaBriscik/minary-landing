@@ -477,7 +477,7 @@
     /* How it works */
     .how { border-top: 1px solid var(--line-soft); }
     .how-head { max-width: 620px; margin-bottom: 56px; }
-    .how-head p { margin-top: 18px; color: var(--txt-mut); font-size: 17px; font-weight: 500; }
+    .how-head p:not(.section-eyebrow) { margin-top: 18px; color: var(--txt-mut); font-size: 17px; font-weight: 500; }
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; position: relative; }
     /* timeline line linking the three numbered markers (replaces arrows) */
     .steps::before {
@@ -662,15 +662,10 @@
     .how h2 { color: #1a2e22; }
     /* perceptual match: tune each eyebrow's green so all three read with the
        same visual weight despite sitting on different backgrounds */
-    /* all eyebrows share one identical color/weight; white bg gets +1px to
-       offset the dark-background bloom so they read the same size.
-       color must be set here too: .how-head p (gray subtitle) would otherwise
-       win on specificity and turn this eyebrow gray. */
-    .how .section-eyebrow { color: #1f9d5c; font-weight: 900; }
     .problem-lead { color: rgba(255,255,255,0.78) !important; }
     .problem-lead .mut { color: rgba(255,255,255,0.38) !important; }
     .problem-lead .hi { color: rgba(255,255,255,0.95) !important; }
-    .how-head p { color: #6b7f74; }
+    .how-head p:not(.section-eyebrow) { color: #6b7f74; }
 
     .how .plan-card {
       box-shadow: 0 32px 80px rgba(0,0,0,0.22), 0 6px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.05);
