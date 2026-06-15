@@ -663,8 +663,10 @@
     /* perceptual match: tune each eyebrow's green so all three read with the
        same visual weight despite sitting on different backgrounds */
     /* all eyebrows share one identical color/weight; white bg gets +1px to
-       offset the dark-background bloom so they read the same size */
-    .how .section-eyebrow { font-size: 14px; }
+       offset the dark-background bloom so they read the same size.
+       color must be set here too: .how-head p (gray subtitle) would otherwise
+       win on specificity and turn this eyebrow gray. */
+    .how .section-eyebrow { color: #1f9d5c; font-size: 14px; }
     .problem-lead { color: rgba(255,255,255,0.78) !important; }
     .problem-lead .mut { color: rgba(255,255,255,0.38) !important; }
     .problem-lead .hi { color: rgba(255,255,255,0.95) !important; }
