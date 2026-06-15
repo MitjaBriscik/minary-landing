@@ -152,6 +152,11 @@
       width: min(100%, 840px);
       margin: 0 auto;
     }
+    .hero-logo {
+      width: 150px; display: block; margin: 0 auto 24px;
+      opacity: 0.97;
+      filter: drop-shadow(0 14px 24px rgba(0,0,0,0.26));
+    }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 9px;
       padding: 7px 15px 7px 12px; border-radius: 100px;
@@ -159,6 +164,7 @@
       background: rgba(82,180,122,0.08);
       font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em;
       color: var(--accent-bright);
+      margin-bottom: 26px;
     }
     .pulse-dot {
       width: 7px; height: 7px; border-radius: 50%; background: var(--accent-bright);
@@ -614,6 +620,8 @@
       .wrap, .nav-in { padding-left: 22px; padding-right: 22px; }
       .logo-bar { padding: 18px 22px 0; }
       .site-logo { width: 118px; }
+      .hero-logo { width: 120px; margin-bottom: 18px; }
+      .eyebrow { margin-bottom: 20px; }
       .hero { padding: 34px 22px 58px; }
       .hero h1 { font-size: 42px; max-width: 11.5ch; }
       .hero .hero-sub { font-size: 16px; line-height: 1.62; margin-top: 20px; }
@@ -751,14 +759,13 @@
         <canvas id="neural-canvas"></canvas>
       </div>
 
-      <!-- HERO HEADER -->
-      <div class="logo-bar">
-        <img src="/public/logo.png" alt="Minary" class="site-logo" onerror="this.src='./public/logo.png'">
-      </div>
-
       <!-- HERO -->
       <header class="hero wrap" id="top">
         <div class="hero-content">
+          <img src="/public/logo.png" alt="Minary" class="hero-logo" onerror="this.src='./public/logo.png'">
+
+          <div class="eyebrow"><span class="pulse-dot"></span>Now in early access</div>
+
           <h1 id="hero-title"><span class="grad">Clarity</span> for the ones who work alone.</h1>
 
           <p class="hero-sub">
@@ -962,7 +969,7 @@
     <!-- FOOTER -->
     <footer>
       <div class="wrap foot-in">
-        <img src="/public/logo.png" alt="Minary" style="width:140px;" onerror="this.src='./public/logo.png'">
+        <img src="/public/logo.png" alt="Minary" style="width:200px;" onerror="this.src='./public/logo.png'">
         <div class="foot-links">
           <a href="/privacy.html">Privacy policy</a>
           <a href="mailto:contact@minary.app">contact@minary.app</a>
