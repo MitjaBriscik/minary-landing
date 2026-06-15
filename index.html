@@ -507,14 +507,24 @@
     .who { border-top: 1px solid var(--line-soft); }
     .who-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 52px; }
     .who-card {
-      padding: 26px 22px; border-radius: 16px;
-      background: rgba(255,255,255,0.025); border: 1px solid var(--line-soft);
-      transition: transform 0.3s, border-color 0.3s;
+      padding: 24px 22px 26px; border-radius: 16px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.10);
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, background 0.3s;
     }
-    .who-card:hover { transform: translateY(-5px); border-color: rgba(82,180,122,0.3); }
-    .who-card .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); margin-bottom: 20px; }
-    .who-card h4 { font-family: var(--display); font-weight: 600; font-size: 18px; color: #fff; letter-spacing: -0.01em; margin-bottom: 9px; }
-    .who-card p { font-size: 13.5px; color: var(--txt-mut); line-height: 1.6; font-weight: 500; }
+    .who-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(82,180,122,0.40);
+      background: rgba(82,180,122,0.06);
+    }
+    .who-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .who-card .dot {
+      flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent-bright);
+      box-shadow: 0 0 10px rgba(116,215,154,0.6);
+    }
+    .who-card h4 { font-family: var(--display); font-weight: 600; font-size: 17px; color: #fff; letter-spacing: -0.01em; margin: 0; }
+    .who-card p { font-size: 13.5px; color: var(--txt-mut); line-height: 1.6; font-weight: 500; margin: 0; }
 
     /* Final CTA */
     .final { border-top: 1px solid var(--line-soft); position: relative; overflow: hidden; }
@@ -886,24 +896,20 @@
         <h2 class="reveal d1" style="max-width:16ch;">For people who answer to their own focus.</h2>
         <div class="who-grid">
           <div class="who-card reveal">
-            <div class="dot"></div>
-            <h4>Freelancers</h4>
+            <div class="who-card-head"><span class="dot"></span><h4>Freelancers</h4></div>
             <p>Juggling several clients without dropping a single thread.</p>
           </div>
           <div class="who-card reveal d1">
-            <div class="dot"></div>
-            <h4>PhD researchers</h4>
+            <div class="who-card-head"><span class="dot"></span><h4>PhD researchers</h4></div>
             <p>Deep work that never quite fits inside a calendar block.</p>
           </div>
           <div class="who-card reveal d2">
-            <div class="dot"></div>
-            <h4>Solo founders</h4>
-            <p>Big goal. No structure. No one to tell you what to do today.</p>
+            <div class="who-card-head"><span class="dot"></span><h4>Solo founders</h4></div>
+            <p>Big goal, no structure, no one to tell you what to do today.</p>
           </div>
           <div class="who-card reveal d3">
-            <div class="dot"></div>
-            <h4>Content creators</h4>
-            <p>Shipping consistently when every day starts with a blank page and no deadline until you set one.</p>
+            <div class="who-card-head"><span class="dot"></span><h4>Content creators</h4></div>
+            <p>Shipping consistently when every day starts with a blank page.</p>
           </div>
         </div>
       </div>
