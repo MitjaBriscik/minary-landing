@@ -1012,6 +1012,7 @@
         r: i < HUB_COUNT ? 7 + Math.random() * 3 : 2 + Math.random() * 4,
         isHub: i < HUB_COUNT,
         phase: Math.random() * Math.PI * 2,
+        ox: 0, oy: 0, rx: 0, ry: 0,
       }));
 
       const pulses = [];
@@ -1031,6 +1032,22 @@
       }
       spawnPulse();
 
+      // Cursor interaction — the field gently parts around the pointer (fine pointers only)
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const mouse = { x: 0, y: 0, active: false };
+      const MOUSE_R = 150, PUSH = 28;
+      if (finePointer && !reducedMotion) {
+        const hero = document.querySelector('.hero-section');
+        window.addEventListener('mousemove', (e) => {
+          const r = hero.getBoundingClientRect();
+          mouse.x = e.clientX - r.left;
+          mouse.y = e.clientY - r.top;
+          mouse.active = mouse.x >= 0 && mouse.x <= r.width && mouse.y >= 0 && mouse.y <= r.height;
+        }, { passive: true });
+        hero.addEventListener('mouseleave', () => { mouse.active = false; });
+      }
+
       let last = 0;
       function draw(now) {
         const dt = now - last;
@@ -1041,17 +1058,40 @@
           n.x += n.vx; n.y += n.vy;
           if (n.x < 0 || n.x > W) { n.vx *= -1; n.x = Math.max(0, Math.min(W, n.x)); }
           if (n.y < 0 || n.y > H) { n.vy *= -1; n.y = Math.max(0, Math.min(H, n.y)); }
+
+          // ease a soft offset that pushes the node away from the pointer
+          let tox = 0, toy = 0;
+          if (mouse.active) {
+            const dx = n.x - mouse.x, dy = n.y - mouse.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < MOUSE_R && d > 0.001) {
+              const f = 1 - d / MOUSE_R;
+              tox = (dx / d) * f * PUSH;
+              toy = (dy / d) * f * PUSH;
+            }
+          }
+          n.ox += (tox - n.ox) * 0.12;
+          n.oy += (toy - n.oy) * 0.12;
+          n.rx = n.x + n.ox;
+          n.ry = n.y + n.oy;
         }
 
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
             const a = nodes[i], b = nodes[j];
-            const dx = b.x - a.x, dy = b.y - a.y;
+            const dx = b.rx - a.rx, dy = b.ry - a.ry;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < CONN_DIST) {
-              ctx.strokeStyle = `rgba(82,180,122,${(1 - dist / CONN_DIST) * 0.35})`;
+              let alpha = (1 - dist / CONN_DIST) * 0.35;
+              if (mouse.active) {
+                const mx = (a.rx + b.rx) / 2 - mouse.x;
+                const my = (a.ry + b.ry) / 2 - mouse.y;
+                const md = Math.sqrt(mx * mx + my * my);
+                if (md < MOUSE_R) alpha += (1 - md / MOUSE_R) * 0.4;
+              }
+              ctx.strokeStyle = `rgba(82,180,122,${alpha})`;
               ctx.lineWidth = 0.8;
-              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+              ctx.beginPath(); ctx.moveTo(a.rx, a.ry); ctx.lineTo(b.rx, b.ry); ctx.stroke();
             }
           }
         }
@@ -1061,8 +1101,8 @@
           p.t += dt;
           if (p.t >= p.dur) { pulses.splice(i, 1); continue; }
           const prog = p.t / p.dur;
-          const px = p.a.x + (p.b.x - p.a.x) * prog;
-          const py = p.a.y + (p.b.y - p.a.y) * prog;
+          const px = p.a.rx + (p.b.rx - p.a.rx) * prog;
+          const py = p.a.ry + (p.b.ry - p.a.ry) * prog;
           const alpha = Math.min(prog * 5, 1) * Math.min((1 - prog) * 5, 1);
           ctx.beginPath(); ctx.arc(px, py, 2.5, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(116,215,154,${alpha})`; ctx.fill();
@@ -1072,12 +1112,12 @@
         for (const n of nodes) {
           if (n.isHub) {
             const pulse = 0.7 + 0.3 * Math.sin(t * 1.5 + n.phase);
-            ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 2, 0, Math.PI * 2);
+            ctx.beginPath(); ctx.arc(n.rx, n.ry, n.r * 2, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(82,180,122,${0.08 * pulse})`; ctx.fill();
-            ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+            ctx.beginPath(); ctx.arc(n.rx, n.ry, n.r, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(116,215,154,${0.85 * pulse})`; ctx.fill();
           } else {
-            ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+            ctx.beginPath(); ctx.arc(n.rx, n.ry, n.r, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(82,180,122,0.6)'; ctx.fill();
           }
         }
