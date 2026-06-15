@@ -602,6 +602,7 @@
     @media (max-width: 680px) {
       .wf-top { flex-wrap: wrap; }
       .wf-select { flex: 1 1 100%; }
+      .wf-dropdown { flex: 1 1 100%; }
       .wf-email  { flex: 1 1 calc(100% - 120px); }
       .hero .hero-cta .wf-top {
         flex-direction: column;
@@ -610,6 +611,7 @@
         padding: 10px;
       }
       .hero .hero-cta .wf-select,
+      .hero .hero-cta .wf-dropdown,
       .hero .hero-cta .wf-email,
       .hero .hero-cta .wf-btn {
         flex: none;
@@ -634,12 +636,15 @@
       section.block { padding: 68px 0; }
       .wf-top { flex-direction: column; gap: 8px; padding: 10px; }
       .wf-select { width: 100%; height: 46px; padding: 0 28px 0 14px; }
+      .wf-dropdown { width: 100%; }
+      .wf-dropdown-btn { width: 100%; height: 46px; }
       .wf-email  { padding: 12px 14px; }
       .wf-btn    { width: 100%; padding: 14px; text-align: center; }
       .who-grid { grid-template-columns: 1fr; }
       .final-card { padding: 48px 24px; }
       .nav-cta { display: none; }
-      .foot-in { flex-direction: column; align-items: flex-start; }
+      .foot-in { flex-direction: column; align-items: center; gap: 22px; }
+      .foot-links { width: 100%; justify-content: space-between; }
     }
 
     @media (prefers-reduced-motion: reduce) {
