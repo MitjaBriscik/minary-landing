@@ -804,18 +804,14 @@
         <p class="section-eyebrow reveal">The planning trap</p>
         <p class="problem-lead reveal d1" id="problem-lead">
           <span class="type-sizer" aria-hidden="true">
-            <span class="tl">It's 9 a.m.</span>
-            <span class="tl mut">The list is long. Every task feels equally urgent.</span>
-            <span class="tl mut">You reshuffle it, check email, make another coffee.</span>
-            <span class="tl hi">And the best hour of your day is gone.</span>
-            <span class="tl dream">Or, with Minary, you sit down already in flow, working on the one thing that fits this moment.</span>
+            <span class="tl">It's 9 a.m. The list is long, everything feels urgent.</span>
+            <span class="tl hi">You reshuffle, you procrastinate, and your best hour is gone.</span>
+            <span class="tl dream">With Minary, you sit down already on the one thing that fits right now.</span>
           </span>
           <span class="type-live">
-            <span class="tl">It's 9 a.m.</span>
-            <span class="tl mut">The list is long. Every task feels equally urgent.</span>
-            <span class="tl mut">You reshuffle it, check email, make another coffee.</span>
-            <span class="tl hi">And the best hour of your day is gone.</span>
-            <span class="tl dream">Or, with Minary, you sit down already in flow, working on the one thing that fits this moment.</span>
+            <span class="tl">It's 9 a.m. The list is long, everything feels urgent.</span>
+            <span class="tl hi">You reshuffle, you procrastinate, and your best hour is gone.</span>
+            <span class="tl dream">With Minary, you sit down already on the one thing that fits right now.</span>
           </span>
         </p>
       </div>
@@ -1152,9 +1148,9 @@
         return {
           el,
           text: el.textContent,
-          speed: (isHi || isDream) ? 44 : (idx === 0 ? 32 : 15),
+          speed: (isHi || isDream) ? 44 : 18,
           // long dramatic pause right after the problem climax, before the dream
-          pauseAfter: isHi ? 700 : (isDream ? 0 : 170),
+          pauseAfter: isHi ? 700 : (isDream ? 0 : 220),
         };
       });
       data.forEach((d) => { d.el.textContent = ''; });
