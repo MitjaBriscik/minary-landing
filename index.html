@@ -1318,28 +1318,22 @@
         btn.disabled = true;
         btn.textContent = 'Saving...';
 
+        const submittedEmail = emailEl.value;
         const { error } = await db.from('waitlist').insert({
-          email:           emailEl.value,
+          email:           submittedEmail,
           occupation:      occEl ? occEl.value : '',
-          call_optin:      form.querySelector('[name="call_optin"]')?.checked || false,
           privacy_consent: true,
         });
 
         btn.disabled = false;
-        btn.textContent = 'Join the waitlist';
+        btn.textContent = 'Get early access';
 
         if (error && error.code === '23505') {
-          showToast("You're already on the list.");
+          window.location.href = '/survey.html?email=' + encodeURIComponent(submittedEmail);
         } else if (error) {
           showToast('Something went wrong. Please try again.');
         } else {
-          showToast("You're on the list. We'll be in touch.");
-          form.reset();
-          form.querySelectorAll('.wf-dropdown-btn').forEach((b) => { b.classList.remove('filled'); b.style.borderColor = ''; });
-          form.querySelectorAll('.wf-dropdown-label').forEach((l) => { l.textContent = 'Your role…'; });
-          form.querySelectorAll('.wf-dropdown input[type="hidden"]').forEach((h) => { h.value = ''; });
-          form.querySelectorAll('.wf-dropdown-option').forEach((o) => o.classList.remove('selected'));
-          form.querySelectorAll('.wf-check').forEach((c) => c.style.borderColor = '');
+          window.location.href = '/survey.html?email=' + encodeURIComponent(submittedEmail);
         }
       });
     });

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minary · Help shape the product</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/public/favicon.png">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-0: #0a160f;
+      --bg-1: #0d1a13;
+      --bg-2: #122a1e;
+      --accent: #52b47a;
+      --accent-bright: #74d79a;
+      --accent-deep: #2d6a4f;
+      --line: rgba(255,255,255,0.08);
+      --txt: rgba(255,255,255,0.92);
+      --txt-mut: rgba(255,255,255,0.56);
+      --txt-faint: rgba(255,255,255,0.35);
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg-1);
+      color: var(--txt);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    /* Background */
+    .bg-glow {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(900px 600px at 80% -10%, rgba(82,180,122,0.12), transparent 60%),
+        radial-gradient(700px 500px at 5% 15%, rgba(45,106,79,0.15), transparent 58%);
+    }
+
+    /* Layout */
+    .page { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* Logo */
+    .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; text-decoration: none; }
+    .logo img { height: 28px; }
+
+    /* Progress */
+    .progress-wrap { margin-bottom: 40px; }
+    .progress-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--txt-faint); margin-bottom: 10px; }
+    .progress-bar-bg { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; }
+    .progress-bar-fill { height: 4px; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
+
+    /* Section */
+    .survey-section { margin-bottom: 48px; }
+    .section-title {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 24px;
+    }
+
+    /* Question */
+    .question { margin-bottom: 32px; }
+    .question-label {
+      font-size: 16px; font-weight: 700; color: var(--txt);
+      margin-bottom: 14px; line-height: 1.4;
+    }
+    .question-sub {
+      font-size: 13px; color: var(--txt-mut); margin-bottom: 14px; line-height: 1.5;
+    }
+
+    /* Radio / Checkbox options */
+    .options { display: flex; flex-direction: column; gap: 8px; }
+    .option {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    }
+    .option:hover { border-color: rgba(82,180,122,0.25); background: rgba(82,180,122,0.04); }
+    .option input[type="radio"],
+    .option input[type="checkbox"] {
+      width: 16px; height: 16px; accent-color: var(--accent);
+      flex-shrink: 0; cursor: pointer;
+    }
+    .option:has(input:checked) {
+      border-color: rgba(82,180,122,0.4);
+      background: rgba(82,180,122,0.07);
+    }
+    .option-text { font-size: 14px; font-weight: 500; color: var(--txt-mut); line-height: 1.4; cursor: pointer; }
+    .option:has(input:checked) .option-text { color: var(--txt); }
+
+    /* Other text input */
+    .other-input {
+      margin-top: 8px; width: 100%;
+      padding: 10px 14px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: var(--txt); font-size: 14px; font-family: var(--sans);
+      outline: none; display: none;
+    }
+    .other-input:focus { border-color: rgba(82,180,122,0.4); }
+    .other-input.visible { display: block; }
+
+    /* Text input */
+    .text-input {
+      width: 100%; padding: 12px 16px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: var(--txt); font-size: 14px; font-family: var(--sans);
+      outline: none; transition: border-color 0.15s;
+      resize: none;
+    }
+    .text-input:focus { border-color: rgba(82,180,122,0.35); }
+    .text-input::placeholder { color: var(--txt-faint); }
+
+    /* Minary fit callout */
+    .fit-callout {
+      background: rgba(82,180,122,0.06);
+      border: 1px solid rgba(82,180,122,0.18);
+      border-radius: 12px; padding: 16px 20px;
+      margin-bottom: 28px;
+    }
+    .fit-callout p { font-size: 14px; color: var(--txt-mut); line-height: 1.6; }
+    .fit-callout strong { color: var(--accent-bright); font-weight: 600; }
+
+    /* Divider */
+    .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 48px 0; }
+
+    /* Submit */
+    .submit-wrap { margin-top: 40px; }
+    .submit-btn {
+      width: 100%; padding: 16px;
+      background: var(--accent); color: #061009;
+      font-size: 16px; font-weight: 800;
+      border: none; border-radius: 12px;
+      cursor: pointer; transition: background 0.15s, opacity 0.15s;
+    }
+    .submit-btn:hover { background: var(--accent-bright); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .submit-note { font-size: 12px; color: var(--txt-faint); text-align: center; margin-top: 12px; }
+
+    /* Error */
+    .field-error { font-size: 12px; color: #f87171; margin-top: 6px; display: none; }
+    .field-error.visible { display: block; }
+
+    /* Thank you screen */
+    .thankyou {
+      display: none; text-align: center;
+      padding: 80px 0;
+    }
+    .thankyou.visible { display: block; }
+    .thankyou-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(82,180,122,0.1);
+      border: 1px solid rgba(82,180,122,0.25);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px; font-size: 32px;
+    }
+    .thankyou h1 { font-size: 28px; font-weight: 800; color: var(--txt); margin-bottom: 12px; }
+    .thankyou p { font-size: 15px; color: var(--txt-mut); line-height: 1.7; margin-bottom: 8px; }
+    .badge-month {
+      display: inline-block; margin-top: 24px;
+      background: rgba(82,180,122,0.12);
+      border: 1px solid rgba(82,180,122,0.3);
+      color: var(--accent-bright); font-size: 13px; font-weight: 700;
+      padding: 8px 18px; border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    #survey-form.hidden { display: none; }
+
+    @media (max-width: 480px) {
+      .page { padding: 32px 16px 60px; }
+      .question-label { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<div class="page">
+
+  <!-- Logo -->
+  <a href="/" class="logo">
+    <img src="/public/minary-logo-white.png" alt="Minary" onerror="this.style.display='none';this.nextSibling.style.display='block'">
+    <span style="display:none;font-size:18px;font-weight:800;color:var(--txt)">minary</span>
+  </a>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-label">Quick questions · 2 min</div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Thank you -->
+  <div class="thankyou" id="thankyou">
+    <div class="thankyou-icon">✓</div>
+    <h1>Thank you.</h1>
+    <p>You've just helped shape what Minary becomes.</p>
+    <p>We'll be in touch with early access.</p>
+    <div class="badge-month">1 month free at launch</div>
+  </div>
+
+  <!-- Survey form -->
+  <form id="survey-form" novalidate>
+
+    <!-- Section 1: About you -->
+    <div class="survey-section">
+      <div class="section-title">Section 1 of 4 · About you</div>
+
+      <!-- Q1: role -->
+      <div class="question" id="q-role">
+        <div class="question-label">Which best describes your work?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="role" value="freelancer"><span class="option-text">Freelancer</span></label>
+          <label class="option"><input type="radio" name="role" value="content_creator"><span class="option-text">Content creator</span></label>
+          <label class="option"><input type="radio" name="role" value="student"><span class="option-text">Student</span></label>
+          <label class="option"><input type="radio" name="role" value="solo_founder"><span class="option-text">Solo founder</span></label>
+          <label class="option"><input type="radio" name="role" value="remote_employee"><span class="option-text">Remote employee</span></label>
+          <label class="option"><input type="radio" name="role" value="agency_small_team"><span class="option-text">Agency / small team</span></label>
+          <label class="option"><input type="radio" name="role" value="other"><span class="option-text">Other</span></label>
+        </div>
+        <div class="field-error" id="err-role">Please select one.</div>
+      </div>
+
+      <!-- Q2: work_types -->
+      <div class="question" id="q-work-types">
+        <div class="question-label">What kind of work fills most of your day? <span style="font-weight:500;color:var(--txt-mut)">(pick all that apply)</span></div>
+        <div class="options">
+          <label class="option"><input type="checkbox" name="work_types" value="coding"><span class="option-text">Coding / dev</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="writing"><span class="option-text">Writing / content</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="design"><span class="option-text">Design</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="research"><span class="option-text">Research / study</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="admin"><span class="option-text">Admin & ops</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="client_comms"><span class="option-text">Client communication</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="mixed"><span class="option-text">Mixed</span></label>
+        </div>
+        <div class="field-error" id="err-work-types">Please select at least one.</div>
+      </div>
+
+      <!-- Q3: planning_method -->
+      <div class="question" id="q-planning">
+        <div class="question-label">How do you plan your work day right now?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="planning_method" value="task_app"><span class="option-text">A to-do / task app</span></label>
+          <label class="option"><input type="radio" name="planning_method" value="calendar"><span class="option-text">Calendar</span></label>
+          <label class="option"><input type="radio" name="planning_method" value="notes_paper"><span class="option-text">Notes or paper</span></label>
+          <label class="option"><input type="radio" name="planning_method" value="nothing"><span class="option-text">Nothing, I wing it</span></label>
+          <label class="option"><input type="radio" name="planning_method" value="other"><span class="option-text">Other</span></label>
+        </div>
+        <input type="text" class="other-input" id="planning-other-input" name="planning_method_other" placeholder="Tell us more...">
+        <div class="field-error" id="err-planning">Please select one.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Section 2: Your challenges -->
+    <div class="survey-section">
+      <div class="section-title">Section 2 of 4 · Your challenges</div>
+
+      <!-- Q4: time_drains -->
+      <div class="question" id="q-drains">
+        <div class="question-label">Which of these cost you the most time or energy in a typical week? <span style="font-weight:500;color:var(--txt-mut)">(pick all that apply)</span></div>
+        <div class="options">
+          <label class="option"><input type="checkbox" name="time_drains" value="deciding"><span class="option-text">Deciding what to work on</span></label>
+          <label class="option"><input type="checkbox" name="time_drains" value="starting"><span class="option-text">Actually starting (procrastination / resistance)</span></label>
+          <label class="option"><input type="checkbox" name="time_drains" value="planning_not_executing"><span class="option-text">Planning a lot but not executing</span></label>
+          <label class="option"><input type="checkbox" name="time_drains" value="task_switching"><span class="option-text">Constantly switching between tasks</span></label>
+          <label class="option"><input type="checkbox" name="time_drains" value="wrong_energy"><span class="option-text">Working on the wrong task for my current energy</span></label>
+          <label class="option"><input type="checkbox" name="time_drains" value="losing_priorities"><span class="option-text">Losing track of priorities and deadlines</span></label>
+          <label class="option"><input type="checkbox" name="time_drains" value="other"><span class="option-text">Other</span></label>
+        </div>
+        <input type="text" class="other-input" id="drains-other-input" name="time_drains_other" placeholder="Tell us more...">
+        <div class="field-error" id="err-drains">Please select at least one.</div>
+      </div>
+
+      <!-- Q5: biggest_problem -->
+      <div class="question" id="q-biggest">
+        <div class="question-label">Of those, which is the single biggest one?</div>
+        <div class="options" id="biggest-options">
+          <label class="option"><input type="radio" name="biggest_problem" value="deciding"><span class="option-text">Deciding what to work on</span></label>
+          <label class="option"><input type="radio" name="biggest_problem" value="starting"><span class="option-text">Actually starting (procrastination / resistance)</span></label>
+          <label class="option"><input type="radio" name="biggest_problem" value="planning_not_executing"><span class="option-text">Planning a lot but not executing</span></label>
+          <label class="option"><input type="radio" name="biggest_problem" value="task_switching"><span class="option-text">Constantly switching between tasks</span></label>
+          <label class="option"><input type="radio" name="biggest_problem" value="wrong_energy"><span class="option-text">Working on the wrong task for my current energy</span></label>
+          <label class="option"><input type="radio" name="biggest_problem" value="losing_priorities"><span class="option-text">Losing track of priorities and deadlines</span></label>
+        </div>
+        <div class="field-error" id="err-biggest">Please select one.</div>
+      </div>
+
+      <!-- Q6: problem_cost -->
+      <div class="question">
+        <div class="question-label">In your own words, what does that problem cost you? <span style="font-weight:500;color:var(--txt-mut)">(optional)</span></div>
+        <textarea class="text-input" name="problem_cost" rows="3" placeholder="e.g. I lose my best hours every morning just figuring out what to do next."></textarea>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Section 3: Minary fit -->
+    <div class="survey-section">
+      <div class="section-title">Section 3 of 4 · Minary fit</div>
+
+      <div class="fit-callout">
+        <p>Minary looks at your <strong>energy, focus, and deadlines</strong> and tells you the single best thing to work on right now — instead of just showing a task list.</p>
+      </div>
+
+      <!-- Q7: energy_match_appeal -->
+      <div class="question" id="q-appeal">
+        <div class="question-label">How appealing is a tool that matches tasks to your current energy and focus?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="energy_match_appeal" value="0"><span class="option-text">Not appealing</span></label>
+          <label class="option"><input type="radio" name="energy_match_appeal" value="1"><span class="option-text">Somewhat</span></label>
+          <label class="option"><input type="radio" name="energy_match_appeal" value="2"><span class="option-text">Very</span></label>
+          <label class="option"><input type="radio" name="energy_match_appeal" value="3"><span class="option-text">I'd want this today</span></label>
+        </div>
+        <div class="field-error" id="err-appeal">Please select one.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Section 4: Pricing -->
+    <div class="survey-section">
+      <div class="section-title">Section 4 of 4 · Pricing</div>
+
+      <!-- Q9: wtp_band -->
+      <div class="question" id="q-wtp">
+        <div class="question-label">If Minary reliably saved you a few hours a week, what would you expect to pay per month?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="wtp_band" value="0"><span class="option-text">I wouldn't pay</span></label>
+          <label class="option"><input type="radio" name="wtp_band" value="1"><span class="option-text">€1–5</span></label>
+          <label class="option"><input type="radio" name="wtp_band" value="2"><span class="option-text">€6–10</span></label>
+          <label class="option"><input type="radio" name="wtp_band" value="3"><span class="option-text">€11–15</span></label>
+          <label class="option"><input type="radio" name="wtp_band" value="4"><span class="option-text">€16–25</span></label>
+          <label class="option"><input type="radio" name="wtp_band" value="5"><span class="option-text">€25+</span></label>
+        </div>
+        <div class="field-error" id="err-wtp">Please select one.</div>
+      </div>
+
+      <!-- Q10: price_15_reaction -->
+      <div class="question" id="q-price15">
+        <div class="question-label">At €15/month, how would you feel?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="price_15_reaction" value="0"><span class="option-text">Wouldn't pay at any price</span></label>
+          <label class="option"><input type="radio" name="price_15_reaction" value="1"><span class="option-text">Too expensive</span></label>
+          <label class="option"><input type="radio" name="price_15_reaction" value="2"><span class="option-text">About right</span></label>
+          <label class="option"><input type="radio" name="price_15_reaction" value="3"><span class="option-text">Cheap for the value</span></label>
+        </div>
+        <div class="field-error" id="err-price15">Please select one.</div>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="submit-btn" id="submit-btn">Submit</button>
+      <p class="submit-note">Your answers are anonymous and used only to improve Minary.</p>
+    </div>
+
+  </form>
+
+</div>
+
+<script>
+  const { createClient } = supabase;
+  const db = createClient(
+    'https://ythznwnrgrdwvaltbyqw.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0aHpud25yZ3Jkd3ZhbHRieXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMDA1NTEsImV4cCI6MjA5MTY3NjU1MX0.EMmr66bWE9RdCS26kVKWg2zQi2q_G7NVvmQ8M4jdFa8'
+  );
+
+  // Get email from URL param
+  const urlParams = new URLSearchParams(window.location.search);
+  const emailFromLanding = urlParams.get('email') || null;
+
+  // Progress bar based on scroll
+  const form = document.getElementById('survey-form');
+  const progressFill = document.getElementById('progress-fill');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    const pct = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+    progressFill.style.width = pct + '%';
+  });
+
+  // Show/hide other text inputs
+  document.querySelectorAll('[name="planning_method"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const inp = document.getElementById('planning-other-input');
+      inp.classList.toggle('visible', r.value === 'other' && r.checked);
+    });
+  });
+  document.querySelectorAll('[name="time_drains"][value="other"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      document.getElementById('drains-other-input').classList.toggle('visible', cb.checked);
+    });
+  });
+
+  // Validation helpers
+  function showErr(id) { document.getElementById(id).classList.add('visible'); }
+  function hideErr(id) { document.getElementById(id).classList.remove('visible'); }
+
+  function validate() {
+    let ok = true;
+
+    if (!document.querySelector('[name="role"]:checked')) { showErr('err-role'); ok = false; } else hideErr('err-role');
+    if (!document.querySelector('[name="work_types"]:checked')) { showErr('err-work-types'); ok = false; } else hideErr('err-work-types');
+    if (!document.querySelector('[name="planning_method"]:checked')) { showErr('err-planning'); ok = false; } else hideErr('err-planning');
+    if (!document.querySelector('[name="time_drains"]:checked')) { showErr('err-drains'); ok = false; } else hideErr('err-drains');
+    if (!document.querySelector('[name="biggest_problem"]:checked')) { showErr('err-biggest'); ok = false; } else hideErr('err-biggest');
+    if (!document.querySelector('[name="energy_match_appeal"]:checked')) { showErr('err-appeal'); ok = false; } else hideErr('err-appeal');
+    if (!document.querySelector('[name="wtp_band"]:checked')) { showErr('err-wtp'); ok = false; } else hideErr('err-wtp');
+    if (!document.querySelector('[name="price_15_reaction"]:checked')) { showErr('err-price15'); ok = false; } else hideErr('err-price15');
+
+    if (!ok) {
+      const firstErr = document.querySelector('.field-error.visible');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    return ok;
+  }
+
+  // Submit
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    const workTypes = [...document.querySelectorAll('[name="work_types"]:checked')].map(c => c.value);
+    const timedrains = [...document.querySelectorAll('[name="time_drains"]:checked')].map(c => c.value);
+
+    const payload = {
+      email:                emailFromLanding,
+      role:                 document.querySelector('[name="role"]:checked')?.value,
+      work_types:           workTypes,
+      planning_method:      document.querySelector('[name="planning_method"]:checked')?.value,
+      planning_method_other: document.querySelector('[name="planning_method_other"]')?.value || null,
+      time_drains:          timedrains,
+      time_drains_other:    document.querySelector('[name="time_drains_other"]')?.value || null,
+      biggest_problem:      document.querySelector('[name="biggest_problem"]:checked')?.value,
+      problem_cost:         document.querySelector('[name="problem_cost"]')?.value || null,
+      energy_match_appeal:  parseInt(document.querySelector('[name="energy_match_appeal"]:checked')?.value),
+      wtp_band:             parseInt(document.querySelector('[name="wtp_band"]:checked')?.value),
+      price_15_reaction:    parseInt(document.querySelector('[name="price_15_reaction"]:checked')?.value),
+    };
+
+    const { error } = await db.from('surveys').insert(payload);
+
+    btn.disabled = false;
+    btn.textContent = 'Submit';
+
+    if (error) {
+      btn.textContent = 'Something went wrong — try again';
+      setTimeout(() => { btn.textContent = 'Submit'; }, 3000);
+      return;
+    }
+
+    form.classList.add('hidden');
+    document.getElementById('thankyou').classList.add('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
