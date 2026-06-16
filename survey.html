@@ -193,8 +193,7 @@
 
   <!-- Logo -->
   <a href="/" class="logo">
-    <img src="/public/minary-logo-white.png" alt="Minary" onerror="this.style.display='none';this.nextSibling.style.display='block'">
-    <span style="display:none;font-size:18px;font-weight:800;color:var(--txt)">minary</span>
+    <img src="/public/logo.png" alt="Minary" style="height:28px;">
   </a>
 
   <!-- Progress -->
@@ -457,6 +456,12 @@
     };
 
     const { error } = await db.from('surveys').insert(payload);
+
+    if (!error && emailFromLanding) {
+      await db.from('waitlist')
+        .update({ survey_completed: true })
+        .eq('email', emailFromLanding);
+    }
 
     btn.disabled = false;
     btn.textContent = 'Submit';
