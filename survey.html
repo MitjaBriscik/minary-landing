@@ -39,7 +39,6 @@
       line-height: 1.6;
     }
 
-    /* Background */
     .bg-glow {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background:
@@ -47,37 +46,25 @@
         radial-gradient(700px 500px at 5% 15%, rgba(45,106,79,0.15), transparent 58%);
     }
 
-    /* Layout */
     .page { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
 
-    /* Logo */
-    .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; text-decoration: none; }
-    .logo img { height: 28px; }
-
-    /* Progress */
     .progress-wrap { margin-bottom: 40px; }
     .progress-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--txt-faint); margin-bottom: 10px; }
     .progress-bar-bg { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; }
     .progress-bar-fill { height: 4px; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
 
-    /* Section */
     .survey-section { margin-bottom: 48px; }
     .section-title {
       font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--accent); margin-bottom: 24px;
     }
 
-    /* Question */
     .question { margin-bottom: 32px; }
     .question-label {
       font-size: 16px; font-weight: 700; color: var(--txt);
       margin-bottom: 14px; line-height: 1.4;
     }
-    .question-sub {
-      font-size: 13px; color: var(--txt-mut); margin-bottom: 14px; line-height: 1.5;
-    }
 
-    /* Radio / Checkbox options */
     .options { display: flex; flex-direction: column; gap: 8px; }
     .option {
       display: flex; align-items: center; gap: 12px;
@@ -99,7 +86,6 @@
     .option-text { font-size: 14px; font-weight: 500; color: var(--txt-mut); line-height: 1.4; cursor: pointer; }
     .option:has(input:checked) .option-text { color: var(--txt); }
 
-    /* Other text input */
     .other-input {
       margin-top: 8px; width: 100%;
       padding: 10px 14px; border-radius: 8px;
@@ -111,7 +97,6 @@
     .other-input:focus { border-color: rgba(82,180,122,0.4); }
     .other-input.visible { display: block; }
 
-    /* Text input */
     .text-input {
       width: 100%; padding: 12px 16px; border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.08);
@@ -123,20 +108,17 @@
     .text-input:focus { border-color: rgba(82,180,122,0.35); }
     .text-input::placeholder { color: var(--txt-faint); }
 
-    /* Minary fit callout */
     .fit-callout {
       background: rgba(82,180,122,0.06);
       border: 1px solid rgba(82,180,122,0.18);
       border-radius: 12px; padding: 16px 20px;
       margin-bottom: 28px;
     }
-    .fit-callout p { font-size: 14px; color: var(--txt-mut); line-height: 1.6; }
+    .fit-callout p { font-size: 14px; color: var(--txt-mut); line-height: 1.7; }
     .fit-callout strong { color: var(--accent-bright); font-weight: 600; }
 
-    /* Divider */
     .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 48px 0; }
 
-    /* Submit */
     .submit-wrap { margin-top: 40px; }
     .submit-btn {
       width: 100%; padding: 16px;
@@ -149,11 +131,9 @@
     .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .submit-note { font-size: 12px; color: var(--txt-faint); text-align: center; margin-top: 12px; }
 
-    /* Error */
     .field-error { font-size: 12px; color: #f87171; margin-top: 6px; display: none; }
     .field-error.visible { display: block; }
 
-    /* Thank you screen */
     .thankyou {
       display: none; text-align: center;
       padding: 80px 0;
@@ -216,22 +196,7 @@
 
     <!-- Section 1: About you -->
     <div class="survey-section">
-      <div class="section-title">Section 1 of 4 · About you</div>
-
-      <!-- Q1: role -->
-      <div class="question" id="q-role">
-        <div class="question-label">Which best describes your work?</div>
-        <div class="options">
-          <label class="option"><input type="radio" name="role" value="freelancer"><span class="option-text">Freelancer</span></label>
-          <label class="option"><input type="radio" name="role" value="content_creator"><span class="option-text">Content creator</span></label>
-          <label class="option"><input type="radio" name="role" value="student"><span class="option-text">Student</span></label>
-          <label class="option"><input type="radio" name="role" value="solo_founder"><span class="option-text">Solo founder</span></label>
-          <label class="option"><input type="radio" name="role" value="remote_employee"><span class="option-text">Remote employee</span></label>
-          <label class="option"><input type="radio" name="role" value="agency_small_team"><span class="option-text">Agency / small team</span></label>
-          <label class="option"><input type="radio" name="role" value="other"><span class="option-text">Other</span></label>
-        </div>
-        <div class="field-error" id="err-role">Please select one.</div>
-      </div>
+      <div class="section-title">Section 1 of 3 · About you</div>
 
       <!-- Q2: work_types -->
       <div class="question" id="q-work-types">
@@ -255,7 +220,7 @@
           <label class="option"><input type="radio" name="planning_method" value="task_app"><span class="option-text">A to-do / task app</span></label>
           <label class="option"><input type="radio" name="planning_method" value="calendar"><span class="option-text">Calendar</span></label>
           <label class="option"><input type="radio" name="planning_method" value="notes_paper"><span class="option-text">Notes or paper</span></label>
-          <label class="option"><input type="radio" name="planning_method" value="nothing"><span class="option-text">Nothing, I wing it</span></label>
+          <label class="option"><input type="radio" name="planning_method" value="no_system"><span class="option-text">I don't have a system</span></label>
           <label class="option"><input type="radio" name="planning_method" value="other"><span class="option-text">Other</span></label>
         </div>
         <input type="text" class="other-input" id="planning-other-input" name="planning_method_other" placeholder="Tell us more...">
@@ -267,7 +232,7 @@
 
     <!-- Section 2: Your challenges -->
     <div class="survey-section">
-      <div class="section-title">Section 2 of 4 · Your challenges</div>
+      <div class="section-title">Section 2 of 3 · Your challenges</div>
 
       <!-- Q4: time_drains -->
       <div class="question" id="q-drains">
@@ -308,36 +273,29 @@
 
     <div class="divider"></div>
 
-    <!-- Section 3: Minary fit -->
+    <!-- Section 3: Minary -->
     <div class="survey-section">
-      <div class="section-title">Section 3 of 4 · Minary fit</div>
+      <div class="section-title">Section 3 of 3 · Minary</div>
 
       <div class="fit-callout">
-        <p>Minary looks at your <strong>energy, focus, and deadlines</strong> and tells you the single best thing to work on right now — instead of just showing a task list.</p>
+        <p>Minary reads your <strong>energy level, focus capacity, and deadlines</strong>. Then it tells you the one task you should work on right now. No list to scroll, no decisions to make.</p>
       </div>
 
       <!-- Q7: energy_match_appeal -->
       <div class="question" id="q-appeal">
-        <div class="question-label">How appealing is a tool that matches tasks to your current energy and focus?</div>
+        <div class="question-label">Would a tool like this solve a real problem for you?</div>
         <div class="options">
-          <label class="option"><input type="radio" name="energy_match_appeal" value="0"><span class="option-text">Not appealing</span></label>
-          <label class="option"><input type="radio" name="energy_match_appeal" value="1"><span class="option-text">Somewhat</span></label>
-          <label class="option"><input type="radio" name="energy_match_appeal" value="2"><span class="option-text">Very</span></label>
-          <label class="option"><input type="radio" name="energy_match_appeal" value="3"><span class="option-text">I'd want this today</span></label>
+          <label class="option"><input type="radio" name="energy_match_appeal" value="0"><span class="option-text">Not really</span></label>
+          <label class="option"><input type="radio" name="energy_match_appeal" value="1"><span class="option-text">Somewhat, it could help</span></label>
+          <label class="option"><input type="radio" name="energy_match_appeal" value="2"><span class="option-text">Yes, this is what I need</span></label>
+          <label class="option"><input type="radio" name="energy_match_appeal" value="3"><span class="option-text">I'd use this today</span></label>
         </div>
         <div class="field-error" id="err-appeal">Please select one.</div>
       </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Section 4: Pricing -->
-    <div class="survey-section">
-      <div class="section-title">Section 4 of 4 · Pricing</div>
 
       <!-- Q9: wtp_band -->
       <div class="question" id="q-wtp">
-        <div class="question-label">If Minary reliably saved you a few hours a week, what would you expect to pay per month?</div>
+        <div class="question-label">If we solved that problem for you every single day, what would you pay per month?</div>
         <div class="options">
           <label class="option"><input type="radio" name="wtp_band" value="0"><span class="option-text">I wouldn't pay</span></label>
           <label class="option"><input type="radio" name="wtp_band" value="1"><span class="option-text">€1–5</span></label>
@@ -347,18 +305,6 @@
           <label class="option"><input type="radio" name="wtp_band" value="5"><span class="option-text">€25+</span></label>
         </div>
         <div class="field-error" id="err-wtp">Please select one.</div>
-      </div>
-
-      <!-- Q10: price_15_reaction -->
-      <div class="question" id="q-price15">
-        <div class="question-label">At €15/month, how would you feel?</div>
-        <div class="options">
-          <label class="option"><input type="radio" name="price_15_reaction" value="0"><span class="option-text">Wouldn't pay at any price</span></label>
-          <label class="option"><input type="radio" name="price_15_reaction" value="1"><span class="option-text">Too expensive</span></label>
-          <label class="option"><input type="radio" name="price_15_reaction" value="2"><span class="option-text">About right</span></label>
-          <label class="option"><input type="radio" name="price_15_reaction" value="3"><span class="option-text">Cheap for the value</span></label>
-        </div>
-        <div class="field-error" id="err-price15">Please select one.</div>
       </div>
     </div>
 
@@ -378,11 +324,9 @@
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0aHpud25yZ3Jkd3ZhbHRieXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMDA1NTEsImV4cCI6MjA5MTY3NjU1MX0.EMmr66bWE9RdCS26kVKWg2zQi2q_G7NVvmQ8M4jdFa8'
   );
 
-  // Get email from URL param
   const urlParams = new URLSearchParams(window.location.search);
   const emailFromLanding = urlParams.get('email') || null;
 
-  // Progress bar based on scroll
   const form = document.getElementById('survey-form');
   const progressFill = document.getElementById('progress-fill');
   window.addEventListener('scroll', () => {
@@ -392,7 +336,6 @@
     progressFill.style.width = pct + '%';
   });
 
-  // Show/hide other text inputs
   document.querySelectorAll('[name="planning_method"]').forEach(r => {
     r.addEventListener('change', () => {
       const inp = document.getElementById('planning-other-input');
@@ -405,21 +348,18 @@
     });
   });
 
-  // Validation helpers
   function showErr(id) { document.getElementById(id).classList.add('visible'); }
   function hideErr(id) { document.getElementById(id).classList.remove('visible'); }
 
   function validate() {
     let ok = true;
 
-    if (!document.querySelector('[name="role"]:checked')) { showErr('err-role'); ok = false; } else hideErr('err-role');
     if (!document.querySelector('[name="work_types"]:checked')) { showErr('err-work-types'); ok = false; } else hideErr('err-work-types');
     if (!document.querySelector('[name="planning_method"]:checked')) { showErr('err-planning'); ok = false; } else hideErr('err-planning');
     if (!document.querySelector('[name="time_drains"]:checked')) { showErr('err-drains'); ok = false; } else hideErr('err-drains');
     if (!document.querySelector('[name="biggest_problem"]:checked')) { showErr('err-biggest'); ok = false; } else hideErr('err-biggest');
     if (!document.querySelector('[name="energy_match_appeal"]:checked')) { showErr('err-appeal'); ok = false; } else hideErr('err-appeal');
     if (!document.querySelector('[name="wtp_band"]:checked')) { showErr('err-wtp'); ok = false; } else hideErr('err-wtp');
-    if (!document.querySelector('[name="price_15_reaction"]:checked')) { showErr('err-price15'); ok = false; } else hideErr('err-price15');
 
     if (!ok) {
       const firstErr = document.querySelector('.field-error.visible');
@@ -428,7 +368,6 @@
     return ok;
   }
 
-  // Submit
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!validate()) return;
@@ -441,18 +380,16 @@
     const timedrains = [...document.querySelectorAll('[name="time_drains"]:checked')].map(c => c.value);
 
     const payload = {
-      email:                emailFromLanding,
-      role:                 document.querySelector('[name="role"]:checked')?.value,
-      work_types:           workTypes,
-      planning_method:      document.querySelector('[name="planning_method"]:checked')?.value,
+      email:                 emailFromLanding,
+      work_types:            workTypes,
+      planning_method:       document.querySelector('[name="planning_method"]:checked')?.value,
       planning_method_other: document.querySelector('[name="planning_method_other"]')?.value || null,
-      time_drains:          timedrains,
-      time_drains_other:    document.querySelector('[name="time_drains_other"]')?.value || null,
-      biggest_problem:      document.querySelector('[name="biggest_problem"]:checked')?.value,
-      problem_cost:         document.querySelector('[name="problem_cost"]')?.value || null,
-      energy_match_appeal:  parseInt(document.querySelector('[name="energy_match_appeal"]:checked')?.value),
-      wtp_band:             parseInt(document.querySelector('[name="wtp_band"]:checked')?.value),
-      price_15_reaction:    parseInt(document.querySelector('[name="price_15_reaction"]:checked')?.value),
+      time_drains:           timedrains,
+      time_drains_other:     document.querySelector('[name="time_drains_other"]')?.value || null,
+      biggest_problem:       document.querySelector('[name="biggest_problem"]:checked')?.value,
+      problem_cost:          document.querySelector('[name="problem_cost"]')?.value || null,
+      energy_match_appeal:   parseInt(document.querySelector('[name="energy_match_appeal"]:checked')?.value),
+      wtp_band:              parseInt(document.querySelector('[name="wtp_band"]:checked')?.value),
     };
 
     const { error } = await db.from('surveys').insert(payload);
@@ -467,7 +404,7 @@
     btn.textContent = 'Submit';
 
     if (error) {
-      btn.textContent = 'Something went wrong — try again';
+      btn.textContent = 'Something went wrong, try again';
       setTimeout(() => { btn.textContent = 'Submit'; }, 3000);
       return;
     }
