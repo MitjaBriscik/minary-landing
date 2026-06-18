@@ -795,13 +795,13 @@
     .problem {
       background: linear-gradient(to bottom,
         transparent 0%,
-        #122a1e 120px,
+        #122a1e 88px,
         #122a1e calc(100% - 210px),
         #1a3829 calc(100% - 130px),
         #6f8a7c calc(100% - 55px),
         #f8f9f7 100%) !important;
       margin-top: -120px;
-      padding-top: calc(44px + 120px) !important;
+      padding-top: 118px !important;
       padding-bottom: 230px !important;
       position: relative;
       z-index: 5;
@@ -816,32 +816,43 @@
     .problem-lead .hi { color: rgba(255,255,255,0.95) !important; }
     .how-head p:not(.section-eyebrow) { color: #6b7f74; }
 
-    /* Story (lives on the dark part of the problem section) */
-    .story-h {
+    /* Story: title -> first-person lede -> belief pull-quote -> answer panel */
+    .story { text-align: left; }
+    .why-acts { width: min(100%, 760px); margin: 0; }
+    .why-acts .section-eyebrow { color: #45c47e; }
+    .why-title {
       font-family: var(--display); font-weight: 700;
-      font-size: clamp(26px, 3.2vw, 38px); line-height: 1.12;
-      letter-spacing: -0.025em; color: #fff !important; margin-bottom: 18px;
+      font-size: clamp(34px, 5vw, 56px); line-height: 1.03;
+      color: #fff !important; margin: 0 0 30px; max-width: 15ch;
     }
-    .story-lead {
-      font-size: 19px; line-height: 1.6; font-weight: 500;
-      color: rgba(255,255,255,0.82); max-width: 58ch; margin-bottom: 46px;
-    }
-    .story-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 940px; }
-    .story-col-k { font-family: var(--display); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent-bright); }
-    .story-col h4 { font-family: var(--display); font-weight: 700; font-size: 17px; color: #fff; margin: 10px 0 9px; }
-    .story-col p { font-size: 14.5px; line-height: 1.6; font-weight: 500; color: rgba(255,255,255,0.62); }
-    .story-for {
-      font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
-      color: rgba(116,215,154,0.85); margin: 46px 0 16px;
-    }
-    .story-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-    .story-tag {
-      font-size: 14.5px; font-weight: 600; color: rgba(255,255,255,0.9);
-      padding: 9px 18px; border-radius: 100px;
-      background: rgba(82,180,122,0.10); border: 1px solid rgba(82,180,122,0.30);
-    }
-    @media (max-width: 760px) { .story-cols { grid-template-columns: 1fr; gap: 24px; } }
+    .why-lede { font-size: 19px; line-height: 1.7; font-weight: 500; color: rgba(255,255,255,0.58); max-width: 62ch; margin: 0; }
+    .why-lede em { font-style: normal; color: #fff; font-weight: 600; }
 
+    .why-belief {
+      margin: 40px 0; padding: 4px 0 6px 28px; border-left: 3px solid var(--accent);
+      font-family: var(--display); font-weight: 600;
+      font-size: clamp(20px, 2.5vw, 26px); line-height: 1.34;
+      color: rgba(255,255,255,0.94); max-width: 700px;
+    }
+    .why-belief em { font-style: normal; color: var(--accent-bright); }
+
+    .why-answer {
+      padding: 36px 40px; border-radius: 20px;
+      background: linear-gradient(165deg, rgba(82,180,122,0.14), rgba(82,180,122,0.035));
+      border: 1px solid rgba(82,180,122,0.32);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.32);
+    }
+    .why-answer-tag { display: inline-block; margin-bottom: 14px; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-bright); }
+    .why-answer h3 { font-family: var(--display); font-weight: 800; font-size: clamp(24px, 3.2vw, 33px); line-height: 1.1; color: #fff; margin: 0 0 15px; max-width: 20ch; }
+    .why-answer p { font-size: 16.5px; line-height: 1.68; font-weight: 500; color: rgba(255,255,255,0.82); max-width: 58ch; }
+    .why-answer em { font-style: normal; color: var(--accent-bright); font-weight: 700; }
+
+    @media (max-width: 620px) {
+      .why-acts { max-width: 100%; }
+      .why-lede { font-size: 17px; }
+      .why-belief { padding-left: 20px; margin: 32px 0; }
+      .why-answer { padding: 26px 22px; }
+    }
     .how .plan-card {
       box-shadow: 0 12px 30px rgba(13,40,24,0.10), inset 0 1px 0 rgba(255,255,255,0.05);
     }
@@ -1008,38 +1019,21 @@
 
     </section>
 
-    <!-- WHAT IS MINARY -->
-    <section class="block problem story">
+    <!-- WHY MINARY -->
+    <section class="block problem story" id="why">
       <div class="wrap">
-        <p class="section-eyebrow reveal">The product</p>
-        <h2 class="story-h reveal d1">What is Minary?</h2>
-        <p class="story-lead reveal d1">Working alone means planning alone. Minary is the AI planner that decides what you should work on, so you stop burning your best hours just choosing.</p>
+        <div class="why-acts">
+          <p class="section-eyebrow">Why we built Minary.</p>
 
-        <div class="story-cols reveal d2">
-          <div class="story-col">
-            <span class="story-col-k">01</span>
-            <h4>The problem</h4>
-            <p>A to-do list shows every task but tells you nothing: not what to start, nor whether it fits the time and energy you have now.</p>
-          </div>
-          <div class="story-col">
-            <span class="story-col-k">02</span>
-            <h4>What it does</h4>
-            <p>You enter your time, energy and focus. Minary scores every task against your deadlines and priorities, then hands back one ordered plan.</p>
-          </div>
-          <div class="story-col">
-            <span class="story-col-k">03</span>
-            <h4>It adapts</h4>
-            <p>Every finished session feeds the model, so the scoring keeps tuning to how you actually work.</p>
-          </div>
-        </div>
+          <p class="why-lede">We work alone too: <em>freelancers, researchers, solo founders, creators, engineers</em>. And everyone like us keeps hitting the same morning: a long list, no team, no one to tell us what matters, and that familiar feeling of being <em>overwhelmed, lost, unsure where to start</em>.</p>
 
-        <p class="story-for reveal">Made for the people who answer to their own focus:</p>
-        <div class="story-tags reveal">
-          <span class="story-tag">Freelancers</span>
-          <span class="story-tag">Researchers &amp; PhDs</span>
-          <span class="story-tag">Solo founders</span>
-          <span class="story-tag">Content creators</span>
-          <span class="story-tag">Indie engineers</span>
+          <blockquote class="why-belief">The problem was never the list.<br>Every task manager is <em>passive</em>, blind to the <em>headspace</em> you're in.</blockquote>
+
+          <div class="why-answer">
+            <span class="why-answer-tag">Our answer</span>
+            <h3>Minary plans your day around you, not just your tasks.</h3>
+            <p>Tell Minary what's on your plate and how the day feels. Underneath, our models learn the shape of how you work: when you focus, what you keep dodging, how long things really take. Then it answers the only question that ever mattered, <em>what to do now</em>. Your best hours go to work that counts, you close the laptop at a decent hour without the guilt, and the endless deciding that quietly eats the morning is finally off your shoulders.</p>
+          </div>
         </div>
       </div>
     </section>
