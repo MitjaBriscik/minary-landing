@@ -197,6 +197,19 @@
     <!-- Section 1: About you -->
     <div class="survey-section">
 
+      <!-- Q1: based_region -->
+      <div class="question" id="q-location">
+        <div class="question-label">Where are you based?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="based_region" value="europe"><span class="option-text">Europe</span></label>
+          <label class="option"><input type="radio" name="based_region" value="uk"><span class="option-text">United Kingdom</span></label>
+          <label class="option"><input type="radio" name="based_region" value="south_korea"><span class="option-text">South Korea</span></label>
+          <label class="option"><input type="radio" name="based_region" value="north_america"><span class="option-text">United States / Canada</span></label>
+          <label class="option"><input type="radio" name="based_region" value="other"><span class="option-text">Somewhere else</span></label>
+        </div>
+        <div class="field-error" id="err-location">Please select one.</div>
+      </div>
+
       <!-- Q2: work_types -->
       <div class="question" id="q-work-types">
         <div class="question-label">What kind of work fills most of your day? <span style="font-weight:500;color:var(--txt-mut)">(pick all that apply)</span></div>
@@ -297,11 +310,11 @@
         <div class="question-label">If we solved that problem for you every single day, what would you pay per month?</div>
         <div class="options">
           <label class="option"><input type="radio" name="wtp_band" value="0"><span class="option-text">I wouldn't pay</span></label>
-          <label class="option"><input type="radio" name="wtp_band" value="1"><span class="option-text">€1–5</span></label>
-          <label class="option"><input type="radio" name="wtp_band" value="2"><span class="option-text">€6–10</span></label>
-          <label class="option"><input type="radio" name="wtp_band" value="3"><span class="option-text">€11–15</span></label>
-          <label class="option"><input type="radio" name="wtp_band" value="4"><span class="option-text">€16–25</span></label>
-          <label class="option"><input type="radio" name="wtp_band" value="5"><span class="option-text">€25+</span></label>
+          <label class="option"><input type="radio" name="wtp_band" value="1"><span class="option-text" data-wtp-band="1">$1–5</span></label>
+          <label class="option"><input type="radio" name="wtp_band" value="2"><span class="option-text" data-wtp-band="2">$6–10</span></label>
+          <label class="option"><input type="radio" name="wtp_band" value="3"><span class="option-text" data-wtp-band="3">$11–15</span></label>
+          <label class="option"><input type="radio" name="wtp_band" value="4"><span class="option-text" data-wtp-band="4">$16–25</span></label>
+          <label class="option"><input type="radio" name="wtp_band" value="5"><span class="option-text" data-wtp-band="5">$25+</span></label>
         </div>
         <div class="field-error" id="err-wtp">Please select one.</div>
       </div>
@@ -327,6 +340,40 @@
 
   const form = document.getElementById('survey-form');
   const progressFill = document.getElementById('progress-fill');
+  const currencyByRegion = {
+    europe: 'EUR',
+    uk: 'GBP',
+    south_korea: 'KRW',
+    north_america: 'USD',
+    other: 'USD',
+  };
+  const priceLabels = {
+    USD: { 1: '$1–5', 2: '$6–10', 3: '$11–15', 4: '$16–25', 5: '$25+' },
+    EUR: { 1: '€1–5', 2: '€6–10', 3: '€11–15', 4: '€16–25', 5: '€25+' },
+    GBP: { 1: '£1–5', 2: '£6–10', 3: '£11–15', 4: '£16–25', 5: '£25+' },
+    KRW: { 1: '₩1,000–5,000', 2: '₩6,000–10,000', 3: '₩11,000–15,000', 4: '₩16,000–25,000', 5: '₩25,000+' },
+  };
+
+  function getSelectedRegion() {
+    return document.querySelector('[name="based_region"]:checked')?.value || 'other';
+  }
+
+  function getSelectedCurrency() {
+    return currencyByRegion[getSelectedRegion()] || 'USD';
+  }
+
+  function updatePriceLabels() {
+    const labels = priceLabels[getSelectedCurrency()] || priceLabels.USD;
+    document.querySelectorAll('[data-wtp-band]').forEach((el) => {
+      el.textContent = labels[el.dataset.wtpBand];
+    });
+  }
+
+  document.querySelectorAll('[name="based_region"]').forEach((r) => {
+    r.addEventListener('change', updatePriceLabels);
+  });
+  updatePriceLabels();
+
   window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
     const total = document.body.scrollHeight - window.innerHeight;
@@ -352,6 +399,7 @@
   function validate() {
     let ok = true;
 
+    if (!document.querySelector('[name="based_region"]:checked')) { showErr('err-location'); ok = false; } else hideErr('err-location');
     if (!document.querySelector('[name="work_types"]:checked')) { showErr('err-work-types'); ok = false; } else hideErr('err-work-types');
     if (!document.querySelector('[name="planning_method"]:checked')) { showErr('err-planning'); ok = false; } else hideErr('err-planning');
     if (!document.querySelector('[name="time_drains"]:checked')) { showErr('err-drains'); ok = false; } else hideErr('err-drains');
@@ -376,9 +424,12 @@
 
     const workTypes = [...document.querySelectorAll('[name="work_types"]:checked')].map(c => c.value);
     const timedrains = [...document.querySelectorAll('[name="time_drains"]:checked')].map(c => c.value);
+    const basedRegion = getSelectedRegion();
+    const wtpCurrency = getSelectedCurrency();
 
     const payload = {
       email:                 emailFromLanding,
+      based_region:          basedRegion,
       work_types:            workTypes,
       planning_method:       document.querySelector('[name="planning_method"]:checked')?.value,
       planning_method_other: document.querySelector('[name="planning_method_other"]')?.value || null,
@@ -388,9 +439,17 @@
       problem_cost:          document.querySelector('[name="problem_cost"]')?.value || null,
       energy_match_appeal:   parseInt(document.querySelector('[name="energy_match_appeal"]:checked')?.value),
       wtp_band:              parseInt(document.querySelector('[name="wtp_band"]:checked')?.value),
+      wtp_currency:          wtpCurrency,
     };
 
-    const { error } = await db.from('surveys').insert(payload);
+    let { error } = await db.from('surveys').insert(payload);
+
+    if (error && error.code === 'PGRST204') {
+      const legacyPayload = { ...payload };
+      delete legacyPayload.based_region;
+      delete legacyPayload.wtp_currency;
+      ({ error } = await db.from('surveys').insert(legacyPayload));
+    }
 
     if (!error && emailFromLanding) {
       await db.from('waitlist')
