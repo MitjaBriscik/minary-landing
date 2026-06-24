@@ -676,11 +676,74 @@
     }
 
     @media (max-width: 720px) {
-      .carousel { max-width: 100%; height: 390px; margin-top: 42px; }
-      .win-img { height: 290px; max-width: 92vw; }
-      .win-screen-ai { width: 92vw; height: 290px; }
-      .carousel-nav.prev { left: 2px; }
-      .carousel-nav.next { right: 2px; }
+      .carousel {
+        max-width: 100%;
+        height: 420px;
+        margin-top: 38px;
+        transition: height 0.35s ease;
+      }
+      .carousel[data-kind="wide"] { height: 292px; }
+      .carousel[data-kind="ultrawide"] { height: 292px; }
+      .carousel[data-kind="phone"] { height: 452px; }
+      .carousel[data-kind="modal"] { height: 420px; }
+      .carousel[data-kind="ai"] { height: 342px; }
+      .win {
+        max-width: none;
+      }
+      .win-screen {
+        min-width: 0;
+        min-height: 0;
+        border-radius: 18px;
+      }
+      .win-img {
+        width: auto;
+        height: auto;
+        max-width: min(86vw, 380px);
+        max-height: 390px;
+        object-fit: contain;
+      }
+      .win-shot-wide .win-screen {
+        width: min(90vw, 420px);
+        aspect-ratio: 2.08;
+        background: rgba(248,249,247,0.96);
+      }
+      .win-shot-wide .win-img {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        object-fit: contain;
+        object-position: center center;
+      }
+      .win-shot-ultra .win-screen {
+        aspect-ratio: 2.08;
+      }
+      .win-shot-ultra .win-img {
+        object-fit: cover;
+        object-position: left center;
+      }
+      .win-shot-phone .win-img {
+        width: min(62vw, 260px);
+        max-width: none;
+        max-height: none;
+      }
+      .win-shot-slim .win-img {
+        width: min(58vw, 242px);
+      }
+      .win-shot-modal .win-img {
+        width: min(78vw, 336px);
+        max-width: none;
+        max-height: none;
+      }
+      .win-screen-ai { width: 92vw; height: 310px; }
+      .carousel-nav {
+        width: 46px;
+        height: 46px;
+        background: rgba(255,255,255,0.96);
+      }
+      .carousel-nav.prev { left: 8px; }
+      .carousel-nav.next { right: 8px; }
+      .carousel-cap { margin-top: 30px; }
     }
 
     /* Who it's for */
@@ -1299,13 +1362,13 @@
         <div class="carousel reveal" id="howCarousel">
           <button type="button" class="carousel-nav prev" aria-label="Previous step">&lsaquo;</button>
           <div class="carousel-stage" id="carouselStage">
-            <div class="win" data-i="0"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/05-tasks.png" alt="Your tasks" onerror="this.remove()"></div></div>
-            <div class="win" data-i="1"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/01-check-in.png" alt="Check in" onerror="this.remove()"></div></div>
-            <div class="win" data-i="2"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/04-session-plan.png" alt="Session planning" onerror="this.remove()"></div></div>
-            <div class="win" data-i="3"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/02-plan.png" alt="Your plan" onerror="this.remove()"></div></div>
-            <div class="win" data-i="4"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/03-session.png" alt="Track the session" onerror="this.remove()"></div></div>
-            <div class="win" data-i="5"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/06-endsess.png" alt="Session recap" onerror="this.remove()"></div></div>
-            <div class="win win-ai" data-i="6">
+            <div class="win win-shot-wide" data-i="0" data-kind="wide"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/05-tasks.png" alt="Your tasks" onerror="this.remove()"></div></div>
+            <div class="win win-shot-phone" data-i="1" data-kind="phone"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/01-check-in.png" alt="Check in" onerror="this.remove()"></div></div>
+            <div class="win win-shot-modal" data-i="2" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/04-session-plan.png" alt="Session planning" onerror="this.remove()"></div></div>
+            <div class="win win-shot-modal" data-i="3" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/02-plan.png" alt="Your plan" onerror="this.remove()"></div></div>
+            <div class="win win-shot-wide win-shot-ultra" data-i="4" data-kind="ultrawide"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/03-session.png" alt="Track the session" onerror="this.remove()"></div></div>
+            <div class="win win-shot-phone win-shot-slim" data-i="5" data-kind="phone"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/06-endsess.png" alt="Session recap" onerror="this.remove()"></div></div>
+            <div class="win win-ai" data-i="6" data-kind="ai">
               <div class="win-screen win-screen-ai">
                 <div class="ai-learn">
                   <span class="ai-learn-title">The learning layer</span>
@@ -1761,6 +1824,7 @@
           win.classList.toggle('is-front', front);
         });
         const c = caps[active];
+        carousel.dataset.kind = wins[active].dataset.kind || 'screen';
         capStep.textContent = c.step + ' / ' + String(N).padStart(2, '0'); capTitle.textContent = c.title; capDesc.innerHTML = c.desc;
         dots.forEach((d, i) => d.classList.toggle('on', i === active));
       }
