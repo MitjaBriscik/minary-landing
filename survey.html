@@ -116,6 +116,18 @@
     }
     .fit-callout p { font-size: 14px; color: var(--txt-mut); line-height: 1.7; }
     .fit-callout strong { color: var(--accent-bright); font-weight: 600; }
+    .fit-callout .fc-intro { margin-top: 14px; color: var(--txt); font-weight: 600; }
+    .fc-bullets { list-style: none; margin: 11px 0 15px; display: flex; flex-direction: column; gap: 9px; }
+    .fc-bullets li {
+      position: relative; padding-left: 24px;
+      font-size: 16px; font-weight: 600; color: var(--txt); line-height: 1.4;
+    }
+    .fc-bullets li::before {
+      content: ''; position: absolute; left: 3px; top: 8px;
+      width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+      box-shadow: 0 0 10px rgba(82,180,122,0.6);
+    }
+    .fc-bullets li strong { color: var(--accent-bright); font-weight: 700; }
 
     .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 48px 0; }
 
@@ -294,10 +306,14 @@
     <!-- Section 3: Minary -->
     <div class="survey-section">
       <div class="fit-callout">
-        <p style="margin-bottom:12px;">Most tools hand you a list and leave the hard part to you: deciding what actually deserves your attention today. <strong>Minary works the other way around.</strong></p>
-        <p style="margin-bottom:12px;">Before each work session you tell it three things: how much time you have, what your energy feels like right now, and how in control you feel. Ten seconds.</p>
-        <p style="margin-bottom:12px;">Minary scores every task against the headspace you're in, your deadlines and your priorities, then hands you one focused plan: one task to start, a clear order for the rest.</p>
-        <p>Every session it learns how you actually work, so the plan fits <strong>the day you're actually having</strong> a little better each time.</p>
+        <p><strong>Most tools hand you a list</strong> and leave the hard part to you: deciding what actually deserves your attention today. <strong>Minary works the other way around.</strong></p>
+        <p class="fc-intro">Before each work session, you tell it three things:</p>
+        <ul class="fc-bullets">
+          <li><strong>How much time</strong> you have</li>
+          <li><strong>What your energy</strong> feels like right now</li>
+          <li><strong>How in control</strong> you feel</li>
+        </ul>
+        <p>Minary scores every task against your deadlines and priorities, then hands you <strong>one clear plan: what to do now, what to postpone</strong>. It gets sharper every session, fitting <strong>the day you're actually having</strong>.</p>
       </div>
 
       <!-- Q7: energy_match_appeal -->
