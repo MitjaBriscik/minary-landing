@@ -964,21 +964,19 @@
 
     .why-belief {
       position: relative;
-      margin: 40px 0 0; padding: 6px 0 8px 28px; border-left: 3px solid var(--accent);
+      margin: 44px 0 0; padding: 6px 0 6px 32px;
       font-family: var(--display); font-weight: 600;
-      font-size: clamp(20px, 2.5vw, 26px); line-height: 1.34;
-      color: rgba(255,255,255,0.94); max-width: 700px;
+      font-size: clamp(21px, 2.7vw, 28px); line-height: 1.36;
+      letter-spacing: -0.01em;
+      color: #fff; max-width: 700px;
       overflow-wrap: break-word;
     }
     .why-belief::before {
       content: '';
-      position: absolute;
-      left: -3px;
-      top: 0;
-      width: 3px;
-      height: 100%;
-      background: linear-gradient(180deg, rgba(116,215,154,0), rgba(116,215,154,0.95), rgba(116,215,154,0));
-      filter: drop-shadow(0 0 12px rgba(116,215,154,0.45));
+      position: absolute; left: 0; top: 6px; bottom: 6px;
+      width: 4px; border-radius: 4px;
+      background: linear-gradient(180deg, var(--accent-bright), var(--accent) 55%, var(--accent-deep));
+      box-shadow: 0 0 18px rgba(116,215,154,0.5);
     }
     .why-belief em { font-style: normal; color: var(--accent-bright); }
 
@@ -1063,7 +1061,7 @@
       .why-map,
       .why-answer { width: 100%; max-width: 100%; }
       .why-lede { font-size: 17px; }
-      .why-belief { padding-left: 20px; margin: 32px 0; }
+      .why-belief { padding: 4px 0 4px 22px; margin: 28px 0; }
       .why-answer { padding: 26px 22px; }
       .why-map { min-height: 260px; margin: 8px 0 0; overflow: hidden; }
       .why-map-chip { font-size: 10.5px; padding: 7px 9px; }
