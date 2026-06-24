@@ -136,9 +136,15 @@
 
     .thankyou {
       display: none; text-align: center;
-      padding: 80px 0;
+      padding: 8px 0 0;
     }
     .thankyou.visible { display: block; }
+    body.thankyou-active .page {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 24px; padding-bottom: 24px;
+    }
+    body.thankyou-active .page > div:first-of-type { margin-bottom: 8px; }
     .thankyou-icon {
       width: 72px; height: 72px; border-radius: 50%;
       background: rgba(82,180,122,0.1);
@@ -184,10 +190,9 @@
 
   <!-- Thank you -->
   <div class="thankyou" id="thankyou">
-    <div class="thankyou-icon">✓</div>
     <h1>Thank you.</h1>
-    <p>You've just helped shape what Minary becomes.</p>
-    <p>We'll be in touch with early access.</p>
+    <p>Your answers genuinely shape where Minary goes next.</p>
+    <p>As a thank-you, your spot comes with <strong style="color:var(--accent-bright);font-weight:700;">free early access</strong>: you'll get to try the app before launch, on us.</p>
     <div class="badge-month">1 month free at launch</div>
   </div>
 
@@ -214,13 +219,13 @@
       <div class="question" id="q-work-types">
         <div class="question-label">What kind of work fills most of your day? <span style="font-weight:500;color:var(--txt-mut)">(pick all that apply)</span></div>
         <div class="options">
-          <label class="option"><input type="checkbox" name="work_types" value="coding"><span class="option-text">Coding / dev</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="coding"><span class="option-text">Coding / development</span></label>
           <label class="option"><input type="checkbox" name="work_types" value="writing"><span class="option-text">Writing / content</span></label>
-          <label class="option"><input type="checkbox" name="work_types" value="design"><span class="option-text">Design</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="design"><span class="option-text">Design (UI, graphic, product)</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="creative"><span class="option-text">Creative work (music, art, video)</span></label>
           <label class="option"><input type="checkbox" name="work_types" value="research"><span class="option-text">Research / study</span></label>
-          <label class="option"><input type="checkbox" name="work_types" value="admin"><span class="option-text">Admin & ops</span></label>
-          <label class="option"><input type="checkbox" name="work_types" value="client_comms"><span class="option-text">Client communication</span></label>
-          <label class="option"><input type="checkbox" name="work_types" value="mixed"><span class="option-text">Mixed</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="business_ops"><span class="option-text">Running a business / admin &amp; ops</span></label>
+          <label class="option"><input type="checkbox" name="work_types" value="client_work"><span class="option-text">Client / customer work</span></label>
         </div>
         <div class="field-error" id="err-work-types">Please select at least one.</div>
       </div>
@@ -255,6 +260,7 @@
           <label class="option"><input type="checkbox" name="time_drains" value="task_switching"><span class="option-text">Constantly switching between tasks</span></label>
           <label class="option"><input type="checkbox" name="time_drains" value="wrong_energy"><span class="option-text">Working on the wrong task for my current energy</span></label>
           <label class="option"><input type="checkbox" name="time_drains" value="losing_priorities"><span class="option-text">Losing track of priorities and deadlines</span></label>
+          <label class="option"><input type="checkbox" name="time_drains" value="underestimating"><span class="option-text">Underestimating how long tasks take</span></label>
           <label class="option"><input type="checkbox" name="time_drains" value="other"><span class="option-text">Other</span></label>
         </div>
         <input type="text" class="other-input" id="drains-other-input" name="time_drains_other" placeholder="Tell us more...">
@@ -271,6 +277,7 @@
           <label class="option"><input type="radio" name="biggest_problem" value="task_switching"><span class="option-text">Constantly switching between tasks</span></label>
           <label class="option"><input type="radio" name="biggest_problem" value="wrong_energy"><span class="option-text">Working on the wrong task for my current energy</span></label>
           <label class="option"><input type="radio" name="biggest_problem" value="losing_priorities"><span class="option-text">Losing track of priorities and deadlines</span></label>
+          <label class="option"><input type="radio" name="biggest_problem" value="underestimating"><span class="option-text">Underestimating how long tasks take</span></label>
         </div>
         <div class="field-error" id="err-biggest">Please select one.</div>
       </div>
@@ -287,10 +294,10 @@
     <!-- Section 3: Minary -->
     <div class="survey-section">
       <div class="fit-callout">
-        <p style="margin-bottom:12px;">Most productivity tools give you a list and leave you to figure out the rest. <strong>Minary works differently.</strong></p>
-        <p style="margin-bottom:12px;">Before every work session, you tell it three things: how much time you have, what your energy feels like right now, and how in control you feel. Ten seconds.</p>
-        <p style="margin-bottom:12px;">Minary then scores every task you have against your current state, your deadlines, and your priorities. It hands you back a single focused plan. One task to start. A clear order for the rest.</p>
-        <p>Every session, it learns how you work. Over time, the plan gets sharper. <strong>You stop guessing and start making real progress.</strong></p>
+        <p style="margin-bottom:12px;">Most tools hand you a list and leave the hard part to you: deciding what actually deserves your attention today. <strong>Minary works the other way around.</strong></p>
+        <p style="margin-bottom:12px;">Before each work session you tell it three things: how much time you have, what your energy feels like right now, and how in control you feel. Ten seconds.</p>
+        <p style="margin-bottom:12px;">Minary scores every task against the headspace you're in, your deadlines and your priorities, then hands you one focused plan: one task to start, a clear order for the rest.</p>
+        <p>Every session it learns how you actually work, so the plan fits <strong>the day you're actually having</strong> a little better each time.</p>
       </div>
 
       <!-- Q7: energy_match_appeal -->
@@ -467,6 +474,8 @@
     }
 
     form.classList.add('hidden');
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.body.classList.add('thankyou-active');
     document.getElementById('thankyou').classList.add('visible');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });

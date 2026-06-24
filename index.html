@@ -351,7 +351,7 @@
     /* Form hint under the submit row */
     .wf-hint {
       margin: 6px 0 22px; padding: 0;
-      font-size: 18px; font-weight: 700; line-height: 1.45; text-align: center;
+      font-size: clamp(20px, 2vw, 24px); font-weight: 700; line-height: 1.35; text-align: center;
       color: #cdf2db; background: none; border: none;
     }
     .wf-hint b { color: #ffffff; font-weight: 800; }
@@ -516,7 +516,8 @@
     }
     .how-head h2 .hl {
       font-weight: 800;
-      color: #1f9d5c;
+      background: linear-gradient(105deg, var(--accent-deep), #1f9d5c 52%, var(--accent));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .how-head p:not(.section-eyebrow) {
       margin-top: 22px;
@@ -601,7 +602,7 @@
       display: inline-block;
       font-family: var(--display);
       font-size: 12.5px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--accent-deep); margin-bottom: 14px; opacity: 0.85;
+      color: #1f9d5c; margin-bottom: 14px;
     }
     .carousel-cap h3 { font-family: var(--display); font-weight: 800; font-size: 28px; letter-spacing: -0.02em; color: #16261c; margin-bottom: 12px; }
     .carousel-cap p { font-size: 16px; color: #5a6f64; line-height: 1.6; font-weight: 500; min-height: 46px; max-width: 460px; margin: 0 auto; }
@@ -1239,7 +1240,7 @@
                 <span class="wf-check-text">I agree to Minary's <a href="/privacy.html" style="color:var(--accent-bright);text-decoration:underline;" target="_blank">privacy policy</a>.</span>
               </label>
             </div>
-            <p class="wf-fineprint">No payment, no subscription. Just your spot on the waitlist.</p>
+            <p class="wf-fineprint">No payment, no subscription, no spam. Just your spot on the waitlist, leave anytime.</p>
           </form>
         </div>
       </header>
@@ -1494,7 +1495,7 @@
                 <span class="wf-check-text">I agree to Minary's <a href="/privacy.html" style="color:var(--accent-bright);text-decoration:underline;" target="_blank">privacy policy</a>.</span>
               </label>
             </div>
-            <p class="wf-fineprint">No payment, no subscription. Just your spot on the waitlist.</p>
+            <p class="wf-fineprint">No payment, no subscription, no spam. Just your spot on the waitlist, leave anytime.</p>
           </form>
         </div>
       </div>
