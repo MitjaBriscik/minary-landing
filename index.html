@@ -1188,6 +1188,7 @@
     .team-card p { font-size: 13px; color: rgba(116,215,154,0.9); font-weight: 600; line-height: 1.4; }
     .team-scroll-hint { display: none; }
     @keyframes teamSwipe { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+    @keyframes teamSwipeLeft { 0%, 100% { transform: rotate(180deg) translateX(0); } 50% { transform: rotate(180deg) translateX(5px); } }
 
     /* Team logos */
     .team-logos-label {
@@ -1230,6 +1231,8 @@
         font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
       }
       .team-scroll-hint svg { animation: teamSwipe 1.4s ease-in-out infinite; }
+      .team-scroll-hint.flip { flex-direction: row-reverse; }
+      .team-scroll-hint.flip svg { animation-name: teamSwipeLeft; }
       .how-head p:not(.section-eyebrow) { white-space: normal; }
     }
 
@@ -2040,6 +2043,20 @@
     document.querySelectorAll('[name="privacy"]').forEach((cb) => {
       cb.addEventListener('change', () => { if (cb.checked) cb.closest('.wf-check').style.borderColor = ''; });
     });
+
+    // Team carousel (mobile): point the swipe hint left once scrolled to the second page
+    (function () {
+      const grid = document.querySelector('.team-grid');
+      const hint = document.querySelector('.team-scroll-hint');
+      if (!grid || !hint) return;
+      const update = () => {
+        const max = grid.scrollWidth - grid.clientWidth;
+        hint.classList.toggle('flip', max > 4 && grid.scrollLeft > max / 2);
+      };
+      grid.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
   </script>
 
 </body>
