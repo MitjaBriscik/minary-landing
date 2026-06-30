@@ -166,20 +166,33 @@
     }
     .thankyou h1 { font-size: 28px; font-weight: 800; color: var(--txt); margin-bottom: 12px; }
     .thankyou p { font-size: 15px; color: var(--txt-mut); line-height: 1.7; margin-bottom: 8px; }
-    .badge-month {
-      display: inline-block; margin-top: 24px;
-      background: rgba(82,180,122,0.12);
-      border: 1px solid rgba(82,180,122,0.3);
-      color: var(--accent-bright); font-size: 13px; font-weight: 700;
-      padding: 8px 18px; border-radius: 20px;
-      letter-spacing: 0.04em;
+    .ty-reward {
+      margin: 28px auto 0; max-width: 430px; text-align: left;
+      background: linear-gradient(158deg, rgba(82,180,122,0.13), rgba(82,180,122,0.04));
+      border: 1px solid rgba(82,180,122,0.32);
+      border-radius: 16px; padding: 20px 24px;
+      box-shadow: 0 18px 40px rgba(13,40,24,0.28);
     }
+    .ty-reward-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent-bright); margin-bottom: 12px;
+    }
+    .ty-reward h2 {
+      font-size: 23px; font-weight: 800; margin: 0 0 7px; letter-spacing: -0.01em;
+      background: linear-gradient(105deg, var(--accent-bright), var(--accent) 58%, #9fe3b8);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .ty-reward p { font-size: 14px; color: var(--txt-mut); line-height: 1.6; margin: 0; }
+    .ty-reward p b { color: var(--txt); font-weight: 700; }
 
     #survey-form.hidden { display: none; }
 
     @media (max-width: 480px) {
       .page { padding: 32px 16px 60px; }
       .question-label { font-size: 15px; }
+      .ty-reward { padding: 18px 18px; margin-top: 24px; }
+      .ty-reward h2 { font-size: 21px; }
     }
   </style>
 </head>
@@ -204,8 +217,11 @@
   <div class="thankyou" id="thankyou">
     <h1>Thank you.</h1>
     <p>Your answers genuinely shape where Minary goes&nbsp;next.</p>
-    <p>As a thank-you, your spot comes with <strong style="color:var(--accent-bright);font-weight:700;">free early access</strong>: you'll get to try the app before launch, on&nbsp;us.</p>
-    <div class="badge-month">1 month free at launch</div>
+    <div class="ty-reward">
+      <span class="ty-reward-eyebrow">🎁 Your early-access pass</span>
+      <h2>Free early access</h2>
+      <p>Try the app before we launch, <b>on us</b>. Plus <b>1 month free</b> when it goes&nbsp;live.</p>
+    </div>
   </div>
 
   <!-- Survey form -->
@@ -383,7 +399,8 @@
   }
 
   function getSelectedCurrency() {
-    return currencyByRegion[getSelectedRegion()] || 'USD';
+    // Willingness-to-pay is always shown and stored in USD, regardless of region
+    return 'USD';
   }
 
   function updatePriceLabels() {
