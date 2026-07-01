@@ -625,6 +625,8 @@
       border: 1px dashed rgba(255,255,255,0.16); border-radius: 8px; padding: 8px 14px;
     }
     .win-img { position: relative; display: block; width: auto; height: auto; max-height: 470px; max-width: min(960px, 90vw); }
+    .win-blank .win-screen { width: min(860px, 84vw); height: 430px; }
+    .win-blank .win-ph { color: rgba(255,255,255,0.30); border-color: rgba(116,215,154,0.28); }
 
     /* Nav buttons */
     .carousel-nav {
@@ -957,13 +959,15 @@
       background: linear-gradient(to bottom,
         transparent 0%,
         #122a1e 88px,
-        #122a1e calc(100% - 210px),
-        #1a3829 calc(100% - 130px),
-        #6f8a7c calc(100% - 55px),
+        #122a1e calc(100% - 260px),
+        #1d3b2c calc(100% - 200px),
+        #4a6355 calc(100% - 145px),
+        #8b9c8e calc(100% - 90px),
+        #d3d9d0 calc(100% - 40px),
         #f8f9f7 100%) !important;
       margin-top: -120px;
       padding-top: 118px !important;
-      padding-bottom: 230px !important;
+      padding-bottom: 270px !important;
       position: relative;
       z-index: 5;
     }
@@ -1272,7 +1276,7 @@
         <div class="hero-content">
           <img src="/public/logo.png" alt="Minary" class="hero-logo" onerror="this.src='./public/logo.png'">
 
-          <h1 id="hero-title">What deserves your <span class="grad">best energy</span> today?</h1>
+          <h1 id="hero-title">What should you work on <span class="grad">right now?</span></h1>
 
           <p class="hero-sub">
             We're building the AI workspace that turns what's on your mind into a plan, then weighs your time, energy and deadlines.
@@ -1323,7 +1327,7 @@
 
               <h2 class="why-title">Working alone makes every day a <span class="hl">prioritization problem.</span></h2>
 
-              <p class="why-lede">Freelancers and founders, makers and creators, artists and developers, researchers and students know it: too many open loops, no manager, no team rhythm. First you have to turn a big, shapeless project into something you can actually start, then decide, every day, what deserves the <em>energy you bring that day</em>.</p>
+              <p class="why-lede">Freelancers and founders, makers and creators, artists and developers, researchers and students know it: too many open loops, no manager, no team rhythm. First you have to <em>turn a shapeless project into something you can start</em>, then, every day, decide <em>what deserves the energy you bring</em>.</p>
 
               <blockquote class="why-belief">Task managers remember your tasks, but they do not understand the <em>headspace you're in</em>.</blockquote>
             </div>
@@ -1406,7 +1410,7 @@
             <div class="why-answer-flow">
               <div class="why-answer-step">
                 <span class="why-answer-kicker">Setting up the work</span>
-                <p>Don't know where to start? Just describe what you're working on and Minary turns it into a <b>structured project: tasks, the right order, and deadlines</b>. No blank page, no wondering where to begin.</p>
+                <p>Don't know where to start? Just describe what you're working on and Minary turns it into a <b>structured project</b>: what to do, in what order, by when. No blank page, no wondering where to begin.</p>
               </div>
               <div class="why-answer-step">
                 <span class="why-answer-kicker">Every day</span>
@@ -1430,13 +1434,14 @@
         <div class="carousel reveal" id="howCarousel">
           <button type="button" class="carousel-nav prev" aria-label="Previous step">&lsaquo;</button>
           <div class="carousel-stage" id="carouselStage">
-            <div class="win win-shot-wide" data-i="0" data-kind="wide"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/05-tasks.png" alt="Your tasks" onerror="this.remove()"></div></div>
-            <div class="win win-shot-phone" data-i="1" data-kind="phone"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/01-check-in.png" alt="Check in" onerror="this.remove()"></div></div>
-            <div class="win win-shot-modal" data-i="2" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/04-session-plan.png" alt="Session planning" onerror="this.remove()"></div></div>
-            <div class="win win-shot-modal" data-i="3" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/02-plan.png" alt="Your plan" onerror="this.remove()"></div></div>
-            <div class="win win-shot-wide win-shot-ultra" data-i="4" data-kind="ultrawide"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/03-session.png" alt="Track the session" onerror="this.remove()"></div></div>
-            <div class="win win-shot-phone win-shot-slim" data-i="5" data-kind="phone"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/06-endsess.png" alt="Session recap" onerror="this.remove()"></div></div>
-            <div class="win win-ai" data-i="6" data-kind="ai">
+            <div class="win win-shot-wide win-blank" data-i="0" data-kind="wide"><div class="win-screen"><span class="win-ph">Coming soon</span></div></div>
+            <div class="win win-shot-wide win-blank" data-i="1" data-kind="wide"><div class="win-screen"><span class="win-ph">Coming soon</span></div></div>
+            <div class="win win-shot-phone" data-i="2" data-kind="phone"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/01-check-in.png" alt="Check in" onerror="this.remove()"></div></div>
+            <div class="win win-shot-modal" data-i="3" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/04-session-plan.png" alt="Session planning" onerror="this.remove()"></div></div>
+            <div class="win win-shot-modal" data-i="4" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/02-plan.png" alt="Your plan" onerror="this.remove()"></div></div>
+            <div class="win win-shot-wide win-shot-ultra" data-i="5" data-kind="ultrawide"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/03-session.png" alt="Track the session" onerror="this.remove()"></div></div>
+            <div class="win win-shot-phone win-shot-slim" data-i="6" data-kind="phone"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/06-endsess.png" alt="Session recap" onerror="this.remove()"></div></div>
+            <div class="win win-ai" data-i="7" data-kind="ai">
               <div class="win-screen win-screen-ai">
                 <div class="ai-learn">
                   <span class="ai-learn-title">The learning layer</span>
@@ -1851,13 +1856,14 @@
       const wins = Array.from(carousel.querySelectorAll('.win'));
       const N = wins.length;
       const caps = [
-        { step: '01', title: 'Your tasks', desc: 'Everything you need to do in one place: <b>projects, deadlines, priorities</b>.' },
-        { step: '02', title: 'Shape your work session', desc: 'Tell Minary your available <b>time</b>, your <b>energy</b>, and how <b>in control</b> you feel: lost and overwhelmed, or clear and on top of things.' },
-        { step: '03', title: 'Session planning', desc: "Minary weighs every task against your deadlines and <b>the headspace you're in</b>: your time, energy, and sense of control." },
-        { step: '04', title: 'Your personalized plan', desc: 'Minary turns it into your session goals: <b>a tailored shortlist of what to work on now</b>.' },
-        { step: '05', title: 'Track the session', desc: 'You work your plan while Minary tracks the time you spend on each task versus what it suggested, then uses the gap to build <b>a sharper plan next time</b>.' },
-        { step: '06', title: 'Session recap', desc: 'At the end, Minary checks back in: how the session went, how efficient it felt, and <b>where your energy and control landed</b>.' },
-        { step: '07', title: 'It learns how you work', desc: 'Every session feeds Minary real signals: time spent, how closely you followed the plan, how your energy held up. The learning layer turns that into <b>sessions that fit you better and better</b>.' },
+        { step: '01', title: 'Describe your project', desc: "Tell Minary what you're working on, in plain words. It turns it into a <b>structured project: what to do, in what order, by when</b>." },
+        { step: '02', title: 'Your tasks', desc: 'Everything you need to do in one place: <b>projects, deadlines, priorities</b>.' },
+        { step: '03', title: 'Your daily session', desc: "Projects get set up as they come up. This part is <b>every day</b>: tell Minary your <b>time</b>, your <b>energy</b>, and how <b>in control</b> you feel: lost and overwhelmed, or clear and on top of things." },
+        { step: '04', title: 'Session planning', desc: "Minary weighs every task against your deadlines and <b>the headspace you're in</b>: your time, energy, and sense of control." },
+        { step: '05', title: 'Your personalized plan', desc: 'Minary turns it into your session goals: <b>a tailored shortlist of what to work on now</b>.' },
+        { step: '06', title: 'Track the session', desc: 'You work your plan while Minary tracks the time you spend on each task versus what it suggested, then uses the gap to build <b>a sharper plan next time</b>.' },
+        { step: '07', title: 'Session recap', desc: 'At the end, Minary checks back in: how the session went, how efficient it felt, and <b>where your energy and control landed</b>.' },
+        { step: '08', title: 'It learns how you work', desc: 'Every session feeds Minary real signals: time spent, how closely you followed the plan, how your energy held up. The learning layer turns that into <b>sessions that fit you better and better</b>.' },
       ];
       let active = 0;
 
