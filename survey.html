@@ -48,6 +48,22 @@
 
     .page { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
 
+    .survey-intro { text-align: center; margin-bottom: 40px; }
+    .survey-intro-title {
+      font-size: 32px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15;
+      margin-bottom: 16px;
+      background: linear-gradient(105deg, var(--accent-bright), var(--accent) 55%, #9fe3b8);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .survey-intro-sub {
+      font-size: 15px; line-height: 1.7; color: var(--txt-mut);
+      max-width: 520px; margin: 0 auto;
+    }
+    .survey-intro-sub b { color: var(--accent-bright); font-weight: 700; }
+    @media (max-width: 480px) {
+      .survey-intro-title { font-size: 26px; }
+    }
+
     .progress-wrap { margin-bottom: 40px; }
     .progress-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--txt-faint); margin-bottom: 10px; }
     .progress-bar-bg { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; }
@@ -191,6 +207,12 @@
     }
     .ty-reward p { font-size: 14px; color: var(--txt-mut); line-height: 1.6; margin: 0; }
     .ty-reward p b { color: var(--txt); font-weight: 700; }
+    .ty-reward-note {
+      margin-top: 14px !important; padding-top: 14px;
+      border-top: 1px solid rgba(82,180,122,0.2);
+      font-size: 13px;
+    }
+    .ty-reward-note b { color: var(--accent-bright) !important; }
 
     #survey-form.hidden { display: none; }
 
@@ -213,6 +235,12 @@
     <a href="/"><img src="/public/logo.png" alt="Minary" style="width:260px;"></a>
   </div>
 
+  <!-- Intro -->
+  <div class="survey-intro" id="survey-intro">
+    <h1 class="survey-intro-title">Thank you for taking this short&nbsp;survey</h1>
+    <p class="survey-intro-sub">This quick survey helps us understand whether Minary could be a genuinely useful tool in your work life. It takes about 2&nbsp;minutes, and we appreciate your time, so we're offering you <b>1 extra month free</b> once the product launches.</p>
+  </div>
+
   <!-- Progress -->
   <div class="progress-wrap">
     <div class="progress-label">Survey · 2 min</div>
@@ -224,9 +252,10 @@
     <h1>Thank you.</h1>
     <p>Your answers genuinely shape where Minary goes&nbsp;next.</p>
     <div class="ty-reward">
-      <span class="ty-reward-eyebrow">🎁 Your early-access pass</span>
-      <h2>Free early access</h2>
-      <p>Try the app before we launch, <b>on us</b>. Plus <b>1 month free</b> when it goes&nbsp;live.</p>
+      <span class="ty-reward-eyebrow">🎁 Your reward</span>
+      <h2>1 extra month free</h2>
+      <p>As a thank you, you'll get <b>1 extra month free</b> when Minary&nbsp;launches.</p>
+      <p class="ty-reward-note" id="ty-reward-note">We'll email you a reminder for your free extra month, at <b id="ty-email"></b>, once&nbsp;we&nbsp;launch.</p>
     </div>
   </div>
 
@@ -522,6 +551,16 @@
 
     form.classList.add('hidden');
     document.querySelector('.progress-wrap').style.display = 'none';
+    document.getElementById('survey-intro').style.display = 'none';
+
+    // Personalise the reminder with the email they signed up with, or hide it if none
+    const note = document.getElementById('ty-reward-note');
+    if (emailFromLanding) {
+      document.getElementById('ty-email').textContent = emailFromLanding;
+    } else {
+      note.style.display = 'none';
+    }
+
     document.body.classList.add('thankyou-active');
     document.getElementById('thankyou').classList.add('visible');
     window.scrollTo({ top: 0, behavior: 'smooth' });
