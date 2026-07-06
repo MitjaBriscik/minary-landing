@@ -266,7 +266,7 @@
     }
   </style>
 </head>
-<body>
+<body class="thankyou-active">
 
 <div class="bg-glow"></div>
 
@@ -278,20 +278,20 @@
   </div>
 
   <!-- Intro -->
-  <div class="survey-intro" id="survey-intro">
+  <div class="survey-intro" id="survey-intro" style="display:none">
     <h1 class="survey-intro-title">Thank you for taking this <span class="grad">short&nbsp;survey</span></h1>
     <p class="survey-intro-sub">This quick survey helps us understand whether Minary could be a <b>genuinely useful tool</b> in your work life. It takes about 2&nbsp;minutes, and we appreciate your&nbsp;time.</p>
     <p class="survey-reward-line">Completing it gets you <b>1 extra month free</b> at&nbsp;launch.</p>
   </div>
 
   <!-- Progress -->
-  <div class="progress-wrap">
+  <div class="progress-wrap" style="display:none">
     <div class="progress-label">Progress</div>
     <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
 
   <!-- Thank you -->
-  <div class="thankyou" id="thankyou">
+  <div class="thankyou visible" id="thankyou">
     <svg class="ty-check" viewBox="0 0 74 74" aria-hidden="true">
       <circle class="ring" cx="37" cy="37" r="34"/>
       <path class="mark" d="M24.5 38.5l8.5 8.5L49.5 29"/>
@@ -302,14 +302,14 @@
       <div class="ty-amount">+1 month free</div>
       <p class="ty-amount-sub">Applied to your account when Minary&nbsp;launches.</p>
       <div class="ty-rows">
-        <div class="ty-row" id="ty-row-email"><span>Linked to</span><b id="ty-email"></b></div>
+        <div class="ty-row" id="ty-row-email"><span>Linked to</span><b id="ty-email">giuseppe@gmail.com</b></div>
       </div>
       <p class="ty-note" id="ty-reward-note">No action needed &mdash; we'll email you a reminder when&nbsp;we&nbsp;launch.</p>
     </div>
   </div>
 
   <!-- Survey form -->
-  <form id="survey-form" novalidate>
+  <form id="survey-form" class="hidden" novalidate>
 
     <!-- Section 1: About you -->
     <div class="survey-section">
