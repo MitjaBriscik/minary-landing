@@ -1164,11 +1164,7 @@
     }
     .wa-inchip svg { width: 13px; height: 13px; flex-shrink: 0; color: #8fd9aa; }
     .wa-inchip b { color: var(--accent-bright); font-weight: 700; }
-    .wa-learn .lc-svg { height: 78px; }
-    .wa-learn .lc-x { margin-top: 4px; }
-    .wa-learn-stats { margin-top: 14px; }
-    .wa-learn-stats .ai-stat span { font-size: 12px; }
-    .wa-learn-stats .ai-stat b { font-size: 12.5px; }
+    .wa-loop { display: block; width: 100%; height: auto; margin-top: 2px; }
     .why-answer-kicker {
       display: block;
       margin-bottom: 12px;
@@ -1600,30 +1596,111 @@
                   <span class="why-answer-kicker">The learning layer</span>
                   <p>By working daily with Minary, session after session, it <b>learns your strengths and weaknesses</b>, and its plans fit your way of working better and better.</p>
                 </div>
-                <div class="wa-module wa-learn" aria-hidden="true">
-                  <div class="wa-tag">Personal model</div>
-                  <div class="lc-y">Plan accuracy</div>
-                  <svg class="lc-svg" viewBox="0 0 560 150" preserveAspectRatio="none">
+                <div class="wa-module" aria-hidden="true">
+                  <div class="wa-tag">Learning loop</div>
+                  <svg class="wa-loop" viewBox="-20 0 520 360" preserveAspectRatio="xMidYMid meet">
                     <defs>
-                      <linearGradient id="waLcFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="rgba(116,215,154,0.28)"/>
-                        <stop offset="100%" stop-color="rgba(116,215,154,0)"/>
+                      <radialGradient id="waLoopGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="rgba(82,180,122,0.20)"/>
+                        <stop offset="100%" stop-color="rgba(82,180,122,0)"/>
+                      </radialGradient>
+                      <linearGradient id="waLoopCore" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(116,215,154,0.22)"/>
+                        <stop offset="100%" stop-color="rgba(7,24,14,0.96)"/>
                       </linearGradient>
                     </defs>
-                    <g stroke="rgba(255,255,255,0.06)" stroke-width="1">
-                      <line x1="0" y1="46" x2="560" y2="46"/>
-                      <line x1="0" y1="94" x2="560" y2="94"/>
+
+                    <ellipse cx="240" cy="180" rx="215" ry="160" fill="url(#waLoopGlow)">
+                      <animate attributeName="opacity" values="0.55;1;0.55" dur="5s" repeatCount="indefinite"/>
+                    </ellipse>
+
+                    <!-- the session orbit -->
+                    <path id="waLoopPath" d="M240 60 A170 120 0 0 1 410 180 A170 120 0 0 1 240 300 A170 120 0 0 1 70 180 A170 120 0 0 1 240 60"
+                          fill="none" stroke="rgba(116,215,154,0.22)" stroke-width="1.3" stroke-dasharray="3 7" stroke-linecap="round"/>
+                    <g stroke="rgba(116,215,154,0.5)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M-5 -4 L4 0 L-5 4" transform="translate(360,95) rotate(35)"/>
+                      <path d="M-5 -4 L4 0 L-5 4" transform="translate(360,265) rotate(145)"/>
+                      <path d="M-5 -4 L4 0 L-5 4" transform="translate(120,265) rotate(215)"/>
+                      <path d="M-5 -4 L4 0 L-5 4" transform="translate(120,95) rotate(-35)"/>
                     </g>
-                    <path d="M0 122 L93 108 L186 98 L280 74 L373 60 L466 40 L540 28 L560 28 L560 140 L0 140 Z" fill="url(#waLcFill)"/>
-                    <path d="M0 122 L93 108 L186 98 L280 74 L373 60 L466 40 L540 28" fill="none" stroke="#74d79a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="540" cy="28" r="4.5" fill="#bff3d2"/>
+
+                    <!-- signals feeding the core -->
+                    <g stroke="rgba(116,215,154,0.28)" stroke-width="1.4" fill="none">
+                      <path id="wain1" d="M240 74 L240 145"/>
+                      <path id="wain2" d="M377 180 L315 180"/>
+                      <path id="wain3" d="M240 286 L240 215"/>
+                      <path id="wain4" d="M106 180 L165 180"/>
+                    </g>
+                    <g fill="#c7f7da">
+                      <circle r="2.8" opacity="0">
+                        <animateMotion dur="10s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.02;0.12;1" calcMode="linear"><mpath href="#wain1"/></animateMotion>
+                        <animate attributeName="opacity" dur="10s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.02;0.04;0.10;0.12;1"/>
+                      </circle>
+                      <circle r="2.8" opacity="0">
+                        <animateMotion dur="10s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.27;0.37;1" calcMode="linear"><mpath href="#wain2"/></animateMotion>
+                        <animate attributeName="opacity" dur="10s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.27;0.29;0.35;0.37;1"/>
+                      </circle>
+                      <circle r="2.8" opacity="0">
+                        <animateMotion dur="10s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.52;0.62;1" calcMode="linear"><mpath href="#wain3"/></animateMotion>
+                        <animate attributeName="opacity" dur="10s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.52;0.54;0.60;0.62;1"/>
+                      </circle>
+                      <circle r="2.8" opacity="0">
+                        <animateMotion dur="10s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.77;0.87;1" calcMode="linear"><mpath href="#wain4"/></animateMotion>
+                        <animate attributeName="opacity" dur="10s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.77;0.79;0.85;0.87;1"/>
+                      </circle>
+                    </g>
+
+                    <!-- the session pulse orbiting the loop -->
+                    <circle r="8" fill="rgba(116,215,154,0.22)">
+                      <animateMotion dur="10s" repeatCount="indefinite"><mpath href="#waLoopPath"/></animateMotion>
+                    </circle>
+                    <circle r="3.6" fill="#c7f7da">
+                      <animateMotion dur="10s" repeatCount="indefinite"><mpath href="#waLoopPath"/></animateMotion>
+                    </circle>
+
+                    <!-- core -->
+                    <rect x="165" y="145" width="150" height="70" rx="16" fill="url(#waLoopCore)" stroke="rgba(116,215,154,0.45)" stroke-width="1.5"/>
+                    <rect x="176" y="156" width="128" height="48" rx="11" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+                    <rect x="165" y="145" width="150" height="70" rx="16" fill="none" stroke="rgba(116,215,154,0.85)" stroke-width="1.5" opacity="0">
+                      <animate attributeName="opacity" dur="10s" repeatCount="indefinite"
+                               values="0;0;0.9;0;0;0.9;0;0;0.9;0;0;0.9;0"
+                               keyTimes="0;0.115;0.125;0.16;0.365;0.375;0.41;0.615;0.625;0.66;0.865;0.875;1"/>
+                    </rect>
+                    <text x="240" y="178" text-anchor="middle" font-family="Inter, sans-serif" font-size="15.5" font-weight="800" fill="#ffffff">How you work</text>
+                    <text x="240" y="196" text-anchor="middle" font-family="Inter, sans-serif" font-size="9.5" font-weight="700" letter-spacing="1.5" fill="rgba(199,247,218,0.55)">YOUR MODEL</text>
+
+                    <!-- loop stages -->
+                    <g font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.9">
+                      <g>
+                        <rect x="209" y="46" width="62" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
+                        <rect x="209" y="46" width="62" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
+                          <animate attributeName="opacity" dur="10s" repeatCount="indefinite" values="1;0;0;1" keyTimes="0;0.08;0.95;1"/>
+                        </rect>
+                        <text x="240" y="60" text-anchor="middle" dominant-baseline="central" fill="#edfff5">PLAN</text>
+                      </g>
+                      <g>
+                        <rect x="377" y="166" width="66" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
+                        <rect x="377" y="166" width="66" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
+                          <animate attributeName="opacity" dur="10s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;0.23;0.25;0.33;1"/>
+                        </rect>
+                        <text x="410" y="180" text-anchor="middle" dominant-baseline="central" fill="#edfff5">WORK</text>
+                      </g>
+                      <g>
+                        <rect x="203" y="286" width="74" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
+                        <rect x="203" y="286" width="74" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
+                          <animate attributeName="opacity" dur="10s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;0.48;0.5;0.58;1"/>
+                        </rect>
+                        <text x="240" y="300" text-anchor="middle" dominant-baseline="central" fill="#edfff5">RECAP</text>
+                      </g>
+                      <g>
+                        <rect x="34" y="166" width="72" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
+                        <rect x="34" y="166" width="72" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
+                          <animate attributeName="opacity" dur="10s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;0.73;0.75;0.83;1"/>
+                        </rect>
+                        <text x="70" y="180" text-anchor="middle" dominant-baseline="central" fill="#edfff5">LEARN</text>
+                      </g>
+                    </g>
                   </svg>
-                  <div class="lc-x"><span>session 1</span><span>session 50</span></div>
-                  <div class="wa-learn-stats">
-                    <div class="ai-stat"><span>Best deep-work window</span><b>9&ndash;11 am</b></div>
-                    <div class="ai-stat"><span>Time estimates vs reality</span><b>gap &minus;18%</b></div>
-                    <div class="ai-stat"><span>Energy pattern</span><b>dips after 4 pm</b></div>
-                  </div>
                 </div>
               </div>
             </div>
