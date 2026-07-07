@@ -2,6 +2,16 @@
 <!-- build: dropdown z-index fix + logo 360 (redeploy nudge) -->
 <html lang="en">
 <head>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('minary-theme');
+        document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minary · The AI workspace for solo workers</title>
@@ -53,78 +63,77 @@
     }
 
     /* EXPERIMENT: light hero variant — scoped override, remove `theme-light` class to revert */
-    .hero-section.theme-light {
-      --bg-0: #eaf5ee;
-      --bg-1: #f4faf6;
-      --bg-2: #dcedE3;
+    [data-theme="light"] .hero-section {
+      --bg-0: #dcefe3;
+      --bg-1: #eaf6ee;
+      --bg-2: #cce6d7;
       --txt: rgba(8,28,18,0.92);
       --txt-mut: rgba(8,28,18,0.58);
       --txt-faint: rgba(8,28,18,0.40);
       --line: rgba(8,40,24,0.12);
       --line-soft: rgba(8,40,24,0.08);
     }
-    .hero-section.theme-light::before {
-      background:
-        radial-gradient(620px 460px at 50% 44%, rgba(255,255,255,0.6), rgba(255,255,255,0.28) 48%, transparent 74%),
-        linear-gradient(180deg, rgba(255,255,255,0.16), transparent 30%, transparent 100%);
+    [data-theme="light"] .hero-section::before { background: none; }
+    [data-theme="light"] .bg-base {
+      background: linear-gradient(168deg, var(--bg-0) 0%, var(--bg-1) 42%, var(--bg-2) 100%);
     }
-    .hero-section.theme-light .hero .hero-cta .wf-top {
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-top {
       background: rgba(255,255,255,0.72);
       border-color: rgba(45,106,79,0.24);
       box-shadow: 0 26px 70px rgba(45,106,79,0.14), 0 0 0 1px rgba(8,40,24,0.04) inset;
     }
-    .hero-section.theme-light .hero .hero-cta .wf-top:focus-within {
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-top:focus-within {
       border-color: rgba(45,106,79,0.5);
       box-shadow: 0 26px 70px rgba(45,106,79,0.16), 0 0 0 4px rgba(82,180,122,0.18);
     }
-    .hero-section.theme-light .hero .hero-cta .wf-select,
-    .hero-section.theme-light .hero .hero-cta .wf-dropdown-btn,
-    .hero-section.theme-light .hero .hero-cta .wf-email {
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-select,
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-dropdown-btn,
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-email {
       border: 1px solid rgba(8,40,24,0.18);
       background-color: rgba(255,255,255,0.55);
       color: rgba(8,28,18,0.85);
     }
-    .hero-section.theme-light .hero .hero-cta .wf-select,
-    .hero-section.theme-light .hero .hero-cta .wf-dropdown-btn {
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-select,
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-dropdown-btn {
       color: rgba(8,28,18,0.7);
     }
-    .hero-section.theme-light .hero .hero-cta .wf-select:focus,
-    .hero-section.theme-light .hero .hero-cta .wf-select.filled,
-    .hero-section.theme-light .hero .hero-cta .wf-email:focus {
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-select:focus,
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-select.filled,
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-email:focus {
       border-color: rgba(45,106,79,0.55);
       color: #06180f;
       background-color: rgba(255,255,255,0.88);
     }
-    .hero-section.theme-light .hero .hero-cta .wf-email::placeholder { color: rgba(8,28,18,0.36); }
-    .hero-section.theme-light .hero .hero-cta .wf-hint { color: var(--accent-deep); }
-    .hero-section.theme-light .hero .hero-cta .wf-hint b { color: #06180f; }
-    .hero-section.theme-light .scroll-indicator span { color: rgba(8,28,18,0.5); }
-    .hero-section.theme-light .hero h1 { color: #06180f; }
-    .hero-section.theme-light .hero .hero-sub { color: rgba(8,28,18,0.68); }
-    .hero-section.theme-light .hero-tag { color: var(--accent-deep); }
-    .hero-section.theme-light .hero .hero-cta .wf-check {
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-email::placeholder { color: rgba(8,28,18,0.36); }
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-hint { color: var(--accent-deep); }
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-hint b { color: #06180f; }
+    [data-theme="light"] .hero-section .scroll-indicator span { color: rgba(8,28,18,0.5); }
+    [data-theme="light"] .hero-section .hero h1 { color: #06180f; }
+    [data-theme="light"] .hero-section .hero .hero-sub { color: rgba(8,28,18,0.68); }
+    [data-theme="light"] .hero-section .hero-tag { color: var(--accent-deep); }
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-check {
       border-color: rgba(8,40,24,0.14);
       background: rgba(255,255,255,0.5);
     }
-    .hero-section.theme-light .hero .hero-cta .wf-check:hover,
-    .hero-section.theme-light .hero .hero-cta .wf-check:has(input:checked) {
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-check:hover,
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-check:has(input:checked) {
       background: rgba(82,180,122,0.10);
       border-color: rgba(82,180,122,0.35);
     }
-    .hero-section.theme-light h1 .grad {
+    [data-theme="light"] .hero-section h1 .grad {
       background: linear-gradient(105deg, var(--accent-deep), #1f6e4b 55%, var(--accent));
       -webkit-background-clip: text; background-clip: text;
     }
-    .hero-section.theme-light .hero .hero-cta .wf-check-text { color: rgba(8,28,18,0.62); }
-    .hero-section.theme-light .hero .hero-cta .wf-check:has(input:checked) .wf-check-text { color: rgba(8,28,18,0.88); }
-    .hero-section.theme-light .hero .hero-cta .wf-fineprint { color: rgba(8,28,18,0.42); }
-    .hero-section.theme-light .wf-dropdown-panel {
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-check-text { color: rgba(8,28,18,0.62); }
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-check:has(input:checked) .wf-check-text { color: rgba(8,28,18,0.88); }
+    [data-theme="light"] .hero-section .hero .hero-cta .wf-fineprint { color: rgba(8,28,18,0.42); }
+    [data-theme="light"] .hero-section .wf-dropdown-panel {
       background: #ffffff;
       border: 1px solid rgba(8,40,24,0.14);
       box-shadow: 0 16px 40px rgba(8,40,24,0.18);
     }
-    .hero-section.theme-light .wf-dropdown-option:hover { background: rgba(82,180,122,0.10); color: #06180f; }
-    .hero-section.theme-light .wf-dropdown-option.selected { color: var(--accent-deep); background: rgba(82,180,122,0.10); }
+    [data-theme="light"] .hero-section .wf-dropdown-option:hover { background: rgba(82,180,122,0.10); color: #06180f; }
+    [data-theme="light"] .hero-section .wf-dropdown-option.selected { color: var(--accent-deep); background: rgba(82,180,122,0.10); }
 
     html { scroll-behavior: smooth; overflow-x: hidden; }
 
@@ -233,10 +242,14 @@
       margin: 0 auto;
     }
     .hero-logo {
-      width: 205px; display: block; margin: 0 auto 18px;
+      width: 360px; display: block; margin: 0 auto 18px;
       opacity: 0.97;
       filter: drop-shadow(0 14px 24px rgba(0,0,0,0.26));
     }
+    .hero-logo-light { display: none; }
+    [data-theme="light"] .hero-logo-dark { display: none; }
+    [data-theme="light"] .hero-logo-light { display: block; }
+    .foot-logo-light { display: none; }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 9px;
       padding: 7px 15px 7px 12px; border-radius: 100px;
@@ -601,7 +614,7 @@
     }
 
     /* Problem */
-    .problem { border-top: none; }
+    .problem { border-top: 1px solid var(--line-soft); }
     .problem-lead {
       position: relative;
       font-family: var(--display); font-weight: 500;
@@ -992,7 +1005,7 @@
       #neural-canvas { opacity: 0.26; }
       .logo-bar { padding: 18px 22px 0; }
       .site-logo { width: 118px; }
-      .hero-logo { width: 150px; margin-bottom: 22px; }
+      .hero-logo { width: 250px; margin-bottom: 22px; }
       .hero { padding: 5vh 22px 58px; }
       .hero h1 { font-size: 42px; max-width: 11.5ch; }
       .hero .hero-sub { font-size: 16px; line-height: 1.62; margin-top: 20px; }
@@ -1042,18 +1055,29 @@
       border-top: none;
     }
     .problem {
-      background: linear-gradient(180deg, #d7e9de 0, #dfeee5 60px, #e9f4ee 130px, #f0f8f3 200px, #f4faf6 280px);
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        #122a1e 88px,
+        #122a1e calc(100% - 260px),
+        #1d3b2c calc(100% - 200px),
+        #4a6355 calc(100% - 145px),
+        #8b9c8e calc(100% - 90px),
+        #d3d9d0 calc(100% - 40px),
+        #f8f9f7 100%) !important;
+      margin-top: -120px;
+      padding-top: 118px !important;
+      padding-bottom: 270px !important;
       position: relative;
       z-index: 5;
     }
     .how { background: #f8f9f7; border-top: none; padding-top: 40px; }
-    .problem h2 { color: #08201a !important; }
+    .problem h2 { color: rgba(255,255,255,0.92) !important; }
     .how h2 { color: #1a2e22; }
     /* perceptual match: tune each eyebrow's green so all three read with the
        same visual weight despite sitting on different backgrounds */
-    .problem-lead { color: rgba(8,32,26,0.78) !important; }
-    .problem-lead .mut { color: rgba(8,32,26,0.38) !important; }
-    .problem-lead .hi { color: rgba(8,32,26,0.95) !important; }
+    .problem-lead { color: rgba(255,255,255,0.78) !important; }
+    .problem-lead .mut { color: rgba(255,255,255,0.38) !important; }
+    .problem-lead .hi { color: rgba(255,255,255,0.95) !important; }
     .how-head p:not(.section-eyebrow) { color: #3a4d43; }
 
     /* Story: title -> lived problem -> signal map -> answer panel */
@@ -1068,12 +1092,12 @@
       margin-top: 52px;
     }
     .why-copy { position: relative; z-index: 2; min-width: 0; }
-    .why-acts .section-eyebrow { color: #1f9d5c; }
+    .why-acts .section-eyebrow { color: #45c47e; }
     /* Labeled subsections: For whom / The problem / Our answer */
     .why-label {
       display: block; margin-bottom: 14px;
       font-size: 13px; font-weight: 800; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent-deep);
+      text-transform: uppercase; color: var(--accent-bright);
     }
     .sr-only {
       position: absolute; width: 1px; height: 1px;
@@ -1101,18 +1125,18 @@
     .why-chip {
       display: inline-flex; align-items: center; gap: 10px;
       padding: 11px 19px 11px 16px; border-radius: 100px; white-space: nowrap;
-      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45));
-      border: 1px solid rgba(8,40,24,0.14);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 10px 26px rgba(8,40,24,0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.065), rgba(255,255,255,0.025));
+      border: 1px solid rgba(255,255,255,0.11);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 26px rgba(0,0,0,0.20);
       font-size: 14.5px; font-weight: 600; letter-spacing: 0.005em;
-      color: rgba(8,32,26,0.82);
+      color: rgba(255,255,255,0.87);
       transition: border-color 0.25s, color 0.25s, background 0.25s;
     }
-    .why-chip svg { width: 15.5px; height: 15.5px; flex-shrink: 0; color: var(--accent-deep); }
+    .why-chip svg { width: 15.5px; height: 15.5px; flex-shrink: 0; color: #8fd9aa; }
     .why-chip:hover {
-      border-color: rgba(82,180,122,0.45);
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
-      color: #08201a;
+      border-color: rgba(116,215,154,0.38);
+      background: linear-gradient(180deg, rgba(255,255,255,0.085), rgba(255,255,255,0.04));
+      color: #fff;
     }
     @media (prefers-reduced-motion: reduce) {
       .why-marquee { -webkit-mask-image: none; mask-image: none; }
@@ -1121,8 +1145,8 @@
       .why-marquee-set + .why-marquee-set { display: none; }
     }
 
-    .why-lede { font-size: 19px; line-height: 1.72; font-weight: 500; color: rgba(8,32,26,0.72); max-width: 60ch; margin: 0; overflow-wrap: break-word; }
-    .why-lede em { font-style: normal; color: #08201a; font-weight: 600; }
+    .why-lede { font-size: 19px; line-height: 1.72; font-weight: 500; color: rgba(255,255,255,0.70); max-width: 60ch; margin: 0; overflow-wrap: break-word; }
+    .why-lede em { font-style: normal; color: #fff; font-weight: 600; }
     .why-lede .hl { color: var(--accent-bright); font-weight: 700; }
 
     .why-map {
@@ -1137,7 +1161,10 @@
       min-width: 0;
       margin-top: 56px;
       padding: 42px 44px; border-radius: 20px;
-      background: #16321f;
+      background:
+        linear-gradient(145deg, rgba(82,180,122,0.18), rgba(14,45,28,0.82) 42%, rgba(7,24,14,0.96)),
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: auto, 36px 36px;
       border: 1px solid rgba(82,180,122,0.32);
       box-shadow: 0 34px 90px rgba(0,0,0,0.36), inset 0 1px 0 rgba(255,255,255,0.10);
     }
@@ -1165,7 +1192,9 @@
       position: relative;
       border-radius: 18px;
       padding: 20px 22px 22px;
-      background: #16321f;
+      background:
+        radial-gradient(120% 100% at 18% 0%, rgba(116,215,154,0.10), transparent 55%),
+        linear-gradient(165deg, rgba(16,34,24,0.92), rgba(7,16,11,0.96));
       border: 1px solid rgba(255,255,255,0.10);
       box-shadow: 0 26px 60px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.07);
     }
@@ -1224,6 +1253,89 @@
     .wa-inchip b { color: var(--accent-bright); font-weight: 700; }
     .wa-profile .task-rank { display: flex; align-items: center; }
     .wa-profile .task-rank svg { width: 14px; height: 14px; }
+    .wa-loop { display: block; width: 100%; height: auto; margin-top: 2px; }
+    .wa-loop-caption {
+      margin-top: 16px; text-align: center;
+      font-size: 12.5px; line-height: 1.55; font-weight: 500;
+      color: rgba(255,255,255,0.55);
+    }
+    .wa-loop-caption b { color: rgba(199,247,218,0.9); font-weight: 700; }
+
+    /* Light theme: Why section (Our answer panel + modules stay dark on purpose) */
+    [data-theme="light"] .problem {
+      border-top: none;
+      background: linear-gradient(180deg, #cce6d7 0, #d5ecdf 60px, #e0f1e6 130px, #eaf5ee 200px, #f0f8f3 280px, #f8f9f7 420px) !important;
+      margin-top: 0;
+      padding-top: 96px !important;
+      padding-bottom: 96px !important;
+    }
+    [data-theme="light"] .problem::before {
+      content: '';
+      position: absolute;
+      top: -140px; left: 0; right: 0; height: 220px;
+      background: linear-gradient(180deg, transparent, #d5ecdf 45%, #d5ecdf 100%);
+      filter: blur(45px);
+      pointer-events: none;
+    }
+    [data-theme="light"] .problem h2 { color: #08201a !important; }
+    [data-theme="light"] .problem-lead { color: rgba(8,32,26,0.78) !important; }
+    [data-theme="light"] .problem-lead .mut { color: rgba(8,32,26,0.38) !important; }
+    [data-theme="light"] .problem-lead .hi { color: rgba(8,32,26,0.95) !important; }
+    [data-theme="light"] .why-acts .section-eyebrow { color: #1f9d5c; }
+    [data-theme="light"] .why-label { color: var(--accent-deep); }
+    [data-theme="light"] .why-chip {
+      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45));
+      border: 1px solid rgba(8,40,24,0.14);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 10px 26px rgba(8,40,24,0.08);
+      color: rgba(8,32,26,0.82);
+    }
+    [data-theme="light"] .why-chip svg { color: var(--accent-deep); }
+    [data-theme="light"] .why-chip:hover {
+      border-color: rgba(82,180,122,0.45);
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
+      color: #08201a;
+    }
+    [data-theme="light"] .why-lede { color: rgba(8,32,26,0.72); }
+    [data-theme="light"] .why-lede em { color: #08201a; }
+    [data-theme="light"] .signal-lines { stroke: rgba(45,106,79,0.55); }
+    [data-theme="light"] .signal-pulses { fill: #1f9d5c; }
+    [data-theme="light"] .why-answer {
+      background: #16321f;
+      box-shadow: 0 24px 60px rgba(8,40,24,0.16), inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+    [data-theme="light"] .wa-module {
+      background: #16321f;
+      box-shadow: 0 18px 40px rgba(8,40,24,0.14), inset 0 1px 0 rgba(255,255,255,0.07);
+      border-color: rgba(8,40,24,0.10);
+    }
+
+    /* Light theme: Team, Final CTA, Footer (match the light hero, faded in from How-it-works white) */
+    [data-theme="light"] .block.who {
+      background-color: #cce6d7;
+      background-image: linear-gradient(to bottom, #f8f9f7 0%, rgba(248,249,247,0) 400px);
+    }
+    [data-theme="light"] .team-card h4 { color: #08201a; }
+    [data-theme="light"] .team-scroll-hint { color: rgba(8,32,26,0.42); }
+    [data-theme="light"] .team-logos-label { color: rgba(8,32,26,0.4); }
+    [data-theme="light"] .logo-ph { color: rgba(8,32,26,0.55); }
+
+    [data-theme="light"] .block.final {
+      background: linear-gradient(to bottom, transparent 0%, #cce6d7 200px);
+    }
+    [data-theme="light"] .final-card {
+      background: #16321f;
+      border-color: rgba(82,180,122,0.28);
+    }
+    [data-theme="light"] .final-note { color: rgba(8,32,26,0.42); }
+
+    [data-theme="light"] body { background: #cce6d7; }
+    [data-theme="light"] footer { background: #cce6d7; }
+    [data-theme="light"] .foot-links,
+    [data-theme="light"] .foot-links a { color: rgba(8,32,26,0.6); }
+    [data-theme="light"] .foot-links a:hover { color: #1f9d5c; }
+    [data-theme="light"] .foot-logo-dark { display: none; }
+    [data-theme="light"] .foot-logo-light { display: block; }
+
     .why-answer-kicker {
       display: block;
       margin-bottom: 12px;
@@ -1428,13 +1540,46 @@
       background: var(--bg-1);
       border-top: none;
     }
+
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed; top: 22px; right: 22px; z-index: 999;
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      color: rgba(255,255,255,0.85);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .theme-toggle:hover { background: rgba(255,255,255,0.16); transform: translateY(-1px); }
+    [data-theme="light"] .theme-toggle {
+      background: rgba(8,40,24,0.06);
+      border-color: rgba(8,40,24,0.14);
+      color: rgba(8,32,26,0.72);
+    }
+    [data-theme="light"] .theme-toggle:hover { background: rgba(8,40,24,0.10); }
+    .theme-toggle-icon { width: 19px; height: 19px; }
+    .theme-toggle-moon { display: none; }
+    [data-theme="light"] .theme-toggle-sun { display: none; }
+    [data-theme="light"] .theme-toggle-moon { display: block; }
+    @media (max-width: 620px) {
+      .theme-toggle { top: 14px; right: 14px; width: 38px; height: 38px; }
+      .theme-toggle-icon { width: 17px; height: 17px; }
+    }
   </style>
 </head>
 <body>
 
+  <button type="button" id="themeToggle" class="theme-toggle" aria-label="Switch between light and dark theme">
+    <svg class="theme-toggle-icon theme-toggle-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    <svg class="theme-toggle-icon theme-toggle-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7z"/></svg>
+  </button>
+
   <div class="shell">
 
-    <section class="hero-section theme-light" aria-labelledby="hero-title">
+    <section class="hero-section" aria-labelledby="hero-title">
       <div class="bg">
         <div class="bg-base"></div>
         <canvas id="neural-canvas"></canvas>
@@ -1443,7 +1588,8 @@
       <!-- HERO -->
       <header class="hero wrap" id="top">
         <div class="hero-content">
-          <img src="/public/logo-light.png" alt="Minary" class="hero-logo" onerror="this.src='./public/logo-light.png'">
+          <img src="/public/logo.png" alt="Minary" class="hero-logo hero-logo-dark" onerror="this.src='./public/logo.png'">
+          <img src="/public/minary_logo_black_text.png" alt="Minary" class="hero-logo hero-logo-light" onerror="this.src='./public/minary_logo_black_text.png'">
 
           <h1 id="hero-title">What should you work on <span class="grad">right now?</span></h1>
 
@@ -1545,7 +1691,7 @@
                 <ellipse cx="220" cy="190" rx="190" ry="160" fill="url(#mapGlow)"/>
 
                 <!-- connecting lines: each signal feeds the core -->
-                <g stroke="rgba(45,106,79,0.55)" stroke-width="1.4" fill="none">
+                <g class="signal-lines" stroke="rgba(116,215,154,0.30)" stroke-width="1.4" fill="none">
                   <path id="ml1" d="M146 62 L186.5 132"/>
                   <path id="ml2" d="M294 62 L253.5 132"/>
                   <path id="ml3" d="M368 190 L302 190"/>
@@ -1555,7 +1701,7 @@
                 </g>
 
                 <!-- pulses flowing into the core -->
-                <g fill="#1f9d5c">
+                <g class="signal-pulses" fill="#c7f7da">
                   <circle r="2.8" opacity="0">
                     <animateMotion dur="7s" begin="0s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.34;1" calcMode="linear"><mpath href="#ml1"/></animateMotion>
                     <animate attributeName="opacity" dur="7s" begin="0s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.05;0.3;0.36;1"/>
@@ -1656,19 +1802,98 @@
                   <p>By working daily with Minary, session after session, it <b>learns your strengths and weaknesses</b>, and its plans fit your way of working better and better.</p>
                 </div>
                 <div class="wa-module" aria-hidden="true">
-                  <div class="wa-tag">Work profile</div>
-                  <div class="wa-inchips">
-                    <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 3.5V8h-4.5"/></svg>Sessions <b>27</b></span>
-                    <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></svg>Real timings</span>
-                    <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5 5 13.5h6L9.5 21.5 18 10.5h-6l1-8z"/></svg>Energy curve</span>
-                  </div>
-                  <div class="wa-transform">Minary learns how you work</div>
-                  <div class="wa-plan-head">How you work <span>sharper every session</span></div>
-                  <div class="wa-tasks wa-profile">
-                    <div class="task top"><span class="task-rank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/></svg></span><span class="task-main"><span class="task-name">Sharpest in the morning</span><span class="task-meta">energy peaks 9&ndash;12</span></span><span class="chip">learned</span></div>
-                    <div class="task"><span class="task-rank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 10v3.5l2.2 2.2M9.5 2.5h5"/></svg></span><span class="task-main"><span class="task-name">Admin runs ~30% over estimate</span><span class="task-meta">plans now add a buffer</span></span><span class="chip">adjusting</span></div>
-                    <div class="task"><span class="task-rank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="16" height="6.5" rx="2"/><rect x="4" y="14" width="10.5" height="6.5" rx="2"/></svg></span><span class="task-main"><span class="task-name">Deep work fits 90-min blocks</span><span class="task-meta">sessions shaped around it</span></span><span class="chip">applied</span></div>
-                  </div>
+                  <div class="wa-tag">Learning loop</div>
+                  <svg class="wa-loop" viewBox="-20 0 520 360" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                      <radialGradient id="waLoopGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="rgba(82,180,122,0.20)"/>
+                        <stop offset="100%" stop-color="rgba(82,180,122,0)"/>
+                      </radialGradient>
+                      <linearGradient id="waLoopCore" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(116,215,154,0.22)"/>
+                        <stop offset="100%" stop-color="rgba(7,24,14,0.96)"/>
+                      </linearGradient>
+                    </defs>
+
+                    <ellipse cx="240" cy="180" rx="215" ry="160" fill="url(#waLoopGlow)">
+                      <animate attributeName="opacity" values="0.55;1;0.55" dur="6s" repeatCount="indefinite"/>
+                    </ellipse>
+
+                    <!-- the session orbit: Plan (top) -> Work (bottom-right) -> Recap (bottom-left) -> Plan -->
+                    <path id="waLoopPath" d="M240 60 A120 120 0 0 1 344 240 A120 120 0 0 1 136 240 A120 120 0 0 1 240 60"
+                          fill="none" stroke="rgba(116,215,154,0.22)" stroke-width="1.3" stroke-dasharray="3 7" stroke-linecap="round"/>
+                    <g stroke="rgba(116,215,154,0.5)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M-5 -4 L4 0 L-5 4" transform="translate(344,120) rotate(60)"/>
+                      <path d="M-5 -4 L4 0 L-5 4" transform="translate(240,300) rotate(180)"/>
+                      <path d="M-5 -4 L4 0 L-5 4" transform="translate(136,120) rotate(-60)"/>
+                    </g>
+
+                    <!-- Plan flows out from Minary; Work and Recap flow back in -->
+                    <g stroke="rgba(116,215,154,0.28)" stroke-width="1.4" fill="none">
+                      <path id="wain1" d="M240 145 L240 64"/>
+                      <path id="wain2" d="M345 232 L299 212"/>
+                      <path id="wain3" d="M135 232 L181 212"/>
+                    </g>
+                    <g fill="#c7f7da">
+                      <circle r="2.8" opacity="0">
+                        <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.02;0.12;1" calcMode="linear"><mpath href="#wain1"/></animateMotion>
+                        <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.02;0.04;0.10;0.12;1"/>
+                      </circle>
+                      <circle r="2.8" opacity="0">
+                        <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.35;0.45;1" calcMode="linear"><mpath href="#wain2"/></animateMotion>
+                        <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.35;0.37;0.43;0.45;1"/>
+                      </circle>
+                      <circle r="2.8" opacity="0">
+                        <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.68;0.78;1" calcMode="linear"><mpath href="#wain3"/></animateMotion>
+                        <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.68;0.70;0.76;0.78;1"/>
+                      </circle>
+                    </g>
+
+                    <!-- the session pulse orbiting the loop -->
+                    <circle r="8" fill="rgba(116,215,154,0.22)">
+                      <animateMotion dur="9s" repeatCount="indefinite"><mpath href="#waLoopPath"/></animateMotion>
+                    </circle>
+                    <circle r="3.6" fill="#c7f7da">
+                      <animateMotion dur="9s" repeatCount="indefinite"><mpath href="#waLoopPath"/></animateMotion>
+                    </circle>
+
+                    <!-- core: Minary -->
+                    <rect x="165" y="145" width="150" height="70" rx="16" fill="url(#waLoopCore)" stroke="rgba(116,215,154,0.45)" stroke-width="1.5"/>
+                    <rect x="176" y="156" width="128" height="48" rx="11" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+                    <rect x="165" y="145" width="150" height="70" rx="16" fill="none" stroke="rgba(116,215,154,0.85)" stroke-width="1.5" opacity="0">
+                      <animate attributeName="opacity" dur="9s" repeatCount="indefinite"
+                               values="0;0;0.9;0;0;0.9;0;0;0.9;0"
+                               keyTimes="0;0.01;0.08;0.13;0.35;0.42;0.47;0.68;0.75;1"/>
+                    </rect>
+                    <text x="240" y="176" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="800" fill="#ffffff">Minary</text>
+                    <text x="240" y="196" text-anchor="middle" font-family="Inter, sans-serif" font-size="9.5" font-weight="700" letter-spacing="1" fill="rgba(199,247,218,0.6)">LEARNS &amp; PLANS</text>
+
+                    <!-- loop stages: Plan (out), Work + Recap (in) -->
+                    <g font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.9">
+                      <g>
+                        <rect x="209" y="36" width="62" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
+                        <rect x="209" y="36" width="62" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
+                          <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="1;0;0;1" keyTimes="0;0.09;0.97;1"/>
+                        </rect>
+                        <text x="240" y="50" text-anchor="middle" dominant-baseline="central" fill="#edfff5">PLAN</text>
+                      </g>
+                      <g>
+                        <rect x="322" y="234" width="66" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
+                        <rect x="322" y="234" width="66" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
+                          <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;0.33;0.35;0.46;1"/>
+                        </rect>
+                        <text x="355" y="248" text-anchor="middle" dominant-baseline="central" fill="#edfff5">WORK</text>
+                      </g>
+                      <g>
+                        <rect x="88" y="234" width="74" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
+                        <rect x="88" y="234" width="74" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
+                          <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;0.66;0.68;0.79;1"/>
+                        </rect>
+                        <text x="125" y="248" text-anchor="middle" dominant-baseline="central" fill="#edfff5">RECAP</text>
+                      </g>
+                    </g>
+                  </svg>
+                  <p class="wa-loop-caption">Every day, your check-in <b>feeds the loop</b>: Minary plans, you work, it recaps &mdash; and what it learns sharpens the next plan.</p>
                 </div>
               </div>
             </div>
@@ -1835,7 +2060,8 @@
     <!-- FOOTER -->
     <footer>
       <div class="wrap foot-in">
-        <img src="/public/logo.png" alt="Minary" style="width:200px;" onerror="this.src='./public/logo.png'">
+        <img src="/public/logo.png" alt="Minary" style="width:200px;" class="foot-logo-dark" onerror="this.src='./public/logo.png'">
+        <img src="/public/minary_logo_black_text.png" alt="Minary" style="width:200px;" class="foot-logo-light" onerror="this.src='./public/minary_logo_black_text.png'">
         <div class="foot-links">
           <a href="/privacy.html">Privacy policy</a>
           <a href="mailto:contact@minary.app">contact@minary.app</a>
@@ -2329,6 +2555,18 @@
       grid.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update);
       update();
+    })();
+
+    // Theme toggle
+    (function () {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('minary-theme', next); } catch (e) {}
+      });
     })();
   </script>
 
