@@ -1201,7 +1201,7 @@
     .wa-tag {
       display: flex; align-items: center; gap: 8px; margin-bottom: 15px;
       font-size: 11px; font-weight: 800; letter-spacing: 0.14em;
-      text-transform: uppercase; color: #8fd9aa;
+      text-transform: uppercase; color: var(--accent-bright);
     }
     .wa-tag::before {
       content: ''; width: 6px; height: 6px; border-radius: 50%;
@@ -1235,12 +1235,44 @@
     .wa-module .task-name { font-size: 13.5px; }
     .wa-module .task-meta { font-size: 11.5px; }
     .wa-module .task-score { font-size: 14px; }
+    .wa-module .wa-time-chip { font-size: 10.5px; padding: 3px 9px; white-space: nowrap; flex-shrink: 0; }
     .wa-plan-head {
       display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
       margin-bottom: 10px;
       font-size: 13.5px; font-weight: 700; color: #fff;
     }
     .wa-plan-head span { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.42); letter-spacing: 0.04em; }
+
+    .wa-proj-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .wa-proj-label {
+      display: block; font-size: 10px; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 3px;
+    }
+    .wa-proj-name { font-size: 14.5px; font-weight: 700; color: #fff; }
+    .wa-proj-meta { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.42); white-space: nowrap; }
+    .wa-subproj-row {
+      display: flex; align-items: center; gap: 8px;
+      margin: 12px 0 12px; padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .wa-subproj-dot { width: 6px; height: 6px; border-radius: 50%; background: #6ea8ff; flex-shrink: 0; }
+    .wa-subproj-label {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #8fb8ff;
+    }
+    .wa-subproj-name { font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,0.85); }
+    .wa-step-group { margin-bottom: 12px; }
+    .wa-step-group:last-child { margin-bottom: 0; }
+    .wa-step-head {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+      font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.6);
+    }
+    .wa-step-badge {
+      font-size: 9.5px; font-weight: 800; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 2px 8px; border-radius: 100px;
+    }
+    .wa-step-badge.ready { background: rgba(116,215,154,0.16); color: #8fd9aa; }
+    .wa-step-badge.next { background: rgba(230,175,90,0.18); color: #e6b25a; }
     .wa-inchips { display: flex; flex-wrap: wrap; gap: 8px; }
     .wa-inchip {
       display: inline-flex; align-items: center; gap: 7px;
@@ -1303,6 +1335,7 @@
       background: #16321f;
       box-shadow: 0 24px 60px rgba(8,40,24,0.16), inset 0 1px 0 rgba(255,255,255,0.10);
     }
+    [data-theme="light"] .why-answer .why-label { color: var(--accent-bright); }
     [data-theme="light"] .wa-module {
       background: #0c2016;
       box-shadow: 0 18px 40px rgba(8,40,24,0.14), inset 0 1px 0 rgba(255,255,255,0.08);
@@ -1315,6 +1348,7 @@
       background-image: linear-gradient(to bottom, #f8f9f7 0%, rgba(248,249,247,0) 400px);
     }
     [data-theme="light"] .team-card h4 { color: #08201a; }
+    [data-theme="light"] .team-card p { color: var(--accent-deep); }
     [data-theme="light"] .team-scroll-hint { color: rgba(8,32,26,0.42); }
     [data-theme="light"] .team-logos-label { color: rgba(8,32,26,0.4); }
     [data-theme="light"] .logo-ph { color: rgba(8,32,26,0.55); }
@@ -1761,14 +1795,33 @@
                   <div class="wa-tag">Project structuring</div>
                   <div class="wa-say">
                     <span class="wa-say-label">You</span>
-                    &ldquo;Launch my online shop &mdash; logo, website, first collection, by mid-June.&rdquo;
+                    &ldquo;Launch my online shop: logo, website, first collection, by mid-June.&rdquo;
                   </div>
                   <div class="wa-transform">Minary structures it</div>
-                  <div class="wa-plan-head">Shop launch <span>3 tasks &middot; ordered</span></div>
-                  <div class="wa-tasks">
-                    <div class="task"><span class="task-rank">01</span><span class="task-main"><span class="task-name">Design the logo</span></span><span class="chip">May 12</span></div>
-                    <div class="task"><span class="task-rank">02</span><span class="task-main"><span class="task-name">Build the website</span></span><span class="chip">May 26</span></div>
-                    <div class="task"><span class="task-rank">03</span><span class="task-main"><span class="task-name">Prepare the first collection</span></span><span class="chip">Jun 9</span></div>
+                  <div class="wa-proj-row">
+                    <div>
+                      <span class="wa-proj-label">Project</span>
+                      <span class="wa-proj-name">Online shop launch</span>
+                    </div>
+                    <span class="wa-proj-meta">Due 9 Jun &middot; 3 tasks</span>
+                  </div>
+                  <div class="wa-subproj-row">
+                    <span class="wa-subproj-dot"></span>
+                    <span class="wa-subproj-label">Sub-project</span>
+                    <span class="wa-subproj-name">Shop launch</span>
+                  </div>
+                  <div class="wa-step-group">
+                    <div class="wa-step-head">Step 1 <span class="wa-step-badge ready">Ready</span></div>
+                    <div class="wa-tasks">
+                      <div class="task"><span class="task-rank">01</span><span class="task-main"><span class="task-name">Design the logo</span></span><span class="chip">May 12</span></div>
+                      <div class="task"><span class="task-rank">02</span><span class="task-main"><span class="task-name">Build the website</span></span><span class="chip">May 26</span></div>
+                    </div>
+                  </div>
+                  <div class="wa-step-group">
+                    <div class="wa-step-head">Step 2 <span class="wa-step-badge next">Up next</span></div>
+                    <div class="wa-tasks">
+                      <div class="task"><span class="task-rank">03</span><span class="task-main"><span class="task-name">Prepare the first collection</span></span><span class="chip">Jun 9</span></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1782,15 +1835,15 @@
                 <div class="wa-module" aria-hidden="true">
                   <div class="wa-tag">Session planner</div>
                   <div class="wa-inchips">
-                    <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></svg>Time <b>2h</b></span>
-                    <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5 5 13.5h6L9.5 21.5 18 10.5h-6l1-8z"/></svg>Energy <b>Low</b></span>
+                    <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></svg>Time <b>3h 30min</b></span>
+                    <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5 5 13.5h6L9.5 21.5 18 10.5h-6l1-8z"/></svg>Energy <b>High</b></span>
                     <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 15.5a8 8 0 1 1 15 0"/><path d="M12 15.5 15 11"/><circle cx="12" cy="15.5" r="1.2" fill="currentColor" stroke="none"/></svg>Control <b>6/10</b></span>
                   </div>
                   <div class="wa-transform">Minary picks for today</div>
                   <div class="wa-tasks">
-                    <div class="task top"><span class="task-rank">1</span><span class="task-main"><span class="task-name">Write product descriptions</span><span class="task-meta">low effort &middot; deadline close</span></span><span class="task-score">94</span></div>
-                    <div class="task"><span class="task-rank">2</span><span class="task-main"><span class="task-name">Refine logo concepts</span><span class="task-meta">creative &middot; medium focus</span></span><span class="task-score">87</span></div>
-                    <div class="task dim"><span class="task-rank">3</span><span class="task-main"><span class="task-name">Set up payments</span><span class="task-meta">needs deep focus &middot; parked for tomorrow</span></span><span class="task-score">41</span></div>
+                    <div class="task top"><span class="task-rank">1</span><span class="task-main"><span class="task-name">Write product descriptions</span><span class="task-meta">low effort &middot; deadline close</span></span><span class="chip wa-time-chip">45 min</span></div>
+                    <div class="task"><span class="task-rank">2</span><span class="task-main"><span class="task-name">Refine logo concepts</span><span class="task-meta">creative &middot; medium focus</span></span><span class="chip wa-time-chip">1h 15min</span></div>
+                    <div class="task"><span class="task-rank">3</span><span class="task-main"><span class="task-name">Set up payments</span><span class="task-meta">needs deep focus</span></span><span class="chip wa-time-chip">1h 30min</span></div>
                   </div>
                 </div>
               </div>
@@ -1893,7 +1946,7 @@
                       </g>
                     </g>
                   </svg>
-                  <p class="wa-loop-caption">Every day, your check-in <b>feeds the loop</b>: Minary plans, you work, it recaps &mdash; and what it learns sharpens the next plan.</p>
+                  <p class="wa-loop-caption">Every day, your check-in <b>feeds the loop</b>. Minary plans, you work, it recaps, and what it learns sharpens the next plan.</p>
                 </div>
               </div>
             </div>
@@ -1914,49 +1967,13 @@
         <div class="carousel reveal" id="howCarousel">
           <button type="button" class="carousel-nav prev" aria-label="Previous step">&lsaquo;</button>
           <div class="carousel-stage" id="carouselStage">
-            <div class="win win-shot-wide win-blank" data-i="0" data-kind="wide"><div class="win-screen"><span class="win-ph">Coming soon</span></div></div>
-            <div class="win win-shot-wide win-blank" data-i="1" data-kind="wide"><div class="win-screen"><span class="win-ph">Coming soon</span></div></div>
+            <div class="win win-shot-modal" data-i="0" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/08-chat.png" alt="Describe your project" onerror="this.remove()"></div></div>
+            <div class="win win-shot-wide" data-i="1" data-kind="wide"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/09-tasks.png" alt="Your tasks" onerror="this.remove()"></div></div>
             <div class="win win-shot-phone" data-i="2" data-kind="phone"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/01-check-in.png" alt="Check in" onerror="this.remove()"></div></div>
             <div class="win win-shot-modal" data-i="3" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/04-session-plan.png" alt="Session planning" onerror="this.remove()"></div></div>
             <div class="win win-shot-modal" data-i="4" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/02-plan.png" alt="Your plan" onerror="this.remove()"></div></div>
             <div class="win win-shot-wide win-shot-ultra" data-i="5" data-kind="ultrawide"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/03-session.png" alt="Track the session" onerror="this.remove()"></div></div>
             <div class="win win-shot-phone win-shot-slim" data-i="6" data-kind="phone"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/06-endsess.png" alt="Session recap" onerror="this.remove()"></div></div>
-            <div class="win win-ai" data-i="7" data-kind="ai">
-              <div class="win-screen win-screen-ai">
-                <div class="ai-learn">
-                  <span class="ai-learn-title">The learning layer</span>
-                  <p class="ai-learn-intro">Every session leaves a trail of signals, <b>efficiency, plan adherence, energy, real timings</b>. Our model learns from all of them to build you a <b>sharper plan next time</b>.</p>
-
-                  <div class="lc">
-                    <div class="lc-y">Plan accuracy</div>
-                    <svg class="lc-svg" viewBox="0 0 560 150" preserveAspectRatio="none">
-                      <defs>
-                        <linearGradient id="lcFill" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stop-color="rgba(116,215,154,0.30)"/>
-                          <stop offset="100%" stop-color="rgba(116,215,154,0)"/>
-                        </linearGradient>
-                      </defs>
-                      <g stroke="rgba(255,255,255,0.06)" stroke-width="1">
-                        <line x1="0" y1="42" x2="560" y2="42"/>
-                        <line x1="0" y1="86" x2="560" y2="86"/>
-                      </g>
-                      <path class="lc-area" d="M0 120 L93 104 L186 96 L280 72 L373 60 L466 40 L540 26 L560 26 L560 132 L0 132 Z" fill="url(#lcFill)"/>
-                      <path class="lc-line" d="M0 120 L93 104 L186 96 L280 72 L373 60 L466 40 L540 26" fill="none" stroke="#74d79a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      <circle class="lc-dot" cx="540" cy="26" r="4.5" fill="#bff3d2"/>
-                    </svg>
-                    <div class="lc-x"><span>1</span><span>10</span><span>25</span><span>50 sessions</span></div>
-                  </div>
-
-                  <div class="ai-stats-head">What every session feeds the model:</div>
-                  <div class="ai-stats">
-                    <div class="ai-stat"><span>Energy accuracy</span><b>84%</b></div>
-                    <div class="ai-stat"><span>Plan adherence</span><b>92%</b></div>
-                    <div class="ai-stat"><span>Time-estimate accuracy</span><b>76%</b></div>
-                    <div class="ai-stat"><span>Session efficiency</span><b>88%</b></div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
           <button type="button" class="carousel-nav next" aria-label="Next step">&rsaquo;</button>
         </div>
@@ -2344,13 +2361,12 @@
       const N = wins.length;
       const caps = [
         { step: '01', title: 'Describe your project', desc: "Tell Minary what you're working on, in plain words. It turns it into a <b>structured project: what to do, in what order, by when</b>." },
-        { step: '02', title: 'Your tasks', desc: 'Everything you need to do in one place: <b>projects, subprojects, tasks, deadlines</b>.' },
-        { step: '03', title: 'Your daily session', desc: "Your daily work session: tell Minary your <b>time</b>, your <b>energy</b>, and how <b>in control</b> you feel &mdash; lost and overwhelmed, or clear and on top of things." },
+        { step: '02', title: 'Your projects, subprojects and tasks', desc: 'Everything you need to do in one place: <b>projects, subprojects, tasks, deadlines</b>.' },
+        { step: '03', title: 'Your daily session', desc: "Your daily work session: tell Minary your <b>time</b>, your <b>energy</b>, and how <b>in control</b> you feel: lost and overwhelmed, or clear and on top of things." },
         { step: '04', title: 'Session planning', desc: "Minary weighs every task against your deadlines and <b>the headspace you're in</b>: your time, energy, and sense of control." },
         { step: '05', title: 'Your personalized plan', desc: 'Minary turns session inputs into your session goals: <b>a tailored plan of what to work on now</b>.' },
         { step: '06', title: 'Track the session', desc: 'You work your plan while Minary tracks <b>how you work</b>.' },
         { step: '07', title: 'Session recap', desc: 'At the end, Minary checks back in: how the session went, how efficient it felt, and <b>where your energy and control landed</b>.' },
-        { step: '08', title: 'It learns how you work', desc: 'Every session feeds Minary real signals: time spent, how closely you followed the plan, how your energy held up. The learning layer turns that into <b>sessions that fit you better and better</b>.' },
       ];
       let active = 0;
 
