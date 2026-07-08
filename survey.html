@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('minary-theme');
+        document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minary · Help shape the product</title>
@@ -26,6 +36,16 @@
       --txt-mut: rgba(255,255,255,0.56);
       --txt-faint: rgba(255,255,255,0.35);
       --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg-0: #dcefe3;
+      --bg-1: #eaf6ee;
+      --bg-2: #cce6d7;
+      --txt: rgba(8,28,18,0.92);
+      --txt-mut: rgba(8,28,18,0.58);
+      --txt-faint: rgba(8,28,18,0.40);
+      --line: rgba(8,40,24,0.12);
     }
 
     html { scroll-behavior: smooth; }
@@ -256,6 +276,53 @@
 
     #survey-form.hidden { display: none; }
 
+    /* Light theme */
+    .logo-light { display: none; }
+    [data-theme="light"] .logo-dark { display: none; }
+    [data-theme="light"] .logo-light { display: inline-block; }
+    [data-theme="light"] .survey-intro-title .grad {
+      background: linear-gradient(105deg, var(--accent-deep), #1f9d5c 60%, var(--accent));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    [data-theme="light"] .survey-reward-line b { color: #1f9d5c; }
+    [data-theme="light"] .survey-intro-title { color: #08201a; }
+    [data-theme="light"] .progress-bar-bg { background: rgba(8,40,24,0.10); }
+    [data-theme="light"] .option {
+      border-color: rgba(8,40,24,0.12);
+      background: rgba(255,255,255,0.55);
+    }
+    [data-theme="light"] .option:hover { border-color: rgba(82,180,122,0.35); background: rgba(82,180,122,0.08); }
+    [data-theme="light"] .option:has(input:checked) { border-color: rgba(82,180,122,0.45); background: rgba(82,180,122,0.12); }
+    [data-theme="light"] .other-input,
+    [data-theme="light"] .text-input {
+      border-color: rgba(8,40,24,0.14);
+      background: rgba(255,255,255,0.65);
+      color: var(--txt);
+    }
+    [data-theme="light"] .divider { background: rgba(8,40,24,0.10); }
+    [data-theme="light"] .thankyou h1 { color: #08201a; }
+    [data-theme="light"] .fit-callout {
+      --txt: rgba(255,255,255,0.92);
+      --txt-mut: rgba(255,255,255,0.56);
+      --txt-faint: rgba(255,255,255,0.35);
+      background: #0c2016;
+      box-shadow: 0 24px 60px rgba(8,40,24,0.16), inset 0 1px 0 rgba(255,255,255,0.07);
+      border-color: rgba(148,214,168,0.18);
+    }
+    [data-theme="light"] .ty-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 10px 26px rgba(8,40,24,0.08);
+      border-color: rgba(8,40,24,0.14);
+    }
+    [data-theme="light"] .ty-amount {
+      background: linear-gradient(105deg, var(--accent-deep), #1f9d5c 60%, var(--accent));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    [data-theme="light"] .ty-row { border-top-color: rgba(8,40,24,0.10); }
+    [data-theme="light"] .ty-row span { color: rgba(8,32,26,0.5); }
+    [data-theme="light"] .ty-note { border-top-color: rgba(8,40,24,0.10); }
+    [data-theme="light"] .bg-glow { background: none; }
+
     @media (max-width: 480px) {
       .page { padding: 32px 16px 60px; }
       .question-label { font-size: 15px; }
@@ -274,7 +341,10 @@
 
   <!-- Logo -->
   <div style="text-align:center; margin-bottom:40px;">
-    <a href="/"><img src="/public/logo.png" alt="Minary" style="width:260px;"></a>
+    <a href="/">
+      <img src="/public/logo.png" alt="Minary" class="logo-dark" style="width:260px;">
+      <img src="/public/minary_logo_black_text.png" alt="Minary" class="logo-light" style="width:260px;">
+    </a>
   </div>
 
   <!-- Intro -->
@@ -304,7 +374,7 @@
       <div class="ty-rows">
         <div class="ty-row" id="ty-row-email"><span>Linked to</span><b id="ty-email"></b></div>
       </div>
-      <p class="ty-note" id="ty-reward-note">No action needed &mdash; we'll email you a reminder when&nbsp;we&nbsp;launch.</p>
+      <p class="ty-note" id="ty-reward-note">No action needed. We'll email you a reminder when&nbsp;we&nbsp;launch.</p>
     </div>
   </div>
 
