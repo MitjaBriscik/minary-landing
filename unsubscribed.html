@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('minary-theme');
+        document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minary · Unsubscribed</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/public/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-1: #0d1a13;
+      --accent-bright: #74d79a;
+      --txt: rgba(255,255,255,0.92);
+      --txt-mut: rgba(255,255,255,0.56);
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+    [data-theme="light"] {
+      --bg-1: #eaf6ee;
+      --txt: rgba(8,28,18,0.92);
+      --txt-mut: rgba(8,28,18,0.58);
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg-1);
+      color: var(--txt);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    .card { text-align: center; max-width: 420px; }
+
+    .logo-dark { display: block; margin: 0 auto 40px; }
+    .logo-light { display: none; margin: 0 auto 40px; }
+    [data-theme="light"] .logo-dark { display: none; }
+    [data-theme="light"] .logo-light { display: block; }
+
+    .check { display: block; width: 64px; height: 64px; margin: 0 auto 24px; }
+    .check .ring { fill: rgba(82,180,122,0.07); stroke: rgba(82,180,122,0.55); stroke-width: 1.5; }
+    .check .mark { fill: none; stroke: var(--accent-bright); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+
+    h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+    p { font-size: 15px; color: var(--txt-mut); }
+    a { color: var(--accent-bright); }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img src="/public/logo.png" alt="Minary" class="logo-dark" style="width:180px;" onerror="this.src='./public/logo.png'">
+    <img src="/public/minary_logo_black_text.png" alt="Minary" class="logo-light" style="width:180px;" onerror="this.src='./public/minary_logo_black_text.png'">
+
+    <svg class="check" viewBox="0 0 74 74" aria-hidden="true">
+      <circle class="ring" cx="37" cy="37" r="34"/>
+      <path class="mark" d="M24.5 38.5l8.5 8.5L49.5 29"/>
+    </svg>
+
+    <h1>You're unsubscribed.</h1>
+    <p>You won't hear from us again. If that was a mistake, you can always <a href="/">rejoin the waitlist</a>.</p>
+  </div>
+
+</body>
+</html>
