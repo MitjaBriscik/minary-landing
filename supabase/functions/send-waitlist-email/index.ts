@@ -34,15 +34,15 @@ function emailHtml(unsubscribeUrl: string): string {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#ffffff;">
       <tr>
         <td align="center" style="padding:56px 24px;">
-          <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="width:560px; max-width:100%; background-color:#dcefe3; border-radius:16px;">
+          <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="width:560px; max-width:100%; background-color:#16301f; border-radius:16px;">
             <tr>
               <td align="center" style="padding:48px 40px;">
-                <img src="https://www.minary.app/public/minary_logo_black_text.png" alt="Minary" width="230" align="center" style="display:block; margin-left:auto; margin-right:auto; margin-bottom:28px;">
-                <p style="margin:0 0 12px; font-size:17px; line-height:1.6; color:#2d6a4f; font-weight:600; text-align:center;">
+                <img src="https://www.minary.app/public/logo.png" alt="Minary" width="230" align="center" style="display:block; margin-left:auto; margin-right:auto; margin-bottom:28px;">
+                <p style="margin:0 0 12px; font-size:17px; line-height:1.6; color:#74d79a; font-weight:600; text-align:center;">
                   Thank you for joining the waitlist.
                 </p>
-                <p style="margin:0; font-size:14px; line-height:1.7; color:#3a4c40; text-align:center;">
-                  Every person who joins helps us show there's <b style="color:#16261c;">real demand</b> for what we're building. It costs you nothing, but it means a lot to us.
+                <p style="margin:0; font-size:14px; line-height:1.7; color:rgba(255,255,255,0.78); text-align:center;">
+                  Every person who joins helps us show there's real demand for what we're building.<br>It costs you nothing, but it means a lot to us.
                 </p>
               </td>
             </tr>
