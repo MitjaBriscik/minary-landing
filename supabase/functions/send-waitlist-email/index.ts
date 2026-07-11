@@ -42,7 +42,7 @@ function emailHtml(unsubscribeUrl: string): string {
                   Thank you for joining the waitlist.
                 </p>
                 <p style="margin:0; font-size:14px; line-height:1.7; color:#3a4c40; text-align:center;">
-                  We'll let you know about important updates, and when the app is ready.
+                  Every person who joins helps us show there's real demand for what we're building. It costs you nothing, but it means a lot to us.
                 </p>
               </td>
             </tr>
