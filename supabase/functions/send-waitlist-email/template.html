@@ -3,11 +3,11 @@
   Paste this into Resend: Templates > (your template) > code/HTML view.
   Variables used: {{{UNSUBSCRIBE_URL}}}
 
-  Kept deliberately flat (one background, one table, no nested card):
-  Resend's template editor rewrites custom HTML into its own block model,
-  and a two-tone nested-card layout got mangled on both the dashboard
-  preview and real inboxes. A single-section layout survives that
-  round-trip intact.
+  Email clients (Gmail especially) box content into a fixed ~600px canvas
+  and control everything outside it themselves — a full-bleed colored
+  background is not achievable across clients. So: white page (invisible
+  against Gmail's own white), green shows up only as the card's own
+  background, contained inside the fixed-width canvas.
 -->
 <!doctype html>
 <html>
@@ -15,14 +15,20 @@
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#ffffff;">
       <tr>
         <td align="center" style="padding:56px 24px;">
-          <img src="https://www.minary.app/public/minary_logo_black_text.png" alt="Minary" width="140" style="display:block; margin:0 auto 36px;">
-          <p style="margin:0 0 12px; font-size:17px; line-height:1.6; color:#16261c; font-weight:600; text-align:center;">
-            Thanks for joining the Minary waitlist.
-          </p>
-          <p style="margin:0; font-size:14px; line-height:1.7; color:#5c6a62; text-align:center;">
-            We'll be in touch when it's ready.
-          </p>
-          <p style="margin:40px 0 0; font-size:12px; color:#9aa79f; text-align:center;">
+          <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="width:480px; max-width:100%; background-color:#dcefe3; border-radius:16px;">
+            <tr>
+              <td align="center" style="padding:44px 40px;">
+                <img src="https://www.minary.app/public/minary_logo_black_text.png" alt="Minary" width="190" align="center" style="display:block; margin-left:auto; margin-right:auto; margin-bottom:32px;">
+                <p style="margin:0 0 12px; font-size:17px; line-height:1.6; color:#2d6a4f; font-weight:600; text-align:center;">
+                  Thanks for joining the Minary waitlist.
+                </p>
+                <p style="margin:0; font-size:14px; line-height:1.7; color:#3a4c40; text-align:center;">
+                  We'll be in touch when it's ready.
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="margin:24px 0 0; font-size:12px; color:#9aa79f; text-align:center;">
             Don't want these emails? <a href="{{{UNSUBSCRIBE_URL}}}" style="color:#2d6a4f;">Unsubscribe</a>
           </p>
         </td>
