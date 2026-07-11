@@ -38,9 +38,10 @@ function emailHtml(unsubscribeUrl: string): string {
             <tr>
               <td align="center" style="padding:48px 40px;">
                 <img src="https://www.minary.app/public/logo.png" alt="Minary" width="230" align="center" style="display:block; margin-left:auto; margin-right:auto; margin-bottom:28px;">
-                <p style="margin:0 0 12px; font-size:17px; line-height:1.6; color:#74d79a; font-weight:600; text-align:center;">
+                <p style="margin:0; font-size:17px; line-height:1.6; color:#74d79a; font-weight:600; text-align:center;">
                   Thank you for joining the waitlist.
                 </p>
+                <div style="width:48px; height:1px; background-color:rgba(255,255,255,0.18); margin:20px auto 24px;"></div>
                 <p style="margin:0; font-size:14px; line-height:1.7; color:rgba(255,255,255,0.78); text-align:center;">
                   Every person who joins helps us show there's real demand for what we're building.<br>It costs you nothing, but it means a lot to us.
                 </p>
