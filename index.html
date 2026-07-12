@@ -2519,10 +2519,6 @@
 
         for (const n of nodes) {
           const pulse = 0.75 + 0.25 * Math.sin(now * n.speed + n.phase);
-          // soft outer glow
-          ctx.beginPath(); ctx.arc(n.rx, n.ry, n.r * 3.6, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(45,138,90,${0.20 * n.glow * pulse})`; ctx.fill();
-          // bright core
           ctx.beginPath(); ctx.arc(n.rx, n.ry, n.r, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(22,74,48,${0.72 * n.glow * pulse + 0.22})`; ctx.fill();
         }
