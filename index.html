@@ -943,6 +943,7 @@
     .foot-links { display: flex; align-items: center; gap: 22px; font-size: 14px; color: var(--txt-mut); }
     .foot-links a { color: var(--txt-mut); text-decoration: none; transition: color 0.2s; font-weight: 500; }
     .foot-links a:hover { color: var(--accent-bright); }
+    .foot-links .foot-social { display: inline-flex; align-items: center; }
 
     /* Reveal animations */
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
@@ -1297,9 +1298,10 @@
     /* Light theme: Why section (Our answer panel + modules stay dark on purpose) */
     [data-theme="light"] .problem {
       border-top: none;
-      background: linear-gradient(180deg, #cce6d7 0, #d5ecdf 60px, #e0f1e6 130px, #eaf5ee 200px, #f0f8f3 280px, #f8f9f7 420px) !important;
-      margin-top: 0;
-      padding-top: 96px !important;
+      background: linear-gradient(180deg, transparent 0, #d5ecdf 100px, #e0f1e6 180px, #eaf5ee 250px, #f0f8f3 330px, #f8f9f7 470px) !important;
+      /* same hero overlap as dark so the gap above the eyebrow matches */
+      margin-top: -120px;
+      padding-top: 118px !important;
       padding-bottom: 96px !important;
     }
     [data-theme="light"] .problem::before {
@@ -1349,6 +1351,7 @@
       background-image: linear-gradient(to bottom, #f8f9f7 0%, rgba(248,249,247,0) 400px);
     }
     [data-theme="light"] .team-card h4 { color: #08201a; }
+    [data-theme="light"] .team-sub { color: rgba(8,32,26,0.64); }
     [data-theme="light"] .team-card p { color: var(--accent-deep); }
     [data-theme="light"] .team-scroll-hint { color: rgba(8,32,26,0.42); }
     [data-theme="light"] .team-logos-label { color: rgba(8,32,26,0.4); }
@@ -1490,6 +1493,11 @@
 
     /* Team */
     .team h2 { color: #1a2e22; }
+    .team-sub {
+      margin-top: 18px; max-width: 52ch;
+      font-size: 17px; line-height: 1.65; font-weight: 500;
+      color: var(--txt-mut);
+    }
     .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 52px; }
     .team-card {
       background: transparent; border-radius: 16px; padding: 10px 12px 14px;
@@ -1765,11 +1773,11 @@
                 <!-- core (drawn over the lines/pulses so they terminate into it) -->
                 <rect x="138" y="132" width="164" height="116" rx="22" fill="url(#mapCore)" stroke="rgba(116,215,154,0.45)" stroke-width="1.5"/>
                 <rect x="150" y="144" width="140" height="92" rx="15" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
-                <text x="220" y="183" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="800" fill="#ffffff">What to do</text>
-                <text x="220" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="800" fill="#ffffff">now</text>
+                <text x="220" y="183" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-size="22" font-weight="800" fill="#ffffff">What to do</text>
+                <text x="220" y="210" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-size="22" font-weight="800" fill="#ffffff">now</text>
 
                 <!-- signal chips -->
-                <g font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.9">
+                <g font-family="Bricolage Grotesque, sans-serif" font-size="11" font-weight="700" letter-spacing="0.9">
                   <g><rect x="113" y="48" width="66" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/><text x="146" y="62" text-anchor="middle" dominant-baseline="central" fill="#edfff5">TASKS</text></g>
                   <g><rect x="244" y="48" width="100" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/><text x="294" y="62" text-anchor="middle" dominant-baseline="central" fill="#edfff5">DEADLINES</text></g>
                   <g><rect x="325" y="176" width="86" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/><text x="368" y="190" text-anchor="middle" dominant-baseline="central" fill="#edfff5">CONTROL</text></g>
@@ -1918,11 +1926,11 @@
                                values="0;0;0.9;0;0;0.9;0;0;0.9;0"
                                keyTimes="0;0.01;0.08;0.13;0.35;0.42;0.47;0.68;0.75;1"/>
                     </rect>
-                    <text x="240" y="176" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="800" fill="#ffffff">Minary</text>
-                    <text x="240" y="196" text-anchor="middle" font-family="Inter, sans-serif" font-size="9.5" font-weight="700" letter-spacing="1" fill="rgba(199,247,218,0.6)">LEARNS &amp; PLANS</text>
+                    <text x="240" y="176" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="800" fill="#ffffff">Minary</text>
+                    <text x="240" y="196" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-size="9.5" font-weight="700" letter-spacing="1" fill="rgba(199,247,218,0.6)">LEARNS &amp; PLANS</text>
 
                     <!-- loop stages: Plan (out), Work + Recap (in) -->
-                    <g font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.9">
+                    <g font-family="Bricolage Grotesque, sans-serif" font-size="11" font-weight="700" letter-spacing="0.9">
                       <g>
                         <rect x="209" y="36" width="62" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
                         <rect x="209" y="36" width="62" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
@@ -1959,9 +1967,9 @@
     <section class="block how" id="how">
       <div class="wrap">
         <div class="how-head">
-          <p class="section-eyebrow reveal">How it works</p>
+          <p class="section-eyebrow reveal">Inside the product</p>
           <h2 class="reveal d1">From a rough idea to <span class="hl">a plan, day by day</span>.</h2>
-          <p class="reveal d2">Tell Minary what you're working on. It shapes the conversation into an <b>ordered project</b>, then a <b>session built around your day</b>.</p>
+          <p class="reveal d2">This is the actual flow, screen by screen: you <b>describe your project</b>, check in with your day, work your session, then <b>recap</b>.</p>
         </div>
 
         <div class="carousel reveal" id="howCarousel">
@@ -1992,6 +2000,7 @@
       <div class="wrap">
         <p class="section-eyebrow reveal">The people behind Minary</p>
         <h2 class="reveal d1" style="max-width:18ch;">Built by people who know solo work from the inside.</h2>
+        <p class="team-sub reveal d2">We are researchers, engineers and independent builders who got tired of spending our best energy deciding what to work on.</p>
         <div class="team-grid">
           <figure class="team-card reveal">
             <div class="team-photo" style="background-image:url('/public/team/mitja.jpg')"></div>
@@ -2082,6 +2091,12 @@
         <div class="foot-links">
           <a href="/privacy.html">Privacy policy</a>
           <a href="mailto:contact@minary.app">contact@minary.app</a>
+          <a href="https://www.linkedin.com/company/minary-app/" target="_blank" rel="noopener" aria-label="Minary on LinkedIn" class="foot-social">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          </a>
+          <a href="https://x.com/MinaryApp" target="_blank" rel="noopener" aria-label="Minary on X" class="foot-social">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64z"/></svg>
+          </a>
         </div>
       </div>
     </footer>
