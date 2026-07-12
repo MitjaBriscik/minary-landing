@@ -164,6 +164,22 @@
       opacity: 0.55;
     }
 
+    /* Hero ambient video: one clip per theme on desktop; the canvas takes
+       over on small screens and for prefers-reduced-motion. */
+    .hero-bg-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    html:not([data-theme="light"]) .hero-video-dark { display: block; }
+    [data-theme="light"] .hero-video-light { display: block; }
+    #neural-canvas { display: none; }
+    @media (max-width: 700px), (prefers-reduced-motion: reduce) {
+      .hero-bg-video { display: none !important; }
+      #neural-canvas { display: block; }
+    }
+
     /* Shell */
     .shell { position: relative; z-index: 1; }
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
@@ -1646,6 +1662,14 @@
     <section class="hero-section" aria-labelledby="hero-title">
       <div class="bg">
         <div class="bg-base"></div>
+        <video class="hero-bg-video hero-video-dark" autoplay muted loop playsinline preload="metadata" poster="/public/hero/hero-poster-dark.jpg" aria-hidden="true">
+          <source src="/public/hero/hero-loop-dark.webm" type="video/webm">
+          <source src="/public/hero/hero-loop-dark.mp4" type="video/mp4">
+        </video>
+        <video class="hero-bg-video hero-video-light" autoplay muted loop playsinline preload="metadata" poster="/public/hero/hero-poster-light.jpg" aria-hidden="true">
+          <source src="/public/hero/hero-loop-light.webm" type="video/webm">
+          <source src="/public/hero/hero-loop-light.mp4" type="video/mp4">
+        </video>
         <canvas id="neural-canvas"></canvas>
       </div>
 
@@ -2460,7 +2484,8 @@
         for (const n of nodes) n.lag = 0;
         frame(CYCLE * 0.65);
       } else {
-        const tick = (now) => { frame(now); requestAnimationFrame(tick); };
+        // skip drawing while the canvas is hidden (video active on desktop)
+        const tick = (now) => { if (canvas.offsetParent !== null) frame(now); requestAnimationFrame(tick); };
         requestAnimationFrame(tick);
       }
     }
