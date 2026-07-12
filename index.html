@@ -163,21 +163,6 @@
       opacity: 0.55;
     }
 
-    /* Hero ambient video: dark theme on desktop only; the neural canvas
-       stays in charge for light theme, small screens and reduced motion. */
-    .hero-bg-video {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: none;
-    }
-    html:not([data-theme="light"]) .hero-bg-video { display: block; }
-    html:not([data-theme="light"]) #neural-canvas { display: none; }
-    @media (max-width: 700px), (prefers-reduced-motion: reduce) {
-      .hero-bg-video { display: none !important; }
-      html:not([data-theme="light"]) #neural-canvas { display: block; }
-    }
-
     /* Shell */
     .shell { position: relative; z-index: 1; }
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
@@ -1632,10 +1617,6 @@
     <section class="hero-section" aria-labelledby="hero-title">
       <div class="bg">
         <div class="bg-base"></div>
-        <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="/public/hero/hero-poster-dark.jpg" aria-hidden="true">
-          <source src="/public/hero/hero-loop-dark.webm" type="video/webm">
-          <source src="/public/hero/hero-loop-dark.mp4" type="video/mp4">
-        </video>
         <canvas id="neural-canvas"></canvas>
       </div>
 
@@ -2503,14 +2484,18 @@
           n.ry = n.y + toy;
         }
 
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        const lineRGB = isLight ? '45,106,79' : '116,215,154';
+        const dotRGB = isLight ? '22,74,48' : '138,232,170';
+
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
             const a = nodes[i], b = nodes[j];
             const dx = b.rx - a.rx, dy = b.ry - a.ry;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < CONN_DIST) {
-              const alpha = (1 - dist / CONN_DIST) * 0.30;
-              ctx.strokeStyle = `rgba(45,106,79,${alpha})`;
+              const alpha = (1 - dist / CONN_DIST) * (isLight ? 0.30 : 0.22);
+              ctx.strokeStyle = `rgba(${lineRGB},${alpha})`;
               ctx.lineWidth = 0.8;
               ctx.beginPath(); ctx.moveTo(a.rx, a.ry); ctx.lineTo(b.rx, b.ry); ctx.stroke();
             }
@@ -2520,7 +2505,7 @@
         for (const n of nodes) {
           const pulse = 0.75 + 0.25 * Math.sin(now * n.speed + n.phase);
           ctx.beginPath(); ctx.arc(n.rx, n.ry, n.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(22,74,48,${0.72 * n.glow * pulse + 0.22})`; ctx.fill();
+          ctx.fillStyle = `rgba(${dotRGB},${0.72 * n.glow * pulse + 0.22})`; ctx.fill();
         }
       }
 
