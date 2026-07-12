@@ -2256,7 +2256,178 @@
       }
       requestAnimationFrame(draw);
     }
-    initNeural(document.getElementById('neural-canvas'), document.querySelector('.hero-section'));
+    // Chaos-to-order: the light-theme hero field breathes between scattered
+    // drift (the mess in your head) and a calm ordered lattice (the plan),
+    // on a seamless cycle — same idea as the dark-theme video, in code.
+    function initChaosOrder(canvas, container) {
+      if (!canvas || !container) return;
+      const ctx = canvas.getContext('2d');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let W, H, nodes = [], slotMap = new Map();
+
+      const CYCLE = 19000;
+      const CONN_DIST = 150;
+      const smooth = (t) => t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t);
+      function orderAmount(p) {
+        if (p < 0.34) return 0;
+        if (p < 0.52) return smooth((p - 0.34) / 0.18);
+        if (p < 0.78) return 1;
+        if (p < 0.96) return 1 - smooth((p - 0.78) / 0.18);
+        return 0;
+      }
+
+      function build() {
+        W = canvas.width = container.offsetWidth;
+        H = canvas.height = container.offsetHeight;
+        const GS = W < 700 ? 96 : 132;
+        const cols = Math.max(2, Math.floor((W - GS) / GS));
+        const rows = Math.max(2, Math.floor((H - GS) / GS));
+        const ox = (W - (cols - 1) * GS) / 2;
+        const oy = (H - (rows - 1) * GS) / 2;
+        const free = [];
+        for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) free.push({ i, j, x: ox + i * GS, y: oy + j * GS });
+
+        const total = Math.max(26, Math.min(90, Math.round(W * H / 16000)));
+        const orderedCount = Math.min(Math.round(free.length * 0.75), Math.round(total * 0.7));
+        nodes = []; slotMap = new Map();
+        for (let n = 0; n < total; n++) {
+          const hx = Math.random() * W, hy = Math.random() * H;
+          const node = {
+            hx, hy, slot: null, o: 0,
+            r: n < 5 ? 6 + Math.random() * 2.5 : 2 + Math.random() * 3.5,
+            isHub: n < 5,
+            a1: 30 + Math.random() * 60, a2: 22 + Math.random() * 46,
+            f1: 0.00005 + Math.random() * 0.00008,
+            f2: 0.00004 + Math.random() * 0.00006,
+            p1: Math.random() * Math.PI * 2,
+            p2: Math.random() * Math.PI * 2,
+            p3: Math.random() * Math.PI * 2,
+            lag: Math.random() * 0.05,
+            ox: 0, oy: 0, rx: 0, ry: 0,
+          };
+          if (n < orderedCount && free.length) {
+            let bi = 0, bd = Infinity;
+            for (let k = 0; k < free.length; k++) {
+              const dx = free[k].x - hx, dy = free[k].y - hy, d = dx * dx + dy * dy;
+              if (d < bd) { bd = d; bi = k; }
+            }
+            node.slot = free.splice(bi, 1)[0];
+            slotMap.set(node.slot.i + ',' + node.slot.j, node);
+          }
+          nodes.push(node);
+        }
+      }
+      build();
+
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      const mouse = { x: 0, y: 0, active: false };
+      const MOUSE_R = 150, PUSH = 28;
+      if (finePointer && !reducedMotion) {
+        window.addEventListener('mousemove', (e) => {
+          const r = container.getBoundingClientRect();
+          mouse.x = e.clientX - r.left;
+          mouse.y = e.clientY - r.top;
+          mouse.active = mouse.x >= 0 && mouse.x <= r.width && mouse.y >= 0 && mouse.y <= r.height;
+        }, { passive: true });
+        container.addEventListener('mouseleave', () => { mouse.active = false; });
+      }
+
+      function frame(now) {
+        ctx.clearRect(0, 0, W, H);
+        const phase = (now % CYCLE) / CYCLE;
+        const g = orderAmount(phase);
+
+        for (const n of nodes) {
+          let q = phase - n.lag; if (q < 0) q += 1;
+          n.o = n.slot ? orderAmount(q) : 0;
+          const cx = n.hx + Math.sin(now * n.f1 + n.p1) * n.a1 + Math.sin(now * n.f2 * 1.7 + n.p2) * n.a2 * 0.4;
+          const cy = n.hy + Math.cos(now * n.f2 + n.p2) * n.a2 + Math.cos(now * n.f1 * 1.3 + n.p3) * n.a1 * 0.35;
+          let x = cx, y = cy;
+          if (n.slot) {
+            const sx = n.slot.x + Math.sin(now * 0.0006 + n.p3) * 2;
+            const sy = n.slot.y + Math.cos(now * 0.0005 + n.p1) * 2;
+            x = cx + (sx - cx) * n.o;
+            y = cy + (sy - cy) * n.o;
+          }
+          let tox = 0, toy = 0;
+          if (mouse.active) {
+            const dx = x - mouse.x, dy = y - mouse.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < MOUSE_R && d > 0.001) {
+              const f = (1 - d / MOUSE_R) * (1 - n.o);
+              tox = (dx / d) * f * PUSH;
+              toy = (dy / d) * f * PUSH;
+            }
+          }
+          n.ox += (tox - n.ox) * 0.12;
+          n.oy += (toy - n.oy) * 0.12;
+          n.rx = x + n.ox;
+          n.ry = y + n.oy;
+        }
+
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const a = nodes[i], b = nodes[j];
+            const dx = b.rx - a.rx, dy = b.ry - a.ry;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < CONN_DIST) {
+              const alpha = (1 - dist / CONN_DIST) * 0.32 * (1 - a.o) * (1 - b.o);
+              if (alpha > 0.004) {
+                ctx.strokeStyle = `rgba(82,180,122,${alpha})`;
+                ctx.lineWidth = 0.8;
+                ctx.beginPath(); ctx.moveTo(a.rx, a.ry); ctx.lineTo(b.rx, b.ry); ctx.stroke();
+              }
+            }
+          }
+        }
+
+        for (const n of nodes) {
+          if (!n.slot) continue;
+          const right = slotMap.get((n.slot.i + 1) + ',' + n.slot.j);
+          const down = slotMap.get(n.slot.i + ',' + (n.slot.j + 1));
+          for (const m of [right, down]) {
+            if (!m) continue;
+            const alpha = 0.30 * n.o * m.o;
+            if (alpha > 0.004) {
+              ctx.strokeStyle = `rgba(116,215,154,${alpha})`;
+              ctx.lineWidth = 0.9;
+              ctx.beginPath(); ctx.moveTo(n.rx, n.ry); ctx.lineTo(m.rx, m.ry); ctx.stroke();
+            }
+          }
+        }
+
+        const t = now / 1000;
+        for (const n of nodes) {
+          const dim = n.slot ? 1 : 1 - 0.4 * g;
+          if (n.isHub) {
+            const pulse = 0.7 + 0.3 * Math.sin(t * 1.5 + n.p1);
+            ctx.beginPath(); ctx.arc(n.rx, n.ry, n.r * 2, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(82,180,122,${0.08 * pulse * dim})`; ctx.fill();
+            ctx.beginPath(); ctx.arc(n.rx, n.ry, n.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(116,215,154,${0.85 * pulse * dim})`; ctx.fill();
+          } else {
+            ctx.beginPath(); ctx.arc(n.rx, n.ry, n.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(82,180,122,${Math.min(0.6 * dim + 0.3 * n.o, 0.95)})`; ctx.fill();
+          }
+        }
+      }
+
+      function onResize() {
+        build();
+        if (reducedMotion) frame(CYCLE * 0.65);
+      }
+      window.addEventListener('resize', onResize);
+
+      if (reducedMotion) {
+        for (const n of nodes) n.lag = 0;
+        frame(CYCLE * 0.65);
+      } else {
+        const tick = (now) => { if (canvas.offsetParent !== null) frame(now); requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      }
+    }
+
+    initChaosOrder(document.getElementById('neural-canvas'), document.querySelector('.hero-section'));
     initNeural(document.getElementById('neural-canvas-2'), document.querySelector('.final'));
 
     // "For whom" marquee: triple each lane's chip set so the CSS loop is seamless
