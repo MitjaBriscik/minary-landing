@@ -1494,10 +1494,18 @@
     /* Team */
     .team h2 { color: #1a2e22; }
     .team-sub {
-      margin-top: 18px; max-width: 52ch;
-      font-size: 17px; line-height: 1.65; font-weight: 500;
+      position: relative;
+      margin-top: 26px; padding-left: 20px; max-width: 46ch;
+      font-size: 18px; line-height: 1.6; font-weight: 500;
       color: var(--txt-mut);
     }
+    .team-sub::before {
+      content: '';
+      position: absolute; left: 0; top: 3px; bottom: 3px;
+      width: 3px; border-radius: 2px;
+      background: linear-gradient(180deg, var(--accent-bright), var(--accent));
+    }
+    .team-sub .hl { color: var(--accent-bright); font-weight: 700; }
     .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 52px; }
     .team-card {
       background: transparent; border-radius: 16px; padding: 10px 12px 14px;
@@ -2005,7 +2013,7 @@
       <div class="wrap">
         <p class="section-eyebrow reveal">The people behind Minary</p>
         <h2 class="reveal d1" style="max-width:18ch;">Built by people who know solo work from the inside.</h2>
-        <p class="team-sub reveal d2">We are researchers, engineers and independent builders who got tired of spending our best energy deciding what to work on.</p>
+        <p class="team-sub reveal d2">We are researchers, engineers and independent builders who got tired of <span class="hl">spending our best energy deciding what to work on</span>.</p>
         <div class="team-grid">
           <figure class="team-card reveal">
             <div class="team-photo" style="background-image:url('/public/team/mitja.jpg')"></div>
