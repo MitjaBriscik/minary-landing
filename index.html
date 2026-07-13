@@ -1351,7 +1351,6 @@
       background-image: linear-gradient(to bottom, #f8f9f7 0%, rgba(248,249,247,0) 400px);
     }
     [data-theme="light"] .team-card h4 { color: #08201a; }
-    [data-theme="light"] .team-sub { color: rgba(8,32,26,0.64); }
     [data-theme="light"] .team-card p { color: var(--accent-deep); }
     [data-theme="light"] .team-scroll-hint { color: rgba(8,32,26,0.42); }
     [data-theme="light"] .team-logos-label { color: rgba(8,32,26,0.4); }
@@ -1496,18 +1495,15 @@
     .team-title { max-width: 18ch; }
     .team-sub {
       position: relative;
-      margin-top: 26px; padding-left: 20px; max-width: 100ch;
+      margin-top: 26px; max-width: 100ch;
       font-size: clamp(15px, 0.85vw + 6px, 17px); line-height: 1.6; font-weight: 500;
       white-space: nowrap;
-      color: var(--txt-mut);
+      /* This section always shows its near-white top gradient here regardless
+         of site theme (see .block.who / [data-theme="light"] .block.who
+         above), so the text needs a dark, theme-independent color to read. */
+      color: rgba(8,32,26,0.64);
     }
-    .team-sub::before {
-      content: '';
-      position: absolute; left: 0; top: 3px; bottom: 3px;
-      width: 3px; border-radius: 2px;
-      background: linear-gradient(180deg, var(--accent-bright), var(--accent));
-    }
-    .team-sub .hl { color: var(--accent-bright); font-weight: 700; }
+    .team-sub .hl { color: var(--accent-deep); font-weight: 700; }
     .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 52px; }
     .team-card {
       background: transparent; border-radius: 16px; padding: 10px 12px 14px;
