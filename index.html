@@ -1551,6 +1551,10 @@
       }
       .team-grid::-webkit-scrollbar { display: none; }
       .team-card { flex: 0 0 calc((100% - 14px) / 2); width: calc((100% - 14px) / 2); scroll-snap-align: start; }
+      /* Horizontal carousel: cards must already sit at their final position
+         before the swipe brings them into view, or they visibly jump/fade
+         in mid-swipe as the scroll-reveal observer fires on horizontal entry. */
+      .team-card.reveal { opacity: 1; transform: none; transition: none; }
       .team-card:hover { transform: none; }
       .team-photo { width: 108px; height: 108px; margin-bottom: 14px; }
       .team-scroll-hint {
