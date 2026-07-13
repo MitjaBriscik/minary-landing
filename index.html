@@ -1495,8 +1495,9 @@
     .team h2 { color: #1a2e22; }
     .team-sub {
       position: relative;
-      margin-top: 26px; padding-left: 20px; max-width: 46ch;
-      font-size: 18px; line-height: 1.6; font-weight: 500;
+      margin-top: 26px; padding-left: 20px; max-width: 100ch;
+      font-size: clamp(15px, 0.85vw + 6px, 17px); line-height: 1.6; font-weight: 500;
+      white-space: nowrap;
       color: var(--txt-mut);
     }
     .team-sub::before {
@@ -1547,7 +1548,12 @@
     }
     .logo-ph:hover .logo-img { opacity: 1; }
 
-    @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 1050px) {
+      .team-sub { white-space: normal; font-size: 17px; max-width: 52ch; }
+    }
+    @media (max-width: 900px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 600px) {
       .team-grid {
         display: flex; grid-template-columns: none;
