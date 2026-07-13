@@ -1178,6 +1178,7 @@
       background: linear-gradient(90deg, transparent, rgba(168,246,196,0.72), transparent);
     }
     .why-answer h3 { font-family: var(--display); font-weight: 800; font-size: clamp(25px, 3vw, 35px); line-height: 1.16; letter-spacing: 0; color: #fff; margin: 0; max-width: 30ch; }
+    .why-answer-break { display: none; }
     .why-answer-rows { margin-top: 34px; }
     .why-answer-row {
       display: grid;
@@ -1562,6 +1563,8 @@
         white-space: nowrap; max-width: none;
         font-size: clamp(24px, 1.4vw + 12px, 40px);
       }
+      .why-answer h3 { max-width: 44ch; }
+      .why-answer-break { display: inline; }
     }
     @media (max-width: 900px) {
       .team-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1822,7 +1825,7 @@
 
           <div class="why-answer">
             <span class="why-label">Our answer</span>
-            <h3>Task managers remember your tasks, but they don't understand the <span class="hl">headspace you're in</span>.</h3>
+            <h3>Task managers remember your tasks,<br class="why-answer-break"> but they don't understand the <span class="hl">headspace you're in</span>.</h3>
             <div class="why-answer-rows">
               <div class="why-answer-row">
                 <div class="why-answer-copy">
