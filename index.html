@@ -1493,6 +1493,7 @@
 
     /* Team */
     .team h2 { color: #1a2e22; }
+    .team-title { max-width: 18ch; }
     .team-sub {
       position: relative;
       margin-top: 26px; padding-left: 20px; max-width: 100ch;
@@ -1550,6 +1551,21 @@
 
     @media (max-width: 1050px) {
       .team-sub { white-space: normal; font-size: 17px; max-width: 52ch; }
+    }
+    @media (min-width: 1051px) {
+      .how-head { max-width: none; }
+      .how-head h2 {
+        white-space: nowrap; max-width: none;
+        font-size: clamp(24px, 1.6vw + 10px, 40px);
+      }
+      .how-head p:not(.section-eyebrow) {
+        white-space: nowrap; max-width: none;
+        font-size: clamp(14px, 0.7vw + 6px, 18px);
+      }
+      .team-title {
+        white-space: nowrap; max-width: none;
+        font-size: clamp(24px, 1.4vw + 12px, 40px);
+      }
     }
     @media (max-width: 900px) {
       .team-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2018,7 +2034,7 @@
     <section class="block who team">
       <div class="wrap">
         <p class="section-eyebrow reveal">The people behind Minary</p>
-        <h2 class="reveal d1" style="max-width:18ch;">Built by people who know solo work from the inside.</h2>
+        <h2 class="team-title reveal d1">Built by people who know solo work from the inside.</h2>
         <p class="team-sub reveal d2">We are researchers, engineers and independent builders who got tired of <span class="hl">spending our best energy deciding what to work on</span>.</p>
         <div class="team-grid">
           <figure class="team-card reveal">
