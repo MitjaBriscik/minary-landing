@@ -1639,6 +1639,14 @@
     /* v3: 16mart-style structure — light theme only */
     html { scroll-behavior: smooth; }
     [data-theme="light"] body { background: #f7faf8; }
+    .hero16 { position: relative; }
+    #neural-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      opacity: 0.45;
+      z-index: -1;
+      pointer-events: none;
+    }
 
     /* Fixed site header: slim nav-only bar — the brand logo lives in the hero, not here, so this never gets tall */
     .site-head {
@@ -1722,6 +1730,7 @@
     /* For whom: two counter-scrolling lanes of audience chips */
     .audience { padding: 60px 24px 90px; }
     .audience .wrap { text-align: center; }
+    .audience .why-label { text-align: left; }
     .why-label {
       display: block; margin-bottom: 14px;
       font-size: 13px; font-weight: 800; letter-spacing: 0.14em;
@@ -1845,6 +1854,7 @@
   </header>
 
   <div class="shell">
+    <canvas id="neural-canvas" aria-hidden="true"></canvas>
 
     <!-- HERO -->
     <section class="hero16" id="top" aria-labelledby="hero-title">
@@ -1991,6 +2001,114 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // Light-theme hero field: dense, glowing, drifting swarm — same implementation
+    // as the initGlowField used on main's hero/final CTA sections.
+    function initGlowField(canvas, container) {
+      if (!canvas || !container) return;
+      const ctx = canvas.getContext('2d');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let W, H, nodes = [];
+
+      function centerBiasX() {
+        // 65% of particles favor the outer thirds of the frame; 35% spawn anywhere
+        if (Math.random() < 0.65) {
+          const side = Math.random() < 0.5 ? 0 : 1;
+          return side === 0 ? Math.random() * W * 0.34 : W * 0.66 + Math.random() * W * 0.34;
+        }
+        return Math.random() * W;
+      }
+
+      function build() {
+        W = canvas.width = container.offsetWidth;
+        H = canvas.height = container.offsetHeight;
+        const count = Math.max(45, Math.min(360, Math.round(W * H / 15000)));
+        nodes = Array.from({ length: count }, () => {
+          const big = Math.random() < 0.08;
+          return {
+            x: centerBiasX(), y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            r: big ? 4 + Math.random() * 3 : 1.2 + Math.random() * 2.2,
+            glow: big ? 0.9 : 0.45 + Math.random() * 0.4,
+            phase: Math.random() * Math.PI * 2,
+            speed: 0.0006 + Math.random() * 0.0009,
+          };
+        });
+      }
+      build();
+      window.addEventListener('resize', build);
+
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      const mouse = { x: 0, y: 0, active: false };
+      const MOUSE_R = 140, PUSH = 24;
+      if (finePointer && !reducedMotion) {
+        window.addEventListener('mousemove', (e) => {
+          const r = container.getBoundingClientRect();
+          mouse.x = e.clientX - r.left;
+          mouse.y = e.clientY - r.top;
+          mouse.active = mouse.x >= 0 && mouse.x <= r.width && mouse.y >= 0 && mouse.y <= r.height;
+        }, { passive: true });
+        container.addEventListener('mouseleave', () => { mouse.active = false; });
+      }
+
+      const CONN_DIST = 130;
+
+      function frame(now) {
+        ctx.clearRect(0, 0, W, H);
+
+        for (const n of nodes) {
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < -20) n.x = W + 20; if (n.x > W + 20) n.x = -20;
+          if (n.y < -20) n.y = H + 20; if (n.y > H + 20) n.y = -20;
+
+          let tox = 0, toy = 0;
+          if (mouse.active) {
+            const dx = n.x - mouse.x, dy = n.y - mouse.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < MOUSE_R && d > 0.001) {
+              const f = 1 - d / MOUSE_R;
+              tox = (dx / d) * f * PUSH;
+              toy = (dy / d) * f * PUSH;
+            }
+          }
+          n.rx = n.x + tox;
+          n.ry = n.y + toy;
+        }
+
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        const lineRGB = isLight ? '45,106,79' : '116,215,154';
+        const dotRGB = isLight ? '22,74,48' : '138,232,170';
+
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const a = nodes[i], b = nodes[j];
+            const dx = b.rx - a.rx, dy = b.ry - a.ry;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < CONN_DIST) {
+              const alpha = (1 - dist / CONN_DIST) * (isLight ? 0.20 : 0.16);
+              ctx.strokeStyle = `rgba(${lineRGB},${alpha})`;
+              ctx.lineWidth = 0.8;
+              ctx.beginPath(); ctx.moveTo(a.rx, a.ry); ctx.lineTo(b.rx, b.ry); ctx.stroke();
+            }
+          }
+        }
+
+        for (const n of nodes) {
+          const pulse = 0.75 + 0.25 * Math.sin(now * n.speed + n.phase);
+          ctx.beginPath(); ctx.arc(n.rx, n.ry, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${dotRGB},${0.5 * n.glow * pulse + 0.14})`; ctx.fill();
+        }
+      }
+
+      if (reducedMotion) {
+        frame(0);
+      } else {
+        const tick = (now) => { if (canvas.offsetParent !== null) frame(now); requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      }
+    }
+    initGlowField(document.getElementById('neural-canvas'), document.querySelector('.shell'));
+
     // Supabase client
     const { createClient } = supabase;
     const db = createClient(
