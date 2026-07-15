@@ -5,8 +5,8 @@
   <script>document.documentElement.setAttribute('data-theme', 'light');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minary · The AI workspace for solo workers</title>
-  <meta name="description" content="Minary plans your work session around your time, energy, and headspace, and hands you a plan you can actually start.">
+  <title>About · Minary</title>
+  <meta name="description" content="Why we're building Minary, and the people building it.">
   <meta name="robots" content="index, follow">
 
   <!-- Favicon -->
@@ -27,7 +27,6 @@
   <meta name="twitter:description" content="Minary plans your work session around your time, energy, and headspace, and hands you a plan you can actually start.">
   <meta name="twitter:image" content="https://www.minary.app/public/og-cover.png?v=2">
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
@@ -98,6 +97,7 @@
     [data-theme="light"] .hero-section .hero .hero-cta .wf-email::placeholder { color: rgba(8,28,18,0.36); }
     [data-theme="light"] .hero-section .hero .hero-cta .wf-hint { color: var(--accent-deep); }
     [data-theme="light"] .hero-section .hero .hero-cta .wf-hint b { color: #06180f; }
+    [data-theme="light"] .wfs-sub { color: var(--accent-deep); }
     [data-theme="light"] .hero-section .scroll-indicator span { color: rgba(8,28,18,0.5); }
     [data-theme="light"] .hero-section .hero h1 { color: #06180f; }
     [data-theme="light"] .hero-section .hero .hero-sub { color: rgba(8,28,18,0.68); }
@@ -1289,9 +1289,11 @@
     /* Light theme: Why section (Our answer panel + modules stay dark on purpose) */
     [data-theme="light"] .problem {
       border-top: none;
-      background: linear-gradient(180deg, transparent 0, #d5ecdf 100px, #e0f1e6 180px, #eaf5ee 250px, #f0f8f3 330px, #f8f9f7 470px) !important;
-      /* same hero overlap as dark so the gap above the eyebrow matches */
-      margin-top: -120px;
+      /* Stretched so the peak tint lands well below the eyebrow text instead of
+         right behind it (a fast transition there read as a halo around the label) */
+      background: linear-gradient(180deg, transparent 0, #eaf5ee 320px, #f0f8f3 420px, #f8f9f7 520px) !important;
+      /* about.html has no dark hero above this section (unlike index.html), so no overlap needed */
+      margin-top: 0;
       padding-top: 118px !important;
       padding-bottom: 96px !important;
     }
@@ -1636,23 +1638,16 @@
     }
   </style>
   <style>
-    /* v3: 16mart-style structure — light theme only */
-    html { scroll-behavior: smooth; }
+    /* v3: 16mart-style site chrome, shared with index.html — light theme only */
     [data-theme="light"] body { background: #f7faf8; }
 
-    /* Fixed site header: slim nav-only bar — the brand logo lives in the hero, not here, so this never gets tall */
     .site-head {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: flex-end;
       padding: 16px 30px;
-      background: transparent;
-      transition: background 0.25s, box-shadow 0.25s, padding 0.25s;
-    }
-    .site-head.scrolled {
       background: rgba(247,250,248,0.88);
       -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
       box-shadow: 0 1px 0 rgba(8,40,24,0.08);
-      padding: 11px 30px;
     }
     .sh-nav { display: flex; align-items: center; gap: 24px; }
     .sh-link { font-weight: 600; font-size: 15px; color: #23402f; text-decoration: none; transition: color 0.2s; }
@@ -1668,133 +1663,23 @@
     .sh-cta:hover { background: #1d4a31; transform: translateY(-1px); }
     .sh-cta .arr { font-weight: 400; transform: translateY(-0.5px); }
 
-    /* Hero: just the headline, generous air */
-    .hero16 { padding: 108px 24px 26px; text-align: center; }
+    /* Small page intro under the fixed header */
+    .about-hero { padding: 96px 24px 20px; text-align: center; position: relative; z-index: 6; }
     .brand-logo { display: inline-block; margin: 0 auto 28px; }
     .brand-logo img { height: 140px; display: block; }
-    .hero16-eyebrow {
-      font-size: 13px; font-weight: 800; letter-spacing: 0.16em;
-      text-transform: uppercase; color: #1f9d5c; margin-bottom: 20px;
-    }
-    .hero16 h1 {
+
+    /* This blurred glow was built to blend the "problem" section into a dark
+       hero above it; about.html has a plain light hero, so it only washes
+       out the heading — drop it here. */
+    .problem::before { display: none; }
+    .about-hero p { font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #1f9d5c; margin-bottom: 16px; }
+    .about-hero h1 {
       font-family: var(--display); font-weight: 800;
-      font-size: clamp(38px, 5.6vw, 74px); line-height: 1.05; letter-spacing: -0.025em;
-      color: #0c1f14; max-width: 18ch; margin: 0 auto;
-    }
-    .hero16-sub {
-      font-size: clamp(16px, 1.7vw, 19px); font-weight: 500;
-      color: #5a6f64; line-height: 1.6;
-      max-width: 52ch; margin: 22px auto 0;
-    }
-    .hl-grad {
-      background: linear-gradient(105deg, var(--accent-deep), #1f9d5c 52%, var(--accent));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+      font-size: clamp(30px, 4vw, 46px); line-height: 1.12; letter-spacing: -0.02em;
+      color: #0c1f14; max-width: 24ch; margin: 0 auto;
     }
 
-    /* Screens carousel right under the hero */
-    .screens16 { padding: 0 0 40px; }
-    .screens16 .carousel { margin-top: 18px; }
-
-    /* Manifesto: three short lines */
-    .manifesto { padding: 120px 24px 30px; }
-    .manifesto .m-in { max-width: 820px; margin: 0 auto; }
-    .mline {
-      font-family: var(--display); font-weight: 600;
-      font-size: clamp(24px, 3.3vw, 40px); line-height: 1.24; letter-spacing: -0.015em;
-      color: #97ab9e; margin: 0 0 20px;
-    }
-    .mline b { color: #0c1f14; font-weight: 700; }
-    .mlink {
-      display: inline-block; margin-top: 22px;
-      font-family: var(--display); font-weight: 700; font-size: 17px;
-      color: #1f9d5c; text-decoration: none;
-    }
-    .mlink:hover { text-decoration: underline; }
-
-    /* Big statement */
-    .statement { padding: 130px 24px 60px; text-align: center; }
-    .statement h2 {
-      font-family: var(--display); font-weight: 800;
-      font-size: clamp(38px, 6vw, 80px); line-height: 1.04; letter-spacing: -0.03em;
-      color: #0c1f14; margin: 0 auto;
-    }
-
-    /* For whom: two counter-scrolling lanes of audience chips */
-    .audience { padding: 60px 24px 90px; }
-    .audience .wrap { text-align: center; }
-    .why-label {
-      display: block; margin-bottom: 14px;
-      font-size: 13px; font-weight: 800; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent-deep);
-    }
-    .sr-only {
-      position: absolute; width: 1px; height: 1px;
-      padding: 0; margin: -1px; overflow: hidden;
-      clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-    }
-    .why-marquee {
-      overflow: hidden;
-      margin-top: 18px;
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
-              mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
-    }
-    .why-marquee + .why-marquee { margin-top: 14px; }
-    .why-marquee-track {
-      display: flex; width: max-content;
-      animation: whyMarquee 30s linear infinite;
-    }
-    .why-marquee.rev .why-marquee-track { animation-duration: 38s; animation-direction: reverse; }
-    .why-marquee:hover .why-marquee-track { animation-play-state: paused; }
-    @keyframes whyMarquee { to { transform: translateX(calc(-100% / 3)); } }
-    .why-marquee-set { display: flex; gap: 10px; padding-right: 10px; }
-    .why-chip {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 11px 19px 11px 16px; border-radius: 100px; white-space: nowrap;
-      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45));
-      border: 1px solid rgba(8,40,24,0.14);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 10px 26px rgba(8,40,24,0.08);
-      font-size: 14.5px; font-weight: 600; letter-spacing: 0.005em;
-      color: rgba(8,32,26,0.82);
-      transition: border-color 0.25s, color 0.25s, background 0.25s;
-    }
-    .why-chip svg { width: 15.5px; height: 15.5px; flex-shrink: 0; color: var(--accent-deep); }
-    .why-chip:hover {
-      border-color: rgba(82,180,122,0.45);
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
-      color: #08201a;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .why-marquee { -webkit-mask-image: none; mask-image: none; }
-      .why-marquee-track { width: auto; }
-      .why-marquee-set { flex-wrap: wrap; padding-right: 0; }
-      .why-marquee-set + .why-marquee-set { display: none; }
-    }
-    @media (max-width: 719px) {
-      .audience { padding: 40px 20px 60px; }
-    }
-
-    /* CTA card (deep green, like 16mart's blue card) */
-    .cta16 { padding: 0 24px 110px; scroll-margin-top: 110px; }
-    .cta16 .cta-in { max-width: 980px; margin: 0 auto; }
-    .cta-card {
-      border-radius: 28px; padding: 74px 48px 62px; text-align: center;
-      background:
-        radial-gradient(ellipse 90% 70% at 50% -10%, rgba(82,180,122,0.35), transparent 60%),
-        linear-gradient(150deg, #17402a, #0b2015 70%);
-      box-shadow: 0 40px 90px rgba(13,40,24,0.32);
-    }
-    .cta-card h2 {
-      font-family: var(--display); font-weight: 800;
-      font-size: clamp(30px, 4vw, 50px); letter-spacing: -0.02em;
-      color: #f2fff7; margin-bottom: 14px;
-    }
-    .cta-card > .hero-sub {
-      color: rgba(234,255,242,0.72); font-size: clamp(16px, 1.8vw, 19px);
-      font-weight: 500; margin: 0 auto 36px; max-width: 52ch;
-    }
-    .cta-card .wf { max-width: 680px; margin: 0 auto; }
-
-    /* Footer: links row + giant wordmark */
+    /* Footer: links row + giant wordmark (matches index.html) */
     .foot16 { padding: 48px 0 40px; background: #f7faf8; border-top: 1px solid rgba(8,40,24,0.07); }
     .foot16-top {
       max-width: var(--maxw); margin: 0 auto; padding: 0 40px;
@@ -1820,16 +1705,11 @@
 
     @media (max-width: 719px) {
       .site-head { padding: 12px 16px; }
-      .site-head.scrolled { padding: 10px 16px; }
       .sh-nav { gap: 14px; }
       .sh-cta { font-size: 13.5px; padding: 10px 16px; }
-      .hero16 { padding: 76px 20px 18px; }
+      .about-hero { padding: 66px 20px 10px; }
       .brand-logo { margin-bottom: 20px; }
       .brand-logo img { height: 82px; }
-      .manifesto { padding: 84px 24px 16px; }
-      .statement { padding: 96px 20px 84px; }
-      .cta16 { padding: 0 14px 80px; scroll-margin-top: 84px; }
-      .cta-card { padding: 52px 22px 46px; border-radius: 22px; }
       .foot16-top { padding: 0 20px; justify-content: center; text-align: center; }
     }
   </style>
@@ -1839,132 +1719,322 @@
 
   <header class="site-head" id="siteHead">
     <nav class="sh-nav">
-      <a class="sh-link" href="/about">About</a>
-      <a class="sh-cta" href="#join">Join the waitlist <span class="arr">&rarr;</span></a>
+      <a class="sh-link" href="/">Home</a>
+      <a class="sh-cta" href="/#join">Join the waitlist <span class="arr">&rarr;</span></a>
     </nav>
   </header>
 
   <div class="shell">
 
-    <!-- HERO -->
-    <section class="hero16" id="top" aria-labelledby="hero-title">
+    <section class="about-hero">
       <a class="brand-logo" href="/" aria-label="Minary home">
         <img src="/public/minary_logo_black_text.png" alt="Minary" onerror="this.src='./public/minary_logo_black_text.png'">
       </a>
-      <p class="hero16-eyebrow">The AI workspace for solo workers</p>
-      <h1 id="hero-title">What should you work on <span class="hl-grad">right now?</span></h1>
-      <p class="hero16-sub">We're building the AI workspace that follows you from the creation of your projects and tasks to the daily planning of your work sessions.</p>
+      <h1>Why we're building Minary, and who's building it.</h1>
     </section>
 
-    <!-- INSIDE THE PRODUCT: screens first -->
-    <section class="screens16" id="how" aria-label="Inside the product">
+    <!-- WHY MINARY -->
+    <section class="block problem story" id="why">
       <div class="wrap">
-        <div class="carousel" id="howCarousel">
-          <button type="button" class="carousel-nav prev" aria-label="Previous step">&lsaquo;</button>
-          <div class="carousel-stage" id="carouselStage">
-            <div class="win win-shot-modal" data-i="0" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/08-chat.png" alt="Describe your project" onerror="this.remove()"></div></div>
-            <div class="win win-shot-modal" data-i="1" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/09-tasks_padded.png" alt="Your tasks" onerror="this.remove()"></div></div>
-            <div class="win win-shot-phone" data-i="2" data-kind="phone"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/01-check-in.png" alt="Check in" onerror="this.remove()"></div></div>
-            <div class="win win-shot-modal" data-i="3" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/04-session-plan.png" alt="Session planning" onerror="this.remove()"></div></div>
-            <div class="win win-shot-modal" data-i="4" data-kind="modal"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/02-plan.png" alt="Your plan" onerror="this.remove()"></div></div>
-            <div class="win win-shot-wide win-shot-ultra" data-i="5" data-kind="ultrawide"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/03-session.png" alt="Track the session" onerror="this.remove()"></div></div>
-            <div class="win win-shot-phone win-shot-slim" data-i="6" data-kind="phone"><div class="win-screen"><span class="win-ph">Screenshot</span><img class="win-img" src="/public/screens/06-endsess_enhanced_983x1600.png" alt="Session recap" onerror="this.remove()"></div></div>
-          </div>
-          <button type="button" class="carousel-nav next" aria-label="Next step">&rsaquo;</button>
-        </div>
+        <div class="why-acts">
+          <p class="section-eyebrow">Why we are building Minary</p>
 
-        <div class="carousel-cap reveal" id="carouselCap">
-          <span class="win-step" id="capStep">01</span>
-          <h3 id="capTitle">Describe your project</h3>
-          <p id="capDesc">Tell Minary what you're working on, in plain words. It turns it into a structured project: what to do, in what order, by when.</p>
-          <div class="carousel-dots" id="carouselDots"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MANIFESTO: problem -> solution, three short lines -->
-    <section class="manifesto">
-      <div class="m-in">
-        <p class="mline reveal">Working alone means <b>deciding alone</b>.</p>
-        <p class="mline reveal d1">Every day becomes a <b>prioritization problem</b>: too many open tasks, no manager, no structure.</p>
-        <p class="mline reveal d2">Minary turns your projects into <b>daily sessions built around your time and energy</b>.</p>
-        <a class="mlink reveal d2" href="/about">Read more about how it works &rarr;</a>
-      </div>
-    </section>
-
-    <!-- BIG STATEMENT -->
-    <section class="statement">
-      <h2 class="reveal">From a rough idea to <span class="hl-grad">a plan, day by day</span>.</h2>
-    </section>
-
-    <!-- FOR WHOM -->
-    <section class="audience">
-      <div class="wrap">
-        <span class="why-label">For whom</span>
-        <h2 class="sr-only">Freelancers and founders, makers and creators, artists and developers, researchers and students, musicians and indie makers, content creators and writers.</h2>
-        <div class="why-marquee" aria-hidden="true">
-          <div class="why-marquee-track">
-            <div class="why-marquee-set">
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6.5V5.25A2.25 2.25 0 0 1 11.75 3h.5a2.25 2.25 0 0 1 2.25 2.25V6.5"/><rect x="3.5" y="6.5" width="17" height="13.5" rx="2.5"/><path d="M3.5 12h17"/></svg>Freelancers</span>
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 21V4"/><path d="M5.5 5c2-1.3 4.2-1.3 6.2 0s4.2 1.3 6.2 0v8.5c-2 1.3-4.2 1.3-6.2 0s-4.2-1.3-6.2 0"/></svg>Founders</span>
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.9 4.9 1.9-4.9 1.9L12 16.6l-1.9-4.9L5.2 9.8l4.9-1.9L12 3z"/><path d="M18.5 15.5l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9.9-2.3z"/></svg>Creators</span>
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1.5-3.3c-.6-.7-.1-1.7.8-1.7H17a4.5 4.5 0 0 0 4.5-4.5C21.5 6.8 17.2 3 12 3z"/><circle cx="7.5" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/><circle cx="16.5" cy="10.5" r="1" fill="currentColor" stroke="none"/></svg>Artists</span>
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4.5 4L8 16"/><path d="m16 8 4.5 4L16 16"/></svg>Developers</span>
-            </div>
-          </div>
-        </div>
-        <div class="why-marquee rev" aria-hidden="true">
-          <div class="why-marquee-track">
-            <div class="why-marquee-set">
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3h5"/><path d="M10 3v5.3L4.8 17a2.4 2.4 0 0 0 2.2 3.4h10a2.4 2.4 0 0 0 2.2-3.4L14 8.3V3"/><path d="M7.5 14h9"/></svg>Researchers</span>
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m2.5 9.5 9.5-5 9.5 5-9.5 5-9.5-5z"/><path d="M7 12v4.2c0 1.5 2.2 2.8 5 2.8s5-1.3 5-2.8V12"/><path d="M21.5 9.5V15"/></svg>Students</span>
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5.5l10-2.2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>Musicians</span>
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 20 7.3v9.4l-8 4.5-8-4.5V7.3l8-4.5z"/><path d="M12 12.2 20 7.7"/><path d="M12 12.2 4 7.7"/><path d="M12 12.2V21"/></svg>Indie makers</span>
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="13" height="10" rx="2.2"/><path d="m15.5 10.8 6-3.3v9l-6-3.3"/></svg>Content creators</span>
-              <span class="why-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17.2 3.3a2.6 2.6 0 0 1 3.6 3.6L8 19.7 3 21l1.3-5L17.2 3.3z"/><path d="m14.5 6 3.5 3.5"/></svg>Writers</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA CARD -->
-    <section class="cta16" id="join">
-      <div class="cta-in">
-        <div class="cta-card reveal">
-          <h2>Your next session could already be planned.</h2>
-          <p class="hero-sub">We're genuinely excited to hear what you need for a productive session.</p>
-          <form class="wf" novalidate>
-            <p class="wf-hint">Help shape what comes next.</p>
-            <div class="wf-top">
-              <div class="wf-dropdown">
-                <button type="button" class="wf-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
-                  <span class="wf-dropdown-label">I'm a&hellip;</span>
-                  <svg class="wf-dropdown-chevron" width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1 1l4.5 4.5L10 1" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-                <ul class="wf-dropdown-panel" role="listbox">
-                  <li class="wf-dropdown-option" data-value="freelancer">Freelancer</li>
-                  <li class="wf-dropdown-option" data-value="founder">Solo founder / Indie maker</li>
-                  <li class="wf-dropdown-option" data-value="creator">Creator (content / writer)</li>
-                  <li class="wf-dropdown-option" data-value="artist">Artist / Musician</li>
-                  <li class="wf-dropdown-option" data-value="developer">Developer / Designer</li>
-                  <li class="wf-dropdown-option" data-value="researcher">Researcher / Student</li>
-                  <li class="wf-dropdown-option" data-value="other">Other</li>
-                </ul>
-                <input type="hidden" name="occupation">
+          <div class="why-intro">
+            <div class="why-copy">
+              <div>
+                <span class="why-label">The problem</span>
+                <p class="why-lede">Independent workers know that turning a <em>messy project in your head</em> into an <em>ordered plan</em> isn't easy. And working alone makes every day a <span class="hl">prioritization problem</span>: too many open tasks, no manager and no structure to keep things on track.</p>
               </div>
-              <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" class="wf-email">
-              <button type="submit" class="wf-btn">Join the waitlist</button>
             </div>
-            <div class="wf-checks">
-              <label class="wf-check">
-                <input type="checkbox" name="privacy" required>
-                <span class="wf-check-text">I agree to Minary's <a href="/privacy.html" style="color:var(--accent-bright);text-decoration:underline;" target="_blank">privacy policy</a>.</span>
-              </label>
+
+            <div class="why-map" aria-hidden="true">
+              <svg class="why-map-svg" viewBox="0 0 440 380" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <radialGradient id="mapGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="rgba(82,180,122,0.20)"/>
+                    <stop offset="100%" stop-color="rgba(82,180,122,0)"/>
+                  </radialGradient>
+                  <linearGradient id="mapCore" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(116,215,154,0.22)"/>
+                    <stop offset="100%" stop-color="rgba(7,24,14,0.96)"/>
+                  </linearGradient>
+                </defs>
+
+                <ellipse cx="220" cy="190" rx="190" ry="160" fill="url(#mapGlow)"/>
+
+                <!-- connecting lines: each signal feeds the core -->
+                <g class="signal-lines" stroke="rgba(116,215,154,0.30)" stroke-width="1.4" fill="none">
+                  <path id="ml1" d="M146 62 L186.5 132"/>
+                  <path id="ml2" d="M294 62 L253.5 132"/>
+                  <path id="ml3" d="M368 190 L302 190"/>
+                  <path id="ml4" d="M72 190 L138 190"/>
+                  <path id="ml5" d="M146 318 L186.5 248"/>
+                  <path id="ml6" d="M294 318 L253.5 248"/>
+                </g>
+
+                <!-- pulses flowing into the core -->
+                <g class="signal-pulses" fill="#c7f7da">
+                  <circle r="2.8" opacity="0">
+                    <animateMotion dur="7s" begin="0s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.34;1" calcMode="linear"><mpath href="#ml1"/></animateMotion>
+                    <animate attributeName="opacity" dur="7s" begin="0s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.05;0.3;0.36;1"/>
+                  </circle>
+                  <circle r="2.8" opacity="0">
+                    <animateMotion dur="7s" begin="1.2s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.34;1" calcMode="linear"><mpath href="#ml2"/></animateMotion>
+                    <animate attributeName="opacity" dur="7s" begin="1.2s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.05;0.3;0.36;1"/>
+                  </circle>
+                  <circle r="2.8" opacity="0">
+                    <animateMotion dur="7s" begin="2.4s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.34;1" calcMode="linear"><mpath href="#ml3"/></animateMotion>
+                    <animate attributeName="opacity" dur="7s" begin="2.4s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.05;0.3;0.36;1"/>
+                  </circle>
+                  <circle r="2.8" opacity="0">
+                    <animateMotion dur="7s" begin="3.6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.34;1" calcMode="linear"><mpath href="#ml4"/></animateMotion>
+                    <animate attributeName="opacity" dur="7s" begin="3.6s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.05;0.3;0.36;1"/>
+                  </circle>
+                  <circle r="2.8" opacity="0">
+                    <animateMotion dur="7s" begin="4.8s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.34;1" calcMode="linear"><mpath href="#ml5"/></animateMotion>
+                    <animate attributeName="opacity" dur="7s" begin="4.8s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.05;0.3;0.36;1"/>
+                  </circle>
+                  <circle r="2.8" opacity="0">
+                    <animateMotion dur="7s" begin="6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.34;1" calcMode="linear"><mpath href="#ml6"/></animateMotion>
+                    <animate attributeName="opacity" dur="7s" begin="6s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.05;0.3;0.36;1"/>
+                  </circle>
+                </g>
+
+                <!-- core (drawn over the lines/pulses so they terminate into it) -->
+                <rect x="138" y="132" width="164" height="116" rx="22" fill="url(#mapCore)" stroke="rgba(116,215,154,0.45)" stroke-width="1.5"/>
+                <rect x="150" y="144" width="140" height="92" rx="15" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+                <text x="220" y="183" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-size="22" font-weight="800" fill="#ffffff">What to do</text>
+                <text x="220" y="210" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-size="22" font-weight="800" fill="#ffffff">now</text>
+
+                <!-- signal chips -->
+                <g font-family="Bricolage Grotesque, sans-serif" font-size="11" font-weight="700" letter-spacing="0.9">
+                  <g><rect x="113" y="48" width="66" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/><text x="146" y="62" text-anchor="middle" dominant-baseline="central" fill="#edfff5">TASKS</text></g>
+                  <g><rect x="244" y="48" width="100" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/><text x="294" y="62" text-anchor="middle" dominant-baseline="central" fill="#edfff5">DEADLINES</text></g>
+                  <g><rect x="325" y="176" width="86" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/><text x="368" y="190" text-anchor="middle" dominant-baseline="central" fill="#edfff5">CONTROL</text></g>
+                  <g><rect x="43" y="176" width="58" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/><text x="72" y="190" text-anchor="middle" dominant-baseline="central" fill="#edfff5">TIME</text></g>
+                  <g><rect x="105" y="304" width="82" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/><text x="146" y="318" text-anchor="middle" dominant-baseline="central" fill="#edfff5">ENERGY</text></g>
+                  <g><rect x="261" y="304" width="66" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/><text x="294" y="318" text-anchor="middle" dominant-baseline="central" fill="#edfff5">FOCUS</text></g>
+                </g>
+              </svg>
             </div>
-            <p class="wf-fineprint">No payment, no subscription, no spam. We'll just email you for some updates and when it's ready.</p>
-          </form>
+          </div>
+
+          <div class="why-answer">
+            <span class="why-label">Our answer</span>
+            <h3>Task managers remember your tasks,<br class="why-answer-break"> but they don't understand the <span class="hl">headspace you're in</span>.</h3>
+            <div class="why-answer-rows">
+              <div class="why-answer-row">
+                <div class="why-answer-copy">
+                  <span class="why-answer-num">1</span>
+                  <span class="why-answer-kicker">Structure your goals into a clear plan</span>
+                  <p>Describe what's on your plate, and Minary crafts a <b>structured project</b>: what to do, in what order, by when.</p>
+                </div>
+                <div class="wa-module" aria-hidden="true">
+                  <div class="wa-tag">Project structuring</div>
+                  <div class="wa-say">
+                    <span class="wa-say-label">You</span>
+                    &ldquo;I need to launch my online shop by mid-June.&rdquo;
+                  </div>
+                  <div class="wa-transform">Minary structures it</div>
+                  <div class="wa-proj-row">
+                    <div>
+                      <span class="wa-proj-label">Project</span>
+                      <span class="wa-proj-name">Online shop launch</span>
+                    </div>
+                    <span class="wa-proj-meta">Due 9 Jun &middot; 3 tasks</span>
+                  </div>
+                  <div class="wa-subproj-row">
+                    <span class="wa-subproj-dot"></span>
+                    <span class="wa-subproj-label">Sub-project</span>
+                    <span class="wa-subproj-name">Shop launch</span>
+                  </div>
+                  <div class="wa-step-group">
+                    <div class="wa-step-head">Step 1 <span class="wa-step-badge ready">Ready</span></div>
+                    <div class="wa-tasks">
+                      <div class="task"><span class="task-rank">01</span><span class="task-main"><span class="task-name">Design the logo</span></span><span class="chip">May 12</span></div>
+                      <div class="task"><span class="task-rank">02</span><span class="task-main"><span class="task-name">Build the website</span></span><span class="chip">May 26</span></div>
+                    </div>
+                  </div>
+                  <div class="wa-step-group">
+                    <div class="wa-step-head">Step 2 <span class="wa-step-badge next">Up next</span></div>
+                    <div class="wa-tasks">
+                      <div class="task"><span class="task-rank">03</span><span class="task-main"><span class="task-name">Prepare the first collection</span></span><span class="chip">Jun 9</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="why-answer-row">
+                <div class="why-answer-copy">
+                  <span class="why-answer-num">2</span>
+                  <span class="why-answer-kicker">Plan your daily work session</span>
+                  <p>Every day, just tell Minary your <b>time and energy</b>, and get a session built around the tasks that <span class="hl">fit the day best</span>.</p>
+                </div>
+                <div class="wa-module" aria-hidden="true">
+                  <div class="wa-tag">Session planner</div>
+                  <div class="wa-inchips">
+                    <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></svg>Time <b>3h 30min</b></span>
+                    <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5 5 13.5h6L9.5 21.5 18 10.5h-6l1-8z"/></svg>Energy <b>High</b></span>
+                    <span class="wa-inchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 15.5a8 8 0 1 1 15 0"/><path d="M12 15.5 15 11"/><circle cx="12" cy="15.5" r="1.2" fill="currentColor" stroke="none"/></svg>Control <b>6/10</b></span>
+                  </div>
+                  <div class="wa-transform">Minary picks for today</div>
+                  <div class="wa-tasks">
+                    <div class="task top"><span class="task-rank">1</span><span class="task-main"><span class="task-name">Write product descriptions</span><span class="task-meta">low effort &middot; deadline close</span></span><span class="chip wa-time-chip">45 min</span></div>
+                    <div class="task"><span class="task-rank">2</span><span class="task-main"><span class="task-name">Refine logo concepts</span><span class="task-meta">creative &middot; medium focus</span></span><span class="chip wa-time-chip">1h 15min</span></div>
+                    <div class="task"><span class="task-rank">3</span><span class="task-main"><span class="task-name">Set up payments</span><span class="task-meta">needs deep focus</span></span><span class="chip wa-time-chip">1h 30min</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="why-answer-row">
+                <div class="why-answer-copy">
+                  <span class="why-answer-num">3</span>
+                  <span class="why-answer-kicker">The learning layer</span>
+                  <p>With every session, Minary learns how you work: <b>your strengths, weaknesses and habits</b>. Each plan becomes <b>increasingly tailored to you</b>.</p>
+                </div>
+                <div class="wa-module" aria-hidden="true">
+                  <div class="wa-tag">Learning loop</div>
+                  <svg class="wa-loop" viewBox="-20 0 520 360" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                      <radialGradient id="waLoopGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="rgba(82,180,122,0.20)"/>
+                        <stop offset="100%" stop-color="rgba(82,180,122,0)"/>
+                      </radialGradient>
+                      <linearGradient id="waLoopCore" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(116,215,154,0.22)"/>
+                        <stop offset="100%" stop-color="rgba(7,24,14,0.96)"/>
+                      </linearGradient>
+                    </defs>
+
+                    <ellipse cx="240" cy="180" rx="215" ry="160" fill="url(#waLoopGlow)">
+                      <animate attributeName="opacity" values="0.55;1;0.55" dur="6s" repeatCount="indefinite"/>
+                    </ellipse>
+
+                    <!-- the session orbit: Plan (top) -> Work (bottom-right) -> Recap (bottom-left) -> Plan -->
+                    <path id="waLoopPath" d="M240 60 A120 120 0 0 1 344 240 A120 120 0 0 1 136 240 A120 120 0 0 1 240 60"
+                          fill="none" stroke="rgba(116,215,154,0.22)" stroke-width="1.3" stroke-dasharray="3 7" stroke-linecap="round"/>
+                    <g stroke="rgba(116,215,154,0.5)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M-5 -4 L4 0 L-5 4" transform="translate(344,120) rotate(60)"/>
+                      <path d="M-5 -4 L4 0 L-5 4" transform="translate(240,300) rotate(180)"/>
+                      <path d="M-5 -4 L4 0 L-5 4" transform="translate(136,120) rotate(-60)"/>
+                    </g>
+
+                    <!-- Plan flows out from Minary; Work and Recap flow back in -->
+                    <g stroke="rgba(116,215,154,0.28)" stroke-width="1.4" fill="none">
+                      <path id="wain1" d="M240 145 L240 64"/>
+                      <path id="wain2" d="M345 232 L299 212"/>
+                      <path id="wain3" d="M135 232 L181 212"/>
+                    </g>
+                    <g fill="#c7f7da">
+                      <circle r="2.8" opacity="0">
+                        <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.02;0.12;1" calcMode="linear"><mpath href="#wain1"/></animateMotion>
+                        <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.02;0.04;0.10;0.12;1"/>
+                      </circle>
+                      <circle r="2.8" opacity="0">
+                        <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.35;0.45;1" calcMode="linear"><mpath href="#wain2"/></animateMotion>
+                        <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.35;0.37;0.43;0.45;1"/>
+                      </circle>
+                      <circle r="2.8" opacity="0">
+                        <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.68;0.78;1" calcMode="linear"><mpath href="#wain3"/></animateMotion>
+                        <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.68;0.70;0.76;0.78;1"/>
+                      </circle>
+                    </g>
+
+                    <!-- the session pulse orbiting the loop -->
+                    <circle r="8" fill="rgba(116,215,154,0.22)">
+                      <animateMotion dur="9s" repeatCount="indefinite"><mpath href="#waLoopPath"/></animateMotion>
+                    </circle>
+                    <circle r="3.6" fill="#c7f7da">
+                      <animateMotion dur="9s" repeatCount="indefinite"><mpath href="#waLoopPath"/></animateMotion>
+                    </circle>
+
+                    <!-- core: Minary -->
+                    <rect x="165" y="145" width="150" height="70" rx="16" fill="url(#waLoopCore)" stroke="rgba(116,215,154,0.45)" stroke-width="1.5"/>
+                    <rect x="176" y="156" width="128" height="48" rx="11" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+                    <rect x="165" y="145" width="150" height="70" rx="16" fill="none" stroke="rgba(116,215,154,0.85)" stroke-width="1.5" opacity="0">
+                      <animate attributeName="opacity" dur="9s" repeatCount="indefinite"
+                               values="0;0;0.9;0;0;0.9;0;0;0.9;0"
+                               keyTimes="0;0.01;0.08;0.13;0.35;0.42;0.47;0.68;0.75;1"/>
+                    </rect>
+                    <text x="240" y="176" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="800" fill="#ffffff">Minary</text>
+                    <text x="240" y="196" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-size="9.5" font-weight="700" letter-spacing="1" fill="rgba(199,247,218,0.6)">LEARNS &amp; PLANS</text>
+
+                    <!-- loop stages: Plan (out), Work + Recap (in) -->
+                    <g font-family="Bricolage Grotesque, sans-serif" font-size="11" font-weight="700" letter-spacing="0.9">
+                      <g>
+                        <rect x="209" y="36" width="62" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
+                        <rect x="209" y="36" width="62" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
+                          <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="1;0;0;1" keyTimes="0;0.09;0.97;1"/>
+                        </rect>
+                        <text x="240" y="50" text-anchor="middle" dominant-baseline="central" fill="#edfff5">PLAN</text>
+                      </g>
+                      <g>
+                        <rect x="309" y="234" width="92" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
+                        <rect x="309" y="234" width="92" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
+                          <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;0.33;0.35;0.46;1"/>
+                        </rect>
+                        <text x="355" y="248" text-anchor="middle" dominant-baseline="central" fill="#edfff5">YOU WORK</text>
+                      </g>
+                      <g>
+                        <rect x="75" y="234" width="100" height="28" rx="14" fill="rgba(10,22,15,0.93)" stroke="rgba(255,255,255,0.16)"/>
+                        <rect x="75" y="234" width="100" height="28" rx="14" fill="none" stroke="rgba(116,215,154,0.85)" opacity="0">
+                          <animate attributeName="opacity" dur="9s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;0.66;0.68;0.79;1"/>
+                        </rect>
+                        <text x="125" y="248" text-anchor="middle" dominant-baseline="central" fill="#edfff5">YOU RECAP</text>
+                      </g>
+                    </g>
+                  </svg>
+                  <p class="wa-loop-caption">Every day: Minary plans, you work, then recap how the session went. What Minary learns from your work and your recap <b>sharpens the next plan</b>.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="block who team">
+      <div class="wrap">
+        <p class="section-eyebrow reveal">The people behind Minary</p>
+        <h2 class="team-title reveal d1">Built by people who know solo work from the inside.</h2>
+        <p class="team-sub reveal d2">We are researchers, engineers and independent builders who got tired of <span class="hl">spending our best energy deciding what to work on</span>.</p>
+        <div class="team-grid">
+          <figure class="team-card reveal">
+            <div class="team-photo" style="background-image:url('/public/team/mitja.jpg')"></div>
+            <figcaption>
+              <h4>Mitja Briscik</h4>
+              <p>PhD in Applied Mathematics</p>
+            </figcaption>
+          </figure>
+          <figure class="team-card reveal d1">
+            <div class="team-photo" style="background-image:url('/public/team/massimiliano.jpg')"></div>
+            <figcaption>
+              <h4>Massimiliano Bernardis</h4>
+              <p>Senior Software Engineer</p>
+            </figcaption>
+          </figure>
+          <figure class="team-card reveal d2">
+            <div class="team-photo" style="background-image:url('/public/team/antonio.jpg')"></div>
+            <figcaption>
+              <h4>Antonio Fioravanti</h4>
+              <p>PhD Candidate in Statistics</p>
+            </figcaption>
+          </figure>
+          <figure class="team-card reveal d3">
+            <div class="team-photo" style="background-image:url('/public/team/gabriele.jpg')"></div>
+            <figcaption>
+              <h4>Gabriele Tazza</h4>
+              <p>PhD in Computer Science</p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="team-scroll-hint" aria-hidden="true">
+          <span>Swipe</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
       </div>
     </section>
 
@@ -1974,6 +2044,7 @@
       <div class="foot16-top">
         <span class="foot16-copy">&copy; 2026 Minary</span>
         <div class="foot16-links">
+          <a href="/">Home</a>
           <a href="/privacy.html">Privacy policy</a>
           <a href="mailto:contact@minary.app">contact@minary.app</a>
           <a href="https://www.linkedin.com/company/minary-app/" target="_blank" rel="noopener" aria-label="Minary on LinkedIn" class="foot-social">
@@ -1988,16 +2059,12 @@
 
   </div>
 
-  <div class="toast" id="toast"></div>
-
   <script>
-    // Supabase client
-    const { createClient } = supabase;
-    const db = createClient(
-      'https://ythznwnrgrdwvaltbyqw.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0aHpud25yZ3Jkd3ZhbHRieXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMDA1NTEsImV4cCI6MjA5MTY3NjU1MX0.EMmr66bWE9RdCS26kVKWg2zQi2q_G7NVvmQ8M4jdFa8'
-    );
-
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
     // "For whom" marquee: triple each lane's chip set so the CSS loop is seamless
     document.querySelectorAll('.why-marquee-track').forEach((track) => {
@@ -2005,217 +2072,19 @@
       track.innerHTML = set + set + set;
     });
 
-    // Reveal on scroll
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
-    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-
-    // How it works: 3D rotating carousel (lazy-susan)
+    // Team carousel (mobile): point the swipe hint left once scrolled to the second page
     (function () {
-      const carousel = document.getElementById('howCarousel');
-      if (!carousel) return;
-      const wins = Array.from(carousel.querySelectorAll('.win'));
-      const N = wins.length;
-      const caps = [
-        { step: '01', title: 'Describe your project', desc: "Tell Minary what you're working on, in plain words. It turns it into a <b>structured project: what to do, in what order, by when</b>." },
-        { step: '02', title: 'Your projects, subprojects and tasks', desc: 'Everything you need to do in one place: <b>projects, subprojects, tasks, deadlines</b>.' },
-        { step: '03', title: 'Your daily session', desc: "Your daily work session: tell Minary your <b>time</b>, your <b>energy</b>, and how <b>in control</b> you feel: lost and overwhelmed, or clear and on top of things." },
-        { step: '04', title: 'Session planning', desc: "Minary weighs every task against your deadlines and <b>the headspace you're in</b>: your time, energy, and sense of control." },
-        { step: '05', title: 'Your personalized plan', desc: 'Minary turns session inputs into your session goals: <b>a tailored plan of what to work on now</b>.' },
-        { step: '06', title: 'Track the session', desc: 'You work your plan while Minary tracks <b>how you work</b>.' },
-        { step: '07', title: 'Session recap', desc: 'At the end, Minary checks back in: how the session went, how efficient it felt, and <b>where your energy and control landed</b>. That feedback sharpens <b>every plan after this one</b>.' },
-      ];
-      let active = 0;
-
-      const capStep = document.getElementById('capStep');
-      const capTitle = document.getElementById('capTitle');
-      const capDesc = document.getElementById('capDesc');
-      const dotsWrap = document.getElementById('carouselDots');
-      const dots = wins.map((_, i) => {
-        const d = document.createElement('button');
-        d.className = 'cdot'; d.type = 'button';
-        d.setAttribute('aria-label', 'Go to step ' + (i + 1));
-        d.addEventListener('click', () => { go(i); });
-        dotsWrap.appendChild(d);
-        return d;
-      });
-
-      function layout() {
-        const narrow = window.innerWidth < 720;
-        const X = narrow ? 170 : 340;
-        const Zside = narrow ? 150 : 210;
-        const Zback = narrow ? 330 : 460;
-        wins.forEach((win, i) => {
-          let off = (i - active + N) % N;
-          if (off > N / 2) off -= N;        // signed: 0 front, + right, - left
-          const abs = Math.abs(off);
-          const dir = off > 0 ? 1 : -1;
-          let t, op, z = 5 - abs, blur = 0, front = false;
-          if (off === 0) {
-            t = 'translate(-50%,-50%) translateZ(120px) scale(1.06)'; op = 1; blur = 0; front = true;
-          } else if (abs === 1) {
-            t = `translate(-50%,-50%) translateX(${dir * X}px) translateZ(-${Zside}px) rotateY(${-dir * 40}deg) scale(0.78)`; op = 0.5; blur = 2.5;
-          } else {
-            t = `translate(-50%,-50%) translateX(${dir * X * 1.55}px) translateZ(-${Zback}px) rotateY(${-dir * 52}deg) scale(0.58)`; op = 0.32; blur = 5;
-          }
-          win.style.transform = t; win.style.opacity = (abs > 2 ? 0 : op); win.style.zIndex = z;
-          win.style.filter = blur ? `blur(${blur}px)` : 'none';
-          win.classList.toggle('is-front', front);
-        });
-        const c = caps[active];
-        carousel.dataset.kind = wins[active].dataset.kind || 'screen';
-        capStep.textContent = c.step + ' / ' + String(N).padStart(2, '0'); capTitle.textContent = c.title; capDesc.innerHTML = c.desc;
-        dots.forEach((d, i) => d.classList.toggle('on', i === active));
-      }
-
-      function go(i) { active = ((i % N) + N) % N; layout(); }
-      function next() { go(active + 1); }
-      function prev() { go(active - 1); }
-
-      carousel.querySelector('.next').addEventListener('click', next);
-      carousel.querySelector('.prev').addEventListener('click', prev);
-      wins.forEach((win, i) => win.addEventListener('click', () => {
-        if (((i - active + N) % N) !== 0) { go(i); }
-      }));
-      window.addEventListener('resize', layout);
-      wins.forEach((win) => {
-        const im = win.querySelector('img');
-        if (im) im.addEventListener('load', layout);
-      });
-
-      layout();
+      const grid = document.querySelector('.team-grid');
+      const hint = document.querySelector('.team-scroll-hint');
+      if (!grid || !hint) return;
+      const update = () => {
+        const max = grid.scrollWidth - grid.clientWidth;
+        hint.classList.toggle('flip', max > 4 && grid.scrollLeft > max / 2);
+      };
+      grid.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
     })();
-
-    // Custom dropdown logic
-    document.querySelectorAll('.wf-dropdown').forEach((dd) => {
-      const btn     = dd.querySelector('.wf-dropdown-btn');
-      const panel   = dd.querySelector('.wf-dropdown-panel');
-      const label   = dd.querySelector('.wf-dropdown-label');
-      const hidden  = dd.querySelector('input[type="hidden"]');
-      const options = dd.querySelectorAll('.wf-dropdown-option');
-
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = dd.classList.contains('open');
-        document.querySelectorAll('.wf-dropdown.open').forEach(d => d.classList.remove('open'));
-        if (!isOpen) {
-          dd.classList.add('open');
-          // if the open list falls below the fold, nudge the page down just enough to show it all
-          requestAnimationFrame(() => {
-            const overflow = panel.getBoundingClientRect().bottom - (window.innerHeight - 20);
-            if (overflow > 0) window.scrollBy({ top: overflow, behavior: 'smooth' });
-          });
-        }
-        btn.setAttribute('aria-expanded', !isOpen);
-      });
-
-      options.forEach((opt) => {
-        opt.addEventListener('click', () => {
-          hidden.value = opt.dataset.value;
-          label.textContent = opt.textContent;
-          btn.classList.add('filled');
-          options.forEach(o => o.classList.remove('selected'));
-          opt.classList.add('selected');
-          dd.classList.remove('open');
-          btn.setAttribute('aria-expanded', 'false');
-        });
-      });
-    });
-
-    document.addEventListener('click', () => {
-      document.querySelectorAll('.wf-dropdown.open').forEach(d => {
-        d.classList.remove('open');
-        d.querySelector('.wf-dropdown-btn').setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // Toast helper
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 4000);
-    }
-
-    // Form submission
-    document.querySelectorAll('.wf').forEach((form) => {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const emailEl   = form.querySelector('[name="email"]');
-        const occEl     = form.querySelector('[name="occupation"]');
-        const privacyEl = form.querySelector('[name="privacy"]');
-        const btn       = form.querySelector('.wf-btn');
-
-        if (!emailEl.value || !/\S+@\S+\.\S+/.test(emailEl.value)) { emailEl.focus(); return; }
-        if (occEl && !occEl.value) {
-          const btn = form.querySelector('.wf-dropdown-btn');
-          if (btn) btn.style.borderColor = 'rgba(255,90,90,0.5)';
-          return;
-        }
-        if (!privacyEl.checked) {
-          privacyEl.closest('.wf-check').style.borderColor = 'rgba(255,90,90,0.5)';
-          return;
-        }
-
-        btn.disabled = true;
-        btn.textContent = 'Saving...';
-
-        const submittedEmail = emailEl.value;
-        const { error } = await db.from('waitlist').insert({
-          email:           submittedEmail,
-          occupation:      occEl ? occEl.value : '',
-          privacy_consent: true,
-        });
-
-        btn.disabled = false;
-        btn.textContent = 'Join the waitlist';
-
-        // 23505 = already on the waitlist; treat as success so they still get confirmation + the ask
-        if (error && error.code !== '23505') {
-          showToast('Something went wrong. Please try again.');
-          return;
-        }
-
-        showWaitlistSuccess(form, submittedEmail);
-      });
-    });
-
-    // Swap the submitted waitlist form in place for a confirmation card + optional survey ask
-    function showWaitlistSuccess(form, email) {
-      const pitchEls = form.parentElement.querySelectorAll(':scope > h1, :scope > h2, :scope > .hero-sub');
-      pitchEls.forEach((el) => {
-        el.classList.add('pitch-exit');
-        setTimeout(() => { el.style.display = 'none'; }, 360);
-      });
-
-      const surveyUrl = '/survey.html?email=' + encodeURIComponent(email);
-      const card = document.createElement('div');
-      card.className = 'wf wf-success';
-      card.innerHTML = `
-        <div class="wfs-card">
-          <h3 class="wfs-title">Thank you for joining the waitlist</h3>
-          <p class="wfs-sub">Every person who joins helps us show there's real demand for what we're building.<br>It costs you nothing, but it means a lot to us.</p>
-          <div class="wfs-ask">
-            <div class="wfs-divider"></div>
-            <p class="wfs-ask-line">Help us build a better app by taking a short survey about how you work.</p>
-            <a class="wf-btn wfs-cta" href="${surveyUrl}">Take the 2-min survey &rarr;</a>
-            <button type="button" class="wfs-later">Maybe later</button>
-          </div>
-        </div>`;
-      form.replaceWith(card);
-      card.querySelector('.wfs-later').addEventListener('click', () => {
-        const ask = card.querySelector('.wfs-ask');
-        ask.classList.add('collapsed');
-        setTimeout(() => ask.remove(), 500);
-      });
-    }
-
-    // Reset privacy border on check
-    document.querySelectorAll('[name="privacy"]').forEach((cb) => {
-      cb.addEventListener('change', () => { if (cb.checked) cb.closest('.wf-check').style.borderColor = ''; });
-    });
 
     // Site header: solid background once the page is scrolled
     (function () {
@@ -2226,6 +2095,5 @@
       update();
     })();
   </script>
-
 </body>
 </html>
